@@ -4,11 +4,12 @@ from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor
 from pybricks.parameters import (Port, Stop, Direction, Button, Color, SoundFile, ImageFile, Align)
 from pybricks.tools import print, wait, StopWatch
 from pybricks.robotics import DriveBase
-from lineFollowing import lineFollow
+from helpers import advLineFollow
  
 def runTrip4():
     #lineFollow
-    lineFollow()
+    #lineFollow()
+    advLineFollow(150, 25, 90)
     # Circle
     leftWheel = Motor(Port.B)
     rightWheel = Motor(Port.C)
