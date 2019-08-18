@@ -38,16 +38,14 @@ print("end of drive_time")
 # print( "YELLOW: ", Color.YELLOW)
 
 lcs = leftS.color() 
-print( " left: ", getColorName(lcs))
 rcs = rightS.color() 
-print( "right: ", getColorName(rcs))
+print( "left: {0}, right: {1}".format( getColorName(lcs), getColorName(rcs)))
 # Stop until we see both black
-while(lcs != Color.BLACK and lcs != Color.BLACK):
+while(lcs != Color.BLACK and rcs != Color.BLACK):
     robot.drive(300, 0)
     lcs = leftS.color() 
-    print( " left: ", getColorName(lcs))
     rcs = rightS.color() 
-    print( "right: ", getColorName(rcs))    
+    print( "left: {0}, right: {1}".format( getColorName(lcs), getColorName(rcs)))
 robot.stop(Stop.BRAKE)
 
 """ while leftS.color() != 1:
