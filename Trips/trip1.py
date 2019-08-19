@@ -1,4 +1,19 @@
-#!/usr/bin/env pybricks-micropython
+#!/usr/bin/env python3
+from ev3dev2.motor import LargeMotor, MoveTank, OUTPUT_C, OUTPUT_B
+from ev3dev2.sensor import INPUT_1, INPUT_4
+from ev3dev2.sensor.lego import ColorSensor
+from time import sleep
+
+def ColSnsR():
+    csl = ColorSensor(INPUT_4)
+    csr = ColorSensor(INPUT_1)
+    tank_pair = MoveTank(OUTPUT_C, OUTPUT_B, motor_class=LargeMotor)
+    while csl.color != 1 and csr.color != 1:
+        tank_pair.on(70,70)
+    tank_pair.off()
+ColSnsR()
+
+""" #!/usr/bin/env pybricks-micropython
 from pybricks import ev3brick as brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor)
 from pybricks.parameters import (Port, Stop, Direction, Button, Color, SoundFile, ImageFile, Align)
@@ -18,3 +33,4 @@ def runTrip1():
             leftWheel.run_target(3000,-360,Stop.BRAKE)
             brick.light(Color.ORANGE)
     brick.sound.file(SoundFile.CHEERING)
+ """

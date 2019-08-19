@@ -1,3 +1,28 @@
+#!/usr/bin/env python3
+from ev3dev2.button import Button
+from ev3dev2.sound import Sound
+
+btn = Button()
+sound = Sound()
+
+btn.wait_for_bump('left')
+sound.beep()
+btn.wait_for_pressed(['up', 'down'])
+sound.beep()
+btn.wait_for_released('right')
+sound.beep()
+""" #!/usr/bin/env python3
+from ev3dev2.button import Button
+from time import sleep
+from trip1Remake import ColSnsR
+btn = Button()
+contin = True
+while contin:
+    def up(state):
+        ColSnsR()
+    def enter(state):
+        contin = False """
+""" 
 #!/usr/bin/env pybricks-micropython
 from pybricks import ev3brick as brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -26,4 +51,4 @@ while cont:
     elif Button.CENTER in brick.buttons():
         cont = False
     
-    
+     """

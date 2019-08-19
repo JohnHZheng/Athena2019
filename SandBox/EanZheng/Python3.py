@@ -10,7 +10,7 @@ csl = ColorSensor(INPUT_4)
 csr = ColorSensor(INPUT_1)
 
 while csl.color != 1 and csr.color != 1:
-    steer_pair.on(70,70)
+    tank_pair.on(70,70)
 
 """motor.on(speed=30)
 motor.wait_until_not_moving()
