@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
 from ev3dev2.button import Button
+from time import sleep
+from trip1 import runTrip1
+btn = Button()
+contin = True
+while contin:
+    if btn.up == True:
+        runTrip1()
+    elif btn.enter == True:
+        contin = False
+""" #!/usr/bin/env python3
+from ev3dev2.button import Button
 from ev3dev2.sound import Sound
 
 btn = Button()
@@ -10,18 +21,7 @@ sound.beep()
 btn.wait_for_pressed(['up', 'down'])
 sound.beep()
 btn.wait_for_released('right')
-sound.beep()
-""" #!/usr/bin/env python3
-from ev3dev2.button import Button
-from time import sleep
-from trip1Remake import ColSnsR
-btn = Button()
-contin = True
-while contin:
-    def up(state):
-        ColSnsR()
-    def enter(state):
-        contin = False """
+sound.beep() """
 """ 
 #!/usr/bin/env pybricks-micropython
 from pybricks import ev3brick as brick
