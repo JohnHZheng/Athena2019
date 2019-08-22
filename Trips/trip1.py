@@ -4,50 +4,38 @@ from ev3dev2.sensor import INPUT_1, INPUT_4
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.led import Leds
 from time import sleep
+from ev3dev2.sound import Sound
+import random
+
 def runTrip1():
+    sound = Sound()
+    # see http://espeak.sourceforge.net/
+    # values -a 200 -s 130 SHOULD BE INCLUDED if specifying any other options
+    # a = amplitude (200 max, 100 default), s = speed 80-500, default = 175)
     leds = Leds()
     left = LargeMotor(OUTPUT_B)
     right = LargeMotor(OUTPUT_C)
     x=0
+    thingsToTalk = ["Go Athena", "Yeah, we won, we rocks", "We are the Champions","Lets Go Athena Lets Go","Oops"]
+    toneOptions=['en+m7', 'en+f1', 'en+f5','en+m1','en+croak','en+whisper', 'en-rp']
+    talkRandom = random.SystemRandom()
+    toneRandom = random.SystemRandom()
     for x in range(5):
         leds.set_color('LEFT', 'RED')
+        sleep(0.1)
         leds.set_color('RIGHT', 'RED')
+        sleep(0.1)
         """ brick.display.text("Go Athena!!!",(50,60))
         leftWheel.run_target(3000,360,Stop.BRAKE) """
         leds.set_color('LEFT', 'YELLOW')
+        sleep(0.1)
         leds.set_color('RIGHT', 'YELLOW')
-        #leftWheel.run_target(3000,-360,Stop.BRAKE)
+        sleep(0.1)
+
+        opts = '-a 200 -s 130 -v'
+        sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
+        
         leds.set_color('LEFT', 'ORANGE')
+        sleep(0.1)
         leds.set_color('RIGHT', 'ORANGE')
         
-    #brick.sound.file(SoundFile.CHEERING)
-""" def ColSnsR():
-    csl = ColorSensor(INPUT_4)
-    csr = ColorSensor(INPUT_1)
-    tank_pair = MoveTank(OUTPUT_C, OUTPUT_B, motor_class=LargeMotor)
-    while csl.color != 1 and csr.color != 1:
-        tank_pair.on(70,70)
-    tank_pair.off()
-ColSnsR()
- """
-""" #!/usr/bin/env pybricks-micropython
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import (Port, Stop, Direction, Button, Color, SoundFile, ImageFile, Align)
-from pybricks.tools import print, wait, StopWatch
-from pybricks.robotics import DriveBase
-
-def runTrip1():
-    # Dance routine
-    leftWheel = Motor(Port.B)
-    rightWheel = Motor(Port.C)
-    x=0
-    for x in range(5):
-            brick.light(Color.RED)
-            brick.display.text("Go Athena!!!",(50,60))
-            leftWheel.run_target(3000,360,Stop.BRAKE)
-            brick.light(Color.YELLOW)
-            leftWheel.run_target(3000,-360,Stop.BRAKE)
-            brick.light(Color.ORANGE)
-    brick.sound.file(SoundFile.CHEERING)
- """
