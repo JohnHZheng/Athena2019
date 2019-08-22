@@ -2,7 +2,8 @@
 from ev3dev2.motor import MediumMotor, MoveSteering, OUTPUT_A, OUTPUT_D, OUTPUT_B, OUTPUT_C, MoveTank
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
 from time import sleep
-def PanelDemo():
+def runTrip2():
+        # the panel demo code
         tank_pair = MoveTank(OUTPUT_B, OUTPUT_C)
         UnD = MediumMotor(OUTPUT_D)
         LnR = MediumMotor(OUTPUT_A)
