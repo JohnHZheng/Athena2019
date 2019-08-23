@@ -13,29 +13,24 @@ def runTrip1():
     # values -a 200 -s 130 SHOULD BE INCLUDED if specifying any other options
     # a = amplitude (200 max, 100 default), s = speed 80-500, default = 175)
     leds = Leds()
-    left = LargeMotor(OUTPUT_B)
-    right = LargeMotor(OUTPUT_C)
-    x=0
-    thingsToTalk = ["Go Athena", "Yeah, we won, we rocks", "We are the Champions","Lets Go Athena Lets Go","Oops"]
+	# Four lists to randomize the quotes, voices, colors, and lights.
+    thingsToTalk = ["Go Athena", "Yeah, we won, we rock", "We are the Champions","Lets Go Athena Lets Go","we are big brain"]
     toneOptions=['en+m7', 'en+f1', 'en+f5','en+m1','en+croak','en+whisper', 'en-rp']
+    ColorOptions = ['BLACK','RED','ORANGE','AMBER','YELLOW','GREEN']
+    SideOptions = ['LEFT','RIGHT']
+	# Four randoms to randomize the quotes, voices, colors, and lights as well.
     talkRandom = random.SystemRandom()
     toneRandom = random.SystemRandom()
+    ColorRandom = random.SystemRandom()
+    SideRandom = random.SystemRandom()
+	# Options for speak
+    opts = '-a 200 -s 130 -v'
     for x in range(5):
-        leds.set_color('LEFT', 'RED')
-        sleep(0.1)
-        leds.set_color('RIGHT', 'RED')
-        sleep(0.1)
-        """ brick.display.text("Go Athena!!!",(50,60))
-        leftWheel.run_target(3000,360,Stop.BRAKE) """
-        leds.set_color('LEFT', 'YELLOW')
-        sleep(0.1)
-        leds.set_color('RIGHT', 'YELLOW')
-        sleep(0.1)
-
-        opts = '-a 200 -s 130 -v'
-        sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
-        
-        leds.set_color('LEFT', 'ORANGE')
-        sleep(0.1)
-        leds.set_color('RIGHT', 'ORANGE')
-        
+        for y in range(3):
+			# Randomizing the Colors and Sides for the light 3 times
+			leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
+			sleep(0.1)
+			leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
+			sleep(0.1)
+	# Randomizing the volume, tone, and quote.
+	sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
