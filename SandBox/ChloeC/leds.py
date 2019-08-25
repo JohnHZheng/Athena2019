@@ -7,7 +7,13 @@ btn = Button()
 loop = True
 leds = Leds() 
 while loop:
-    if btn.enter == True:
+    if btn.left == True:
         leds.set_color('LEFT','RED')
     elif btn.right == True:
+        leds.set_color('RIGHT','RED')
+    elif btn.up == True:
+        leds.set_color('RIGHT','YELLOW')
+    elif btn.down == True:
+        leds.set_color('LEFT','AMBER')
+    elif btn.enter == True:
         loop = False 
