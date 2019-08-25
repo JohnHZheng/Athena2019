@@ -23,13 +23,8 @@ def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_B, rightMotorPort =
     # run motors based on the calculated results
     leftMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
     rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
-# run forward 50 cm at speed of 30cm/s
-run(50, 30)
-sleep(0.2)
-# run backward 50 cm at speed of 20cm/s
-run(-50, 20)
 
-def onUntilGameLine( white_threshold = 85, black_threshold = 30,
+def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_threshold = 90, black_threshold = 30,
     leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4, brake = True):
     # Initialize Motors and sensors
     leftMotor = LargeMotor(leftMotorPort)
@@ -37,21 +32,44 @@ def onUntilGameLine( white_threshold = 85, black_threshold = 30,
     leftSensor = ColorSensor(leftSensorPort)
     rightSensor = ColorSensor(rightSensorPort)
 
-    # calculate speed to use in DPS
-    speedDegreePerSecond = speedCmPerSecond / wheelCircumferenceCm * 360
-
-    # Start motor at internal determined speed. 
-    leftMotor.on(15)
-    rightMotor.on(15) 
+    # Start motor at passed speed. 
+    leftMotor.on(speed)
+    rightMotor.on(speed) 
 
     # flags for whether both left and right wheel are in position
     leftStopped = False
     rightStopped = False
+    leftConsecutiveWhite = 0
+    rightConsecutiveWhite = 0
+    leftConsecutiveBlack = 0
+    rightConsecurtiveBlack = 0
 
     while(not leftStopped or not rightStopped):
         left_reflected = leftSensor.reflected_light_intensity
-        right_reflected = leftSensor.reflected_light_intensity
-        sleep(.005) 
+        right_reflected = rightSensor.reflected_light_intensity
+
+        # left to detetct white
+        if(left_reflected > white_threshold):
+            leftConsecutiveWhite += 1
+        else:
+            leftConsecutiveWhite = 0;   # reset to zero    
+        if(leftConsecutiveWhite >= consecutiveHit):
+            leftMotor.off()
+            leftStopped = True
+
+        # right to detetct white
+        if(right_reflected > white_threshold):
+            rightConsecutiveWhite += 1
+        else:
+            rightConsecutiveWhite = 0;   # reset to zero    
+        if(rightConsecutiveWhite >= consecutiveHit):
+            rightMotor.off()
+            rightStopped = True
+
+        print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, right_reflected: {3:3d}".format( 
+            left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
+
+        sleep(sleepTime) 
 
     #while (cs4.color != ColorSensor.COLOR_BLACK and cs1.color != ColorSensor.COLOR_BLACK):
     """
@@ -65,6 +83,14 @@ def onUntilGameLine( white_threshold = 85, black_threshold = 30,
     leftMotor.off()
     rightMotor.off()
 
+# run forward 50 cm at speed of 30cm/s
+# run(50, 30)
+# sleep(0.2)
+# run backward 50 cm at speed of 20cm/s
+# run(-50, 20)
 
+# run(3, 30, brake=False)
+
+onUntilGameLine(consecutiveHit = 5)
 
 
