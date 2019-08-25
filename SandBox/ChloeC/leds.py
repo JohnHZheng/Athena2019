@@ -10,4 +10,4 @@ while loop:
     if btn.enter == True:
         leds.set_color('LEFT','RED')
     elif btn.right == True:
-        loop = False
+        loop = False 
