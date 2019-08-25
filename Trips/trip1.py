@@ -25,9 +25,9 @@ def runTrip1():
     for x in range(5):
         for y in range(3):
 			# Randomizing the Colors and Sides for the light 3 times
-			leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
-			sleep(0.1)
-			leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
-			sleep(0.1)
-	# Randomizing the volume, tone, and quote.
-	sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
+            leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
+            sleep(0.1)
+            leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
+            sleep(0.1)
+        # Randomizing the volume, tone, and quote.
+        sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
