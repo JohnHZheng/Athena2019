@@ -23,9 +23,14 @@ def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_B, rightMotorPort =
     # run motors based on the calculated results
     leftMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
     rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
+# run forward 50 cm at speed of 30cm/s
+run(50, 30)
+sleep(0.2)
+# run backward 50 cm at speed of 20cm/s
+run(-50, 20)
 
-def onUntilGameLine( white_threshold = 85, black_threshold = 30
-    leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4, brake = True)
+def onUntilGameLine( white_threshold = 85, black_threshold = 30,
+    leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4, brake = True):
     # Initialize Motors and sensors
     leftMotor = LargeMotor(leftMotorPort)
     rightMotor = LargeMotor(rightMotorPort) 
@@ -63,8 +68,3 @@ def onUntilGameLine( white_threshold = 85, black_threshold = 30
 
 
 
-# run forward 50 cm at speed of 30cm/s
-run(50, 30)
-sleep(0.2)
-# run backward 50 cm at speed of 20cm/s
-run(-50, 20)
