@@ -9,9 +9,6 @@ import random
 
 def runTrip1():
     sound = Sound()
-    # see http://espeak.sourceforge.net/
-    # values -a 200 -s 130 SHOULD BE INCLUDED if specifying any other options
-    # a = amplitude (200 max, 100 default), s = speed 80-500, default = 175)
     leds = Leds()
 	# Four lists to randomize the quotes, voices, colors, and lights.
     thingsToTalk = ["Go Athena", "Yeah, we won, we rock", "We are the Champions","Lets Go Athena Lets Go","we are big brain"]
