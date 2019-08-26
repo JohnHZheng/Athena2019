@@ -12,7 +12,7 @@ import sys
 wheelRadiusCm = 2.75 
 wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
 
-def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, brake=True, block=True):
+def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True, block=True):
     # Initialize Motors
     leftMotor = LargeMotor(leftMotorPort)
     rightMotor = LargeMotor(rightMotorPort)  
@@ -25,7 +25,7 @@ def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_B, rightMotorPort =
     rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
 def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_threshold = 90, black_threshold = 30,
-    leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4, brake = True):
+    leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1, brake = True):
     # Initialize Motors and sensors
     leftMotor = LargeMotor(leftMotorPort)
     rightMotor = LargeMotor(rightMotorPort) 
@@ -37,40 +37,71 @@ def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_thr
     rightMotor.on(speed) 
 
     # flags for whether both left and right wheel are in position
-    leftStopped = False
-    rightStopped = False
+    leftLineSquaredWhite = False    
+    rightLineSquaredWhite = False
     leftConsecutiveWhite = 0
     rightConsecutiveWhite = 0
-    leftConsecutiveBlack = 0
-    rightConsecurtiveBlack = 0
 
-    while(not leftStopped or not rightStopped):
+    # first aligned on white
+    while(not leftLineSquaredWhite or not rightLineSquaredWhite):
         left_reflected = leftSensor.reflected_light_intensity
         right_reflected = rightSensor.reflected_light_intensity
 
-        # left to detetct white
+        # left to detect white
         if(left_reflected > white_threshold):
             leftConsecutiveWhite += 1
         else:
             leftConsecutiveWhite = 0;   # reset to zero    
         if(leftConsecutiveWhite >= consecutiveHit):
             leftMotor.off()
-            leftStopped = True
+            leftLineSquaredWhite = True
 
-        # right to detetct white
+        # right to detect white
         if(right_reflected > white_threshold):
             rightConsecutiveWhite += 1
         else:
             rightConsecutiveWhite = 0;   # reset to zero    
         if(rightConsecutiveWhite >= consecutiveHit):
             rightMotor.off()
-            rightStopped = True
-
-        print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, right_reflected: {3:3d}".format( 
+            rightLineSquaredWhite = True
+        print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
             left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
-
         sleep(sleepTime) 
 
+    print("*********** White Line Reached *********", file=sys.stderr)
+
+    leftLineSquaredBlack = False    
+    rightLineSquaredBlack = False
+    leftConsecutiveBlack = 0
+    rightConsecutiveBlack = 0
+
+    # now try black
+    leftMotor.on(speed)
+    rightMotor.on(speed) 
+    while(not leftLineSquaredBlack or not rightLineSquaredBlack):
+        left_reflected = leftSensor.reflected_light_intensity
+        right_reflected = rightSensor.reflected_light_intensity
+
+        # left to detect black
+        if(left_reflected < black_threshold):
+            leftConsecutiveBlack += 1
+        else:
+            leftConsecutiveBlack = 0;   # reset to zero    
+        if(leftConsecutiveBlack >= consecutiveHit):
+            leftMotor.off()
+            leftLineSquaredBlack = True
+
+        # right to detect black
+        if(right_reflected < black_threshold):
+            rightConsecutiveBlack += 1
+        else:
+            rightConsecutiveBlack = 0;   # reset to zero    
+        if(rightConsecutiveBlack >= consecutiveHit):
+            rightMotor.off()
+            rightLineSquaredBlack = True
+        print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveBlack: {2:3d}, rightConsecutiveBlack: {3:3d}".format( 
+            left_reflected, right_reflected, leftConsecutiveBlack, rightConsecutiveBlack), file=sys.stderr)
+        sleep(sleepTime) 
     #while (cs4.color != ColorSensor.COLOR_BLACK and cs1.color != ColorSensor.COLOR_BLACK):
     """
      while (loopCounter < 24):
@@ -91,6 +122,6 @@ def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_thr
 
 # run(3, 30, brake=False)
 
-onUntilGameLine(consecutiveHit = 5)
+onUntilGameLine(consecutiveHit = 5, white_threshold=65, black_threshold=30, speed=10)
 
 
