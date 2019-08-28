@@ -36,3 +36,80 @@ class AthenaRobot(object):
         # Turn at the speed of 20
         self.leftMotor.on_for_degrees(20, degreesToRun, brake, False)
         self.rightMotor.on_for_degrees(-20, degreesToRun, brake, block)
+
+    # run until find a game line
+    def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
+        brake = True):
+        # Start motor at passed speed. 
+        self.leftMotor.on(speed)
+        self.rightMotor.on(speed) 
+
+        # flags for whether both left and right wheel are in position
+        leftLineSquaredWhite = False    
+        rightLineSquaredWhite = False
+        leftConsecutiveWhite = 0
+        rightConsecutiveWhite = 0
+
+        # first aligned on white
+        while(not leftLineSquaredWhite or not rightLineSquaredWhite):
+            left_reflected = self.leftSensor.reflected_light_intensity
+            right_reflected = self.rightSensor.reflected_light_intensity
+
+            # left to detect white
+            if(left_reflected > white_threshold):
+                leftConsecutiveWhite += 1
+            else:
+                leftConsecutiveWhite = 0;   # reset to zero    
+            if(leftConsecutiveWhite >= consecutiveHit):
+                self.leftMotor.off()
+                leftLineSquaredWhite = True
+
+            # right to detect white
+            if(right_reflected > white_threshold):
+                rightConsecutiveWhite += 1
+            else:
+                rightConsecutiveWhite = 0;   # reset to zero    
+            if(rightConsecutiveWhite >= consecutiveHit):
+                self.rightMotor.off()
+                rightLineSquaredWhite = True
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
+                left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
+            sleep(sleepTime) 
+
+        print("*********** White Line Reached *********", file=sys.stderr)
+
+        leftLineSquaredBlack = False    
+        rightLineSquaredBlack = False
+        leftConsecutiveBlack = 0
+        rightConsecutiveBlack = 0
+
+        # now try black
+        self.leftMotor.on(speed)
+        self.rightMotor.on(speed) 
+        while(not leftLineSquaredBlack or not rightLineSquaredBlack):
+            left_reflected = self.leftSensor.reflected_light_intensity
+            right_reflected = self.rightSensor.reflected_light_intensity
+
+            # left to detect black
+            if(left_reflected < black_threshold):
+                leftConsecutiveBlack += 1
+            else:
+                leftConsecutiveBlack = 0;   # reset to zero    
+            if(leftConsecutiveBlack >= consecutiveHit):
+                self.leftMotor.off()
+                leftLineSquaredBlack = True
+
+            # right to detect black
+            if(right_reflected < black_threshold):
+                rightConsecutiveBlack += 1
+            else:
+                rightConsecutiveBlack = 0;   # reset to zero    
+            if(rightConsecutiveBlack >= consecutiveHit):
+                self.rightMotor.off()
+                rightLineSquaredBlack = True
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveBlack: {2:3d}, rightConsecutiveBlack: {3:3d}".format( 
+                left_reflected, right_reflected, leftConsecutiveBlack, rightConsecutiveBlack), file=sys.stderr)
+            sleep(sleepTime) 
+
+        self.leftMotor.off()
+        self.rightMotor.off()
