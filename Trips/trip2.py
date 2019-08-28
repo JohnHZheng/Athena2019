@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env micropython
 from ev3dev2.motor import MediumMotor, MoveSteering, OUTPUT_A, OUTPUT_D, OUTPUT_B, OUTPUT_C, MoveTank
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
 from time import sleep

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env micropython
 #from ev3dev.ev3 import *
 #import os
 # os.system('setfont Lat15-TerminusBold14')
