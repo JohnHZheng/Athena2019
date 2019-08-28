@@ -11,11 +11,14 @@ import sys
 # wheel constances in Center Meter
 wheelRadiusCm = 2.75 
 wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
+leftMotor = LargeMotor(leftMotorPort)
+rightMotor = LargeMotor(rightMotorPort) 
+leftSensor = ColorSensor(leftSensorPort)
+rightSensor = ColorSensor(rightSensorPort)
 
 def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True, block=True):
     # Initialize Motors
-    leftMotor = LargeMotor(leftMotorPort)
-    rightMotor = LargeMotor(rightMotorPort)  
+ 
     # Calculate degrees of distances and SpeedDegreePerSecond
     degreesToRun = distanceCm / wheelCircumferenceCm * 360
     speedDegreePerSecond = speedCmPerSecond / wheelCircumferenceCm * 360
@@ -24,13 +27,21 @@ def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_C, rightMotorPort =
     leftMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
     rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
+def turn(degree, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True, block=True):
+    # Initialize Motors
+    # leftMotor = LargeMotor(leftMotorPort)
+    # rightMotor = LargeMotor(rightMotorPort) 
+    
+    degreesToRun = degree * 1.9
+    # Calculate degrees of distances and SpeedD
+    leftMotor.on_for_degrees(20, degreesToRun, brake, False)
+    rightMotor.on_for_degrees(-20, degreesToRun, brake, block)
+
 def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_threshold = 90, black_threshold = 30,
     leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1, brake = True):
     # Initialize Motors and sensors
-    leftMotor = LargeMotor(leftMotorPort)
-    rightMotor = LargeMotor(rightMotorPort) 
-    leftSensor = ColorSensor(leftSensorPort)
-    rightSensor = ColorSensor(rightSensorPort)
+    # leftMotor = LargeMotor(leftMotorPort)
+    # rightMotor = LargeMotor(rightMotorPort) 
 
     # Start motor at passed speed. 
     leftMotor.on(speed)
@@ -122,6 +133,13 @@ def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_thr
 
 # run(3, 30, brake=False)
 
-onUntilGameLine(consecutiveHit = 5, white_threshold=65, black_threshold=30, speed=10)
+run(12.5, 20)
+sleep(.2)
+turn(50)
+sleep(.1)
+print("test", file=sys.stderr)
+run(12.5, 85)
+
+# onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=10)
 
 
