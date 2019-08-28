@@ -11,12 +11,12 @@ import sys
 # wheel constances in Center Meter
 wheelRadiusCm = 2.75 
 wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
-leftMotor = LargeMotor(leftMotorPort)
-rightMotor = LargeMotor(rightMotorPort) 
-leftSensor = ColorSensor(leftSensorPort)
-rightSensor = ColorSensor(rightSensorPort)
+leftMotor = LargeMotor(OUTPUT_C)
+rightMotor = LargeMotor(OUTPUT_B) 
+leftSensor = ColorSensor(INPUT_4)
+rightSensor = ColorSensor(INPUT_1)
 
-def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True, block=True):
+def run(distanceCm, speedCmPerSecond, brake=True, block=True):
     # Initialize Motors
  
     # Calculate degrees of distances and SpeedDegreePerSecond
@@ -27,7 +27,7 @@ def run(distanceCm, speedCmPerSecond, leftMotorPort = OUTPUT_C, rightMotorPort =
     leftMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
     rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
-def turn(degree, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True, block=True):
+def turn(degree, brake=True, block=True):
     # Initialize Motors
     # leftMotor = LargeMotor(leftMotorPort)
     # rightMotor = LargeMotor(rightMotorPort) 
@@ -38,7 +38,8 @@ def turn(degree, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, brake=True
     rightMotor.on_for_degrees(-20, degreesToRun, brake, block)
 
 def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_threshold = 90, black_threshold = 30,
-    leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1, brake = True):
+    # leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1, 
+    brake = True):
     # Initialize Motors and sensors
     # leftMotor = LargeMotor(leftMotorPort)
     # rightMotor = LargeMotor(rightMotorPort) 
@@ -133,13 +134,33 @@ def onUntilGameLine( consecutiveHit = 3, speed = 15, sleepTime = 0.01, white_thr
 
 # run(3, 30, brake=False)
 
-run(12.5, 20)
-sleep(.2)
-turn(50)
-sleep(.1)
-print("test", file=sys.stderr)
-run(12.5, 85)
+def goToBridge():
+    run(12.5, 20)
+    sleep(.2)
+    turn(70)
+    sleep(.1)
+    print("test", file=sys.stderr)
+    run(90, 30, False)
+    sleep(.1)
+    onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=10)
+    sleep(.1)
+    run(2, 15)
+    turn(-90)
+    run(13,20)
+    sleep(.1)
+    onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=10)
 
-# onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=10)
+def goToCrane():
+    run(10, 20)
+    sleep(.1)
+    turn(30)
+    run(43, 30)
+    turn(-48)
+    run(12, 20)
+    onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=15)
+    #sleep(.1)
+    #turn(-35)
+    #onUntilGameLine(consecutiveHit = 5, white_threshold=85, black_threshold=30, speed=10)
 
-
+#goToBridge()
+goToCrane()
