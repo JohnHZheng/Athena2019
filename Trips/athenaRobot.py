@@ -113,3 +113,28 @@ class AthenaRobot(object):
 
         self.leftMotor.off()
         self.rightMotor.off()
+    
+    #Go to the Bridge
+    def goToBridge(self):
+        # start from base, run 12.5 cm at 20cm/s
+        self.run(12.5, 20)
+        sleep(.2)
+        # turn right 70 degree
+        self.turn(70)
+        sleep(.1)
+        print("test", file=sys.stderr)
+        # run 90 cm at speed of 30 cm/s
+        self.run(90, 30, False)
+        sleep(.1)
+        # run until hit game line
+        self.onUntilGameLine()
+        sleep(.1)
+        # move forward 2cm at 15cm/s
+        self.run(2, 15)
+        # turn left 90 degree
+        self.turn(-90)
+        # move forward 13 cm at 20cm/s
+        self.run(13,20)
+        sleep(.1)
+        # run until hit game line
+        self.onUntilGameLine()

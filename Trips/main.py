@@ -8,13 +8,15 @@ from trip3 import runTrip3
 from trip4 import runTrip4
 from time import sleep
 import os
-os.system('setfont Lat15-TerminusBold14')
+os.system('setfont Uni3-TerminusBold16')
 sound = Sound()
 
-print('Up for Trip 2')
-print('Left for Trip 1')
-print('Right for Trip 3')
-print('Down for Trip 4')
+print('*** ATHENA ROCKS! ***')
+print('1 - Left for Trip 1')
+print('2 - Up for Trip 2')
+print('3 - Right for Trip 3')
+print('4 - Down for Trip 4')
+print('5 - Center to Exit')
 sound.beep()
 btn = Button()
 contin = True
