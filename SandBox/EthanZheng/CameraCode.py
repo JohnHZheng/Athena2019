@@ -1,30 +1,25 @@
-#!/usr/bin/env pybricks-micropython
+#!/usr/bin/env micropython
 
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import (Port, Stop, Direction, Button, Color, SoundFile, ImageFile, Align)
-from pybricks.tools import print, wait, StopWatch
-
+from ev3dev2.motor import MediumMotor, OUTPUT_A
+from ev3dev2.sensor.lego import InfraredSensor
+from ev3dev2.sensor import INPUT_4
+from time import sleep
+import math
+import sys
 
 #Code is here
-#Code is here
-IR = InfraredSensor(Port.S4)
-meMotor = Motor(Port.A)
+IR = InfraredSensor(INPUT_4)
+meMotor = MediumMotor(OUTPUT_A)
 
 
-while True:
-
-    BeaconHeading = IR.beacon(4)
-    #print(BeaconHeading)
-    Distance, Heading = BeaconHeading
-    #print(Heading)
-    if Distance != None:
+for x in range(1000):
+    BeaconHeading = IR.heading_and_distance(channel=4)
+    print(BeaconHeading,file=sys.stderr)
+    (Distance, Heading)= BeaconHeading
+    print(Heading,file=sys.stderr)
+    sleep(.01)
+    if Distance:
+        print(Heading,file=sys.stderr)
         Heading = Heading*15
-        meMotor.run(Heading)
-
-    
-
-    
-
-    
- """
+        meMotor.on(speed=Heading)
+        
