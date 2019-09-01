@@ -10,7 +10,7 @@ import sys
 
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
-    def __init__(self, wheelRadiusCm = 2.75, leftMotorPort = OUTPUT_C, rightMotorPort = OUTPUT_B, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1):
+    def __init__(self, wheelRadiusCm = 2.75, leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
         self.wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
@@ -139,4 +139,11 @@ class AthenaRobot(object):
         # run until hit game line
         self.onUntilGameLine()
     
-    
+    # Calibrating Color for Sensor
+    def colorCalibrate(self,sensorInput):
+        sensor = ColorSensor(sensorInput)
+        sensor.calibrate_white()
+        
+""" 
+    def followLine(self):
+         """
