@@ -11,15 +11,20 @@ import sys
 IR = InfraredSensor(INPUT_4)
 meMotor = MediumMotor(OUTPUT_A)
 
-
-for x in range(1000):
-    BeaconHeading = IR.heading_and_distance(channel=4)
-    print(BeaconHeading,file=sys.stderr)
-    (Distance, Heading)= BeaconHeading
-    print(Heading,file=sys.stderr)
-    sleep(.01)
-    if Distance:
+x = 0
+while x < 1000:
+        BeaconHeading = IR.heading_and_distance(channel=1)
+        print(BeaconHeading,file=sys.stderr)
+        (Heading, Distance)= BeaconHeading
         print(Heading,file=sys.stderr)
-        Heading = Heading*15
-        meMotor.on(speed=Heading)
+        
+        if Heading:
+                print(Heading,file=sys.stderr)
+                Heading = Heading*2
+                meMotor.on(speed=Heading)
+        else:
+                meMotor.off()
+        sleep(.01)
+        x = x+1
+
         
