@@ -15,7 +15,7 @@ x = 0
 while x < 1000:
         BeaconHeading = IR.heading_and_distance(channel=1)
         print(BeaconHeading,file=sys.stderr)
-        (Heading, Distance)= BeaconHeading
+        (Heading, Distance) = BeaconHeading
         print(Heading,file=sys.stderr)
         
         if Heading:

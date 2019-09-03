@@ -143,9 +143,6 @@ class AthenaRobot(object):
     def colorCalibrate(self,sensorInput):
         sensor = ColorSensor(sensorInput)
         sensor.calibrate_white()
-
-    def trip1Tryout(self):
-        
         
 """ 
     def followLine(self):
