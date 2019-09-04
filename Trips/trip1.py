@@ -1,11 +1,22 @@
 #!/usr/bin/env micropython
-from ev3dev2.motor import LargeMotor, MoveTank, OUTPUT_C, OUTPUT_B
-from ev3dev2.sensor import INPUT_1, INPUT_4
-from ev3dev2.sensor.lego import ColorSensor
-from ev3dev2.led import Leds
+
+from ev3dev2.motor import LargeMotor, MediumMotor, OUTPUT_C, OUTPUT_B, OUTPUT_D, follow_for_ms
+from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, MoveTank, MoveSteering, SpeedPercent
 from time import sleep
-from ev3dev2.sound import Sound
-import random
+from ev3dev2.sensor.lego import ColorSensor
+from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
+import math
+import sys 
+from athenaRobot import AthenaRobot
+
+# wheel constances in Center Meter
+wheelRadiusCm = 2.75 
+wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
+leftMotor = LargeMotor(OUTPUT_C)
+rightMotor = LargeMotor(OUTPUT_B) 
+leftSensor = ColorSensor(INPUT_4)
+rightSensor = ColorSensor(INPUT_1)
+forkliftMtr= MediumMotor(OUTPUT_D)
 
 def runTrip1():
     sound = Sound()
@@ -31,3 +42,15 @@ def runTrip1():
             sleep(0.1)
         # Randomizing the volume, tone, and quote.
         sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
+def Trip1Tryout(): 
+    wheelRadiusCm = 2.75 
+    wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
+    leftMotor = LargeMotor(OUTPUT_C)
+    rightMotor = LargeMotor(OUTPUT_B) 
+    leftSensor = ColorSensor(INPUT_4)
+    rightSensor = ColorSensor(INPUT_1)
+    forkliftMtr= MediumMotor(OUTPUT_D)
+    robot = AthenaRobot()
+    forkliftMtr.on_for_seconds(-50,1)
+    robot.turn(45)
+    forkliftMtr.on_for_seconds(50,1)

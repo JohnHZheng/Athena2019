@@ -1,6 +1,6 @@
 #!/usr/bin/env micropython
 
-from ev3dev2.motor import LargeMotor,  OUTPUT_C, OUTPUT_B, follow_for_ms
+from ev3dev2.motor import LargeMotor,MediumMotor, OUTPUT_D, OUTPUT_A,  OUTPUT_C, OUTPUT_B, follow_for_ms
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, MoveTank, MoveSteering, SpeedPercent
 from time import sleep
 from ev3dev2.sensor.lego import ColorSensor
@@ -10,12 +10,15 @@ import sys
 
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
-    def __init__(self, wheelRadiusCm = 2.75, leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
+    def __init__(self, wheelRadiusCm = 2.75, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
+    leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
         self.wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
-        self.leftMotor = LargeMotor(leftMotorPort)
-        self.rightMotor = LargeMotor(rightMotorPort) 
+        self.leftLargeMotor = LargeMotor(leftLargeMotorPort)
+        self.rightLargeMotor = LargeMotor(rightLargeMotorPort) 
+        self.leftMediamMotor = MediumMotor(leftMediumMotorPort)
+        self.rightMediamMotor = MediumMotor(rightMediumMotorPort)
         self.leftSensor = ColorSensor(leftSensorPort)
         self.rightSensor = ColorSensor(rightSensorPort)
 
@@ -24,25 +27,25 @@ class AthenaRobot(object):
         # Calculate degrees of distances and SpeedDegreePerSecond
         degreesToRun = distanceCm / self.wheelCircumferenceCm * 360
         speedDegreePerSecond = speedCmPerSecond / self.wheelCircumferenceCm * 360
-        print("Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftMotor.max_speed), file=sys.stderr)
+        print("Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftLargeMotor.max_speed), file=sys.stderr)
         # run motors based on the calculated results
-        self.leftMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
-        self.rightMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
     def turn(self, degree, brake=True, block=True):
         # 1.9 is a scale factor from experiments
         degreesToRun = degree * 1.9
         # Turn at the speed of 20
-        self.leftMotor.on_for_degrees(20, degreesToRun, brake, False)
-        self.rightMotor.on_for_degrees(-20, degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(20, degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
 
     # run until find a game line
     def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
         brake = True):
         # Start motor at passed speed. 
-        self.leftMotor.on(speed)
-        self.rightMotor.on(speed) 
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed) 
 
         # flags for whether both left and right wheel are in position
         leftLineSquaredWhite = False    
@@ -61,7 +64,7 @@ class AthenaRobot(object):
             else:
                 leftConsecutiveWhite = 0;   # reset to zero    
             if(leftConsecutiveWhite >= consecutiveHit):
-                self.leftMotor.off()
+                self.leftLargeMotor.off()
                 leftLineSquaredWhite = True
 
             # right to detect white
@@ -70,7 +73,7 @@ class AthenaRobot(object):
             else:
                 rightConsecutiveWhite = 0;   # reset to zero    
             if(rightConsecutiveWhite >= consecutiveHit):
-                self.rightMotor.off()
+                self.rightLargeMotor.off()
                 rightLineSquaredWhite = True
             print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
                 left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
@@ -84,8 +87,8 @@ class AthenaRobot(object):
         rightConsecutiveBlack = 0
 
         # now try black
-        self.leftMotor.on(speed)
-        self.rightMotor.on(speed) 
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed) 
         while(not leftLineSquaredBlack or not rightLineSquaredBlack):
             left_reflected = self.leftSensor.reflected_light_intensity
             right_reflected = self.rightSensor.reflected_light_intensity
@@ -96,7 +99,7 @@ class AthenaRobot(object):
             else:
                 leftConsecutiveBlack = 0;   # reset to zero    
             if(leftConsecutiveBlack >= consecutiveHit):
-                self.leftMotor.off()
+                self.leftLargeMotor.off()
                 leftLineSquaredBlack = True
 
             # right to detect black
@@ -105,14 +108,14 @@ class AthenaRobot(object):
             else:
                 rightConsecutiveBlack = 0;   # reset to zero    
             if(rightConsecutiveBlack >= consecutiveHit):
-                self.rightMotor.off()
+                self.rightLargeMotor.off()
                 rightLineSquaredBlack = True
             print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveBlack: {2:3d}, rightConsecutiveBlack: {3:3d}".format( 
                 left_reflected, right_reflected, leftConsecutiveBlack, rightConsecutiveBlack), file=sys.stderr)
             sleep(sleepTime) 
 
-        self.leftMotor.off()
-        self.rightMotor.off()
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()
     
     #Go to the Bridge
     def goToBridge(self):
@@ -144,9 +147,8 @@ class AthenaRobot(object):
         sensor = ColorSensor(sensorInput)
         sensor.calibrate_white()
 
-    def trip1Tryout(self):
-        
-        
-""" 
-    def followLine(self):
-         """
+    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True)
+        if isLeft == False:
+            rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
+        else:
+            leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
