@@ -39,6 +39,14 @@ class AthenaRobot(object):
         # Turn at the speed of 20
         self.leftLargeMotor.on_for_degrees(20, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
+        
+    #Medium Motor Movement
+    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True)
+        #sees which motor is running
+        if isLeft == False:
+            rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
+        else:
+            leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
     # run until find a game line
     def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
@@ -146,9 +154,4 @@ class AthenaRobot(object):
     def colorCalibrate(self,sensorInput):
         sensor = ColorSensor(sensorInput)
         sensor.calibrate_white()
-
-    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True)
-        if isLeft == False:
-            rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
-        else:
-            leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
+    
