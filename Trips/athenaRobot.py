@@ -2,12 +2,14 @@
 
 from ev3dev2.motor import LargeMotor,  OUTPUT_C, OUTPUT_B, follow_for_ms
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, MoveTank, MoveSteering, SpeedPercent
+from ev3dev2.sound import Sound
 from time import sleep
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
 import math
 import sys 
-
+import time
+sound = Sound()
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
     def __init__(self, wheelRadiusCm = 2.75, leftMotorPort = OUTPUT_B, rightMotorPort = OUTPUT_C, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
@@ -139,11 +141,24 @@ class AthenaRobot(object):
         # run until hit game line
         self.onUntilGameLine()
     
-    # Calibrating Color for Sensor
-    def colorCalibrate(self,sensorInput):
+    # Calibrating White for Sensor
+    def calibrateColorSensor(self,sensorInput):
         sensor = ColorSensor(sensorInput)
+        # Calibration
         sensor.calibrate_white()
-        
+        # Done Signal
+        sound.beep()
+
+    # Calibrating Color for Sensor
+    def testColorSensor(self,sensorInput,sensorPort,repeatNumber = 10,pauseNumber= 0.5):
+        sensor = ColorSensor(sensorInput)
+        times = 0
+        # For loop
+        while times != repeatNumber:
+            # Print
+            print("Sensor {0:3d}: {1:3d}".format(sensorPort, sensor.reflected_light_intensity), file=sys.stderr)
+            time.sleep(pauseNumber)
+            times = times+1
 """ 
     def followLine(self):
          """
