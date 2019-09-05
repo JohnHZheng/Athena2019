@@ -2,7 +2,7 @@
 from ev3dev2.button import Button
 from ev3dev2.sound import Sound
 from time import sleep
-from trip1 import runTrip1
+from trip1 import runTrip1, Trip1Tryout
 from trip2 import runTrip2
 from trip3 import runTrip3
 from trip4 import runTrip4
@@ -22,7 +22,7 @@ print('4 - Down for Trip 4')
 print('5 - Center to Exit')
 while contin:
     if btn.left == True:
-        runTrip1()
+        Trip1Tryout()
     elif btn.up == True:
         runTrip2()
     elif btn.right == True:
