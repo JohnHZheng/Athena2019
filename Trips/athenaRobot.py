@@ -42,6 +42,37 @@ class AthenaRobot(object):
         self.leftLargeMotor.on_for_degrees(20, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
 
+    
+    def ColorDetect(self, reflected, threshold, squared, hit)
+        consecutive = 0
+        if(reflected > threshold):
+            consecutive += 1
+        else:
+            consecutive = 0;   # reset to zero    
+        if(consecutive >= hit):
+            self.leftLargeMotor.off()
+            squared = True
+    
+
+    def OnUntilColor(self, threshold, speed = 10, consecutive = 0, hit = 5):
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed)
+        leftSquared = False
+        rightSquared = False
+        linesSquared = False
+        cont = True
+        while cont:
+            ColorDetect(self.leftSensor.reflected_light_intensity, threshold, leftSquared, hit)
+            ColorDetect(self.rightSensor.reflected_light_intensity, threshold, rightSquared, hit)
+            if leftSquared = True and rightSquared = True:
+                 linesSquared = True
+            if(linesSquared = True):
+                self.leftLargeMotor.off
+                self.rightLargeMotor.off 
+                cont = False
+
+    # def onUntil(self, consecutiveHit = 1, speed = 10, sleepTime = 0.01, lambda parameter_list: expression)
+
     # run until find a game line
     def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
         brake = True):
@@ -77,6 +108,7 @@ class AthenaRobot(object):
             if(rightConsecutiveWhite >= consecutiveHit):
                 self.rightLargeMotor.off()
                 rightLineSquaredWhite = True
+
             print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
                 left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
             sleep(sleepTime) 
