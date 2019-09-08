@@ -43,7 +43,7 @@ class AthenaRobot(object):
         self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
         
     #Medium Motor Movement
-    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True)
+    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
         if isLeft == False:
             rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
@@ -171,12 +171,3 @@ class AthenaRobot(object):
             print("Sensor {0:3d}: {1:3d}".format(sensorPort, sensor.reflected_light_intensity), file=sys.stderr)
             time.sleep(pauseNumber)
             times = times+1
-""" 
-    def followLine(self):
-         """
-
-    def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True)
-        if isLeft == False:
-            rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
-        else:
-            leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
