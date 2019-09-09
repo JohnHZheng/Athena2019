@@ -126,7 +126,34 @@ class AthenaRobot(object):
 
         self.leftLargeMotor.off()
         self.rightLargeMotor.off()
-    
+    def onUntilBlackLine (self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, black_threshold = 30, brake = True ):
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed)
+
+        leftLineSquaredBlack = False
+        rightLineSquaredBlack = False
+        leftConsecutiveBlack = 0
+        rightConsecutiveBlack = 0
+        
+        while(not leftLineSquaredBlack or not rightLineSquaredBlack):
+            leftReflected = self.leftSensor.reflected_light_intensity
+            rightReflected = self.rightSensor.reflected_light_intensity
+
+            if(leftReflected < black_threshold):
+                leftConsecutiveBlack += 1
+            else:
+                leftConsecutiveBlack = 0
+            if(leftConsecutiveBlack >= consecutiveHit):
+                self.leftLargeMotor.off()
+                leftLineSquaredBlack = True
+            
+            if(rightReflected < black_threshold):
+                rightConsecutiveBlack += 1
+            else:
+                rightConsecutiveBlack = 0
+            if(rightConsecutiveBlack >= consecutiveHit):
+                self.rightLargeMotor.off()
+                rightLineSquaredBlack = True
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
