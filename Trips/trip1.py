@@ -10,7 +10,7 @@ import sys
 from athenaRobot import AthenaRobot
 
 # wheel constances in Center Meter
-wheelRadiusCm = 2.75 
+wheelRadiusCm = 4
 wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
 leftMotor = LargeMotor(OUTPUT_C)
 rightMotor = LargeMotor(OUTPUT_B) 
@@ -51,6 +51,8 @@ def Trip1Tryout():
     rightSensor = ColorSensor(INPUT_1)
     forkliftMtr= MediumMotor(OUTPUT_D)
     robot = AthenaRobot()
-    forkliftMtr.on_for_seconds(-50,1)
-    robot.turn(45)
-    forkliftMtr.on_for_seconds(50,1)
+    robot.turn(-25)
+    robot.run(40,-30,brake=True)
+    robot.turn(360)
+    robot.onUntilGameLine()
+Trip1Tryout()
