@@ -9,12 +9,11 @@ from athenaRobot import AthenaRobot
 import random
 
 def runTrip3():
-    sound = Sound()
-    sound.speak('This is trip three. Currently for Calibration.', espeak_opts='-a 200 -s 130 -ven+m7' + 'en+whisper', volume=100)
+   """  sound = Sound()
+    sound.speak('This is trip three. Currently for Calibration.', espeak_opts='-a 200 -s 130 -ven+m7' + 'en+whisper', volume=100) """
     robot = AthenaRobot()
     #Calibrating both sensors
-    robot.calibrateColorSensor(INPUT_4)
-    robot.calibrateColorSensor(INPUT_1)
+    robot.onUntilWhite()
     #Done signal
     sound.beep()
 

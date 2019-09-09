@@ -50,6 +50,37 @@ class AthenaRobot(object):
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
+    def onUntilWhite(self, consecutiveHit = 5, speed = 10, threshold = 85):
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed) 
+        leftReflect = self.leftSensor.reflected_light_intensity
+        rightReflect = self.rightSensor.reflected_light_intensity
+        cont = True
+        LConfirm = False
+        RConfirm = False
+        LConsecutive = 0
+        RConsecutive = 0
+        while cont:
+            while LConfirm == False:
+                if(leftReflect > threshold):
+                    LConsecutive += 1
+                else:
+                    LConsecutive = 0
+                if(LConsecutive >= consecutiveHit):
+                    self.leftLargeMotor.off()
+                    LConfirm = True
+            
+            while rightConfirm == False:
+                if(rightReflect > threshold):
+                    RConsecutive +=1
+                else:
+                    RConsecutive = 0
+                if(RConsecutive >= consecutiveHit):
+                    self.rightLargeMotor.off()
+                    RConfirm = True
+            if (LConfirm == True and RConfirm == True):
+                cont = False
+
     # run until find a game line
     def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
         brake = True):
