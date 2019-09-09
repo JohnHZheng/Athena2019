@@ -10,4 +10,4 @@ lmC = LargeMotor(OUTPUT_C)
 
 tank_pair = MoveTank(OUTPUT_B, OUTPUT_C)
 steer_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
-steer_pair.on_for_seconds(0, 50, 3)
+tank_pair.on_for_seconds(-100, -100, 10)
