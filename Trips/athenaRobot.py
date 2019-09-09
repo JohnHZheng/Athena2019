@@ -12,7 +12,7 @@ import time
 sound = Sound()
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
-    def __init__(self, wheelRadiusCm = 2.75, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
+    def __init__(self, wheelRadiusCm = 4, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
     leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
@@ -35,12 +35,12 @@ class AthenaRobot(object):
         self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
-    def turn(self, degree, brake=True, block=True):
+    def turn(self, degree, speed = 20, brake = True , block = True):
         # 1.9 is a scale factor from experiments
-        degreesToRun = degree * 1.9
-        # Turn at the speed of 20
-        self.leftLargeMotor.on_for_degrees(20, degreesToRun, brake, False)
-        self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
+        degreesToRun = degree * 1.32
+        # Turn at the speed 
+        self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
         
     #Medium Motor Movement
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
@@ -157,7 +157,7 @@ class AthenaRobot(object):
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
-        self.run(12.5, 20)
+        self.run(10, 20)
         sleep(.2)
         # turn right 70 degree
         self.turn(70)
