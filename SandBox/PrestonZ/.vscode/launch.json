@@ -9,7 +9,7 @@
 			"name": "Download and Run",
 			"type": "ev3devBrowser",
 			"request": "launch",
-			"program": "/home/robot/Athena2019/Trips/main.py"
+			"program": "/home/robot/Athena2019/Trips/main.remake.py"
 		}
 	]
 }

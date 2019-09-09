@@ -5,12 +5,23 @@ from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.led import Leds
 from time import sleep
 from ev3dev2.sound import Sound
+from athenaRobot import AthenaRobot
 import random
 
 def runTrip3():
     sound = Sound()
-    sound.speak('This is trip three. More to come...', espeak_opts='-a 200 -s 130 -ven+m7', volume=100)
- 
+    sound.speak('This is trip three. Currently for Calibration.', espeak_opts='-a 200 -s 130 -ven+m7' + 'en+whisper', volume=100)
+    robot = AthenaRobot()
+    robot.calibrateColorSensor(INPUT_4)
+    robot.calibrateColorSensor(INPUT_1)
+    sound.beep()
+    robot.testColorSensor(INPUT_1,1)
+    robot.testColorSensor(INPUT_4,4)
+    
+    #Calibrating both sensors
+
+    #Done signal
+    
 
 #!/usr/bin/env pybricks-micropython
 """ from pybricks import ev3brick as brick
