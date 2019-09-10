@@ -68,17 +68,22 @@ class AthenaRobot(object):
             else: 
                 condLeftCounter = 0;    # reset to zero
             if(condLeftCounter >= consecutiveHit):
+                if(condRightMet):
+                    sleep(.1)
                 self.leftLargeMotor.off()
                 condLeftMet = True
-            
+                
             # check right condition
             if(rightCondition()):
                 condRightCounter += 1
             else: 
                 condRightCounter = 0;    # reset to zero
             if(condRightCounter >= consecutiveHit):
+                if(condLeftMet):
+                    sleep(.1)
                 self.rightLargeMotor.off()
                 condRightMet = True
+                
 
             print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
                 self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, condLeftCounter, condRightCounter), file=sys.stderr)
