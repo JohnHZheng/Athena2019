@@ -50,110 +50,55 @@ class AthenaRobot(object):
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
-    # run until find a game line
-    def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
-        brake = True):
-        # Start motor at passed speed. 
+    # run until condition is met
+    def onUntilCondition(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
+         # Start motor at passed speed. 
         self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed) 
+        self.rightLargeMotor.on(speed)    
 
-        # flags for whether both left and right wheel are in position
-        leftLineSquaredWhite = False    
-        rightLineSquaredWhite = False
-        leftConsecutiveWhite = 0
-        rightConsecutiveWhite = 0
-
-        # first aligned on white
-        while(not leftLineSquaredWhite or not rightLineSquaredWhite):
-            left_reflected = self.leftSensor.reflected_light_intensity
-            right_reflected = self.rightSensor.reflected_light_intensity
-
-            # left to detect white
-            if(left_reflected > white_threshold):
-                leftConsecutiveWhite += 1
-            else:
-                leftConsecutiveWhite = 0;   # reset to zero    
-            if(leftConsecutiveWhite >= consecutiveHit):
+        condLeftCounter = 0
+        condRightCounter = 0
+        condLeftMet = False
+        condRightMet = False
+     
+        while(not condLeftMet or not condRightMet):
+            # check left condition
+            if(leftCondition()):
+                condLeftCounter += 1
+            else: 
+                condLeftCounter = 0;    # reset to zero
+            if(condLeftCounter >= consecutiveHit):
                 self.leftLargeMotor.off()
-                leftLineSquaredWhite = True
-
-            # right to detect white
-            if(right_reflected > white_threshold):
-                rightConsecutiveWhite += 1
-            else:
-                rightConsecutiveWhite = 0;   # reset to zero    
-            if(rightConsecutiveWhite >= consecutiveHit):
+                condLeftMet = True
+            
+            # check right condition
+            if(rightCondition()):
+                condRightCounter += 1
+            else: 
+                condRightCounter = 0;    # reset to zero
+            if(condRightCounter >= consecutiveHit):
                 self.rightLargeMotor.off()
-                rightLineSquaredWhite = True
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
-                left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
+                condRightMet = True
+
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
+                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, condLeftCounter, condRightCounter), file=sys.stderr)
             sleep(sleepTime) 
-
-        print("*********** White Line Reached *********", file=sys.stderr)
-
-        leftLineSquaredBlack = False    
-        rightLineSquaredBlack = False
-        leftConsecutiveBlack = 0
-        rightConsecutiveBlack = 0
-
-        # now try black
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed) 
-        while(not leftLineSquaredBlack or not rightLineSquaredBlack):
-            left_reflected = self.leftSensor.reflected_light_intensity
-            right_reflected = self.rightSensor.reflected_light_intensity
-
-            # left to detect black
-            if(left_reflected < black_threshold):
-                leftConsecutiveBlack += 1
-            else:
-                leftConsecutiveBlack = 0;   # reset to zero    
-            if(leftConsecutiveBlack >= consecutiveHit):
-                self.leftLargeMotor.off()
-                leftLineSquaredBlack = True
-
-            # right to detect black
-            if(right_reflected < black_threshold):
-                rightConsecutiveBlack += 1
-            else:
-                rightConsecutiveBlack = 0;   # reset to zero    
-            if(rightConsecutiveBlack >= consecutiveHit):
-                self.rightLargeMotor.off()
-                rightLineSquaredBlack = True
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveBlack: {2:3d}, rightConsecutiveBlack: {3:3d}".format( 
-                left_reflected, right_reflected, leftConsecutiveBlack, rightConsecutiveBlack), file=sys.stderr)
-            sleep(sleepTime) 
-
         self.leftLargeMotor.off()
         self.rightLargeMotor.off()
-    def onUntilBlackLine (self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, black_threshold = 30, brake = True ):
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed)
 
-        leftLineSquaredBlack = False
-        rightLineSquaredBlack = False
-        leftConsecutiveBlack = 0
-        rightConsecutiveBlack = 0
-        
-        while(not leftLineSquaredBlack or not rightLineSquaredBlack):
-            leftReflected = self.leftSensor.reflected_light_intensity
-            rightReflected = self.rightSensor.reflected_light_intensity
+    def onUntilWhiteLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
+            speed, consecutiveHit, sleepTime)
 
-            if(leftReflected < black_threshold):
-                leftConsecutiveBlack += 1
-            else:
-                leftConsecutiveBlack = 0
-            if(leftConsecutiveBlack >= consecutiveHit):
-                self.leftLargeMotor.off()
-                leftLineSquaredBlack = True
-            
-            if(rightReflected < black_threshold):
-                rightConsecutiveBlack += 1
-            else:
-                rightConsecutiveBlack = 0
-            if(rightConsecutiveBlack >= consecutiveHit):
-                self.rightLargeMotor.off()
-                rightLineSquaredBlack = True
+    def onUntilBlackLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
+            speed, consecutiveHit, sleepTime)        
+
+    # run until find a game line
+    def onUntilGameLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85, black_threshold = 30):
+        self.onUntilWhiteLine(consecutiveHit, speed, sleepTime, white_threshold)
+        self.onUntilBlackLine(consecutiveHit, speed, sleepTime, black_threshold)
+
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
