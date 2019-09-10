@@ -11,6 +11,7 @@ import time
 
 LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
+Left
 TankPair        = MoveTank(OUTPUT_C, OUTPUT_B, motor_class=LargeMotor)
 LeftSensor      = ColorSensor(INPUT_1)
 RightSensor     = ColorSensor(INPUT_4)
