@@ -50,9 +50,9 @@ class AthenaRobot(object):
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
-    # run until condition is met
-    def onUntilCondition(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
-         # Start motor at passed speed. 
+    # run until both conditions are met
+    def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
+         # Start motor at passed speonUntilTwoConditionsed. 
         self.leftLargeMotor.on(speed)
         self.rightLargeMotor.on(speed)    
 
@@ -92,17 +92,51 @@ class AthenaRobot(object):
         self.rightLargeMotor.off()
 
     def onUntilWhiteLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
+        self.onUntilTwoConditions(lambda : self.leftSensor.reflected_light_intensity > white_threshold, lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
             speed, consecutiveHit, sleepTime)
 
     def onUntilBlackLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, black_threshold = 30):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
+        self.onUntilTwoConditions(lambda : self.leftSensor.reflected_light_intensity < black_threshold, lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
             speed, consecutiveHit, sleepTime)        
 
     # run until find a game line
     def onUntilGameLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85, black_threshold = 30):
         self.onUntilWhiteLine(consecutiveHit, speed, sleepTime, white_threshold)
         self.onUntilBlackLine(consecutiveHit, speed, sleepTime, black_threshold)
+
+    # run until condition is met
+    def onUntilCondition(self, condition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
+         # Start motor at passed speonUntilTwoConditionsed. 
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed)    
+        counter = 0
+        condMet = False
+     
+        while(not condMet):
+            # check condition
+            if(condition()):
+                counter += 1
+            else: 
+                counter = 0;    # reset to zero
+            if(counter >= consecutiveHit):
+                self.leftLargeMotor.off()
+                self.rightLargeMotor.off()
+                condMet = True
+                
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}".format( 
+                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, counter), file=sys.stderr)
+            sleep(sleepTime) 
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()
+
+    def onUntilLeftBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilRightBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
 
     #Go to the Bridge
     def goToBridge(self):
