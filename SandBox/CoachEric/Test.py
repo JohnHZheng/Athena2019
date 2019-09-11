@@ -9,9 +9,10 @@ import math
 import sys 
 import time
 
-LeftWheel       = LargeMotor(OUTPUT_B)
-RightWheel      = LargeMotor(OUTPUT_C)
-Left
+LeftWheel       = LargeMotor(OUTPUT_C)
+RightWheel      = LargeMotor(OUTPUT_B)
+LeftAction      = MediumMotor(OUTPUT_D)
+RightAction     = MediumMotor(OUTPUT_A)
 TankPair        = MoveTank(OUTPUT_C, OUTPUT_B, motor_class=LargeMotor)
 LeftSensor      = ColorSensor(INPUT_1)
 RightSensor     = ColorSensor(INPUT_4)
