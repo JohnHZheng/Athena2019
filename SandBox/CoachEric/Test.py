@@ -11,10 +11,21 @@ import time
 
 LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
-Left
-TankPair        = MoveTank(OUTPUT_C, OUTPUT_B, motor_class=LargeMotor)
+LeftAction      = MediumMotor(OUTPUT_D)
+RightAction     = MediumMotor(OUTPUT_A)
+TankPair        = MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
 LeftSensor      = ColorSensor(INPUT_1)
 RightSensor     = ColorSensor(INPUT_4)
 
-TankPair.on_for_seconds(-100, -100, 3)
-LeftWheel.on_for_seconds(100, 3)
+LoopCount           = 0
+BlackTH             = 15
+WhiteTH             = 80
+TargetReflection    = 60
+Kp                  = 2
+#Right Sensor follow Right black line
+while LoopCount < 1000:
+    LoopCount           = LoopCount + 1
+    ErrorReflection     = TargetReflection - RightSensor.reflected_light_intensity
+    DeltaSpeed          = Kp * ErrorReflection
+    TankPair.on(SpeedDPS(-100 - DeltaSpeed), SpeedDPS(-100 + DeltaSpeed))
+    sleep(0.005)
