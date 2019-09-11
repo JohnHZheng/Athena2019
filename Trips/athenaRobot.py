@@ -35,9 +35,9 @@ class AthenaRobot(object):
         self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
-    def turn(self, degree, speed = 20, brake = True , block = True):
+    def turn(self, degree, speed = 10, brake = True , block = True):
         # 1.9 is a scale factor from experiments
-        degreesToRun = degree * 1.32
+        degreesToRun = degree * 1.5
         # Turn at the speed 
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
@@ -83,7 +83,6 @@ class AthenaRobot(object):
                     sleep(.1)
                 self.rightLargeMotor.off()
                 condRightMet = True
-                
 
             print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
                 self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, condLeftCounter, condRightCounter), file=sys.stderr)
@@ -173,12 +172,17 @@ class AthenaRobot(object):
         sound.beep()
 
     # Calibrating Color for Sensor
-    def testColorSensor(self,sensorInput,sensorPort,repeatNumber = 10,pauseNumber= 0.5):
+    def testColorSensor(self,sensorInput,sensorPort,repeatNumber = 10,pauseNumber = 0.2, speed = 0):
         sensor = ColorSensor(sensorInput)
+        if(speed > 0 ):
+            self.leftLargeMotor.on(speed)
+            self.rightLargeMotor.on(speed)              
         times = 0
         # For loop
         while times != repeatNumber:
             # Print
             print("Sensor {0:3d}: {1:3d}".format(sensorPort, sensor.reflected_light_intensity), file=sys.stderr)
             time.sleep(pauseNumber)
-            times = times+1
+            times = times + 1
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()       

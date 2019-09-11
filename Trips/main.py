@@ -11,7 +11,6 @@ import os
 os.system('setfont Uni3-TerminusBold16')
 sound = Sound()
 
-sound.beep()
 btn = Button()
 contin = True
 print('*** ATHENA ROCKS! ***')
@@ -20,14 +19,20 @@ print('2 - Up for Trip 2')
 print('3 - Right for Trip 3')
 print('4 - Down for Trip 4')
 print('5 - Center to Exit')
+sound.beep()
 while contin:
+
     if btn.left == True:
         Trip1Tryout()
+        sound.beep()
     elif btn.up == True:
         runTrip2()
+        sound.beep()
     elif btn.right == True:
         runTrip3()
+        sound.beep()
     elif btn.down == True:
         runTrip4()
+        sound.beep()
     elif btn.enter == True:
         contin = False
