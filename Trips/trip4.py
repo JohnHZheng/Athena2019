@@ -13,6 +13,9 @@ def runTrip4():
     #sound.speak('This is trip four. More to come...', espeak_opts='-a 200 -s 130 -ven+m7', volume=100)
     robot = AthenaRobot()
     robot.onUntilGameLine()
+    robot.turn(-90)
+    robot.onUntilLeftWhite()
+    # robot.onUntilGameLine()
     # robot.goToBridge()
     """ for x in range(4):
         #robot.run(10,10)
