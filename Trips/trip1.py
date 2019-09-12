@@ -43,7 +43,7 @@ def runTrip1():
         # Randomizing the volume, tone, and quote.
         sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
 def Trip1Tryout(): 
-    wheelRadiusCm = 2.75 
+    wheelRadiusCm = 4
     wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
     leftMotor = LargeMotor(OUTPUT_C)
     rightMotor = LargeMotor(OUTPUT_B) 
@@ -51,6 +51,10 @@ def Trip1Tryout():
     rightSensor = ColorSensor(INPUT_1)
     forkliftMtr= MediumMotor(OUTPUT_D)
     robot = AthenaRobot()
-    forkliftMtr.on_for_seconds(-50,1)
-    robot.turn(45)
-    forkliftMtr.on_for_seconds(50,1)
+    robot.run(40,20)
+    """
+    robot.turn(30090)
+    robot.run(-7,14)
+
+ """
+    

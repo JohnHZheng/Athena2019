@@ -12,7 +12,7 @@ import time
 sound = Sound()
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
-    def __init__(self, wheelRadiusCm = 2.75, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
+    def __init__(self, wheelRadiusCm = 4, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
     leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
@@ -35,13 +35,20 @@ class AthenaRobot(object):
         self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
-    def turn(self, degree, brake=True, block=True):
+    def turn(self, degree, speed = 10, brake = True , block = True):
         # 1.9 is a scale factor from experiments
-        degreesToRun = degree * 1.9
-        # Turn at the speed of 20
-        self.leftLargeMotor.on_for_degrees(20, degreesToRun, brake, False)
-        self.rightLargeMotor.on_for_degrees(-20, degreesToRun, brake, block)
-        
+        degreesToRun = degree * 1.5
+        # Turn at the speed 
+        self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
+
+    def turnRightOneWheel(self, degree, speed = 10, brake = True, block = True):
+        degreesToRun = degree * 1.5
+        self.leftLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
+
+    def turnLeftOneWheel(self, degree, speed = 10, brake = True, block = True):
+        degreesToRun = degree * 1.5
+        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
     #Medium Motor Movement
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
@@ -50,87 +57,97 @@ class AthenaRobot(object):
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
-    # run until find a game line
-    def onUntilGameLine(self, consecutiveHit = 5, speed = 10, sleepTime = 0.01, white_threshold = 85, black_threshold = 30,
-        brake = True):
-        # Start motor at passed speed. 
+    # run until both conditions are met
+    def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
+         # Start motor at passed speonUntilTwoConditionsed. 
         self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed) 
+        self.rightLargeMotor.on(speed)    
 
-        # flags for whether both left and right wheel are in position
-        leftLineSquaredWhite = False    
-        rightLineSquaredWhite = False
-        leftConsecutiveWhite = 0
-        rightConsecutiveWhite = 0
-
-        # first aligned on white
-        while(not leftLineSquaredWhite or not rightLineSquaredWhite):
-            left_reflected = self.leftSensor.reflected_light_intensity
-            right_reflected = self.rightSensor.reflected_light_intensity
-
-            # left to detect white
-            if(left_reflected > white_threshold):
-                leftConsecutiveWhite += 1
-            else:
-                leftConsecutiveWhite = 0;   # reset to zero    
-            if(leftConsecutiveWhite >= consecutiveHit):
+        condLeftCounter = 0
+        condRightCounter = 0
+        condLeftMet = False
+        condRightMet = False
+     
+        while(not condLeftMet or not condRightMet):
+            # check left condition
+            if(leftCondition()):
+                condLeftCounter += 1
+            else: 
+                condLeftCounter = 0;    # reset to zero
+            if(condLeftCounter >= consecutiveHit):
+                if(condRightMet):
+                    sleep(.1)
                 self.leftLargeMotor.off()
-                leftLineSquaredWhite = True
-
-            # right to detect white
-            if(right_reflected > white_threshold):
-                rightConsecutiveWhite += 1
-            else:
-                rightConsecutiveWhite = 0;   # reset to zero    
-            if(rightConsecutiveWhite >= consecutiveHit):
+                condLeftMet = True
+                
+            # check right condition
+            if(rightCondition()):
+                condRightCounter += 1
+            else: 
+                condRightCounter = 0;    # reset to zero
+            if(condRightCounter >= consecutiveHit):
+                if(condLeftMet):
+                    sleep(.1)
                 self.rightLargeMotor.off()
-                rightLineSquaredWhite = True
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveWhite: {2:3d}, rightConsecutiveWhite: {3:3d}".format( 
-                left_reflected, right_reflected, leftConsecutiveWhite, rightConsecutiveWhite), file=sys.stderr)
+                condRightMet = True
+
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
+                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, condLeftCounter, condRightCounter), file=sys.stderr)
             sleep(sleepTime) 
-
-        print("*********** White Line Reached *********", file=sys.stderr)
-
-        leftLineSquaredBlack = False    
-        rightLineSquaredBlack = False
-        leftConsecutiveBlack = 0
-        rightConsecutiveBlack = 0
-
-        # now try black
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed) 
-        while(not leftLineSquaredBlack or not rightLineSquaredBlack):
-            left_reflected = self.leftSensor.reflected_light_intensity
-            right_reflected = self.rightSensor.reflected_light_intensity
-
-            # left to detect black
-            if(left_reflected < black_threshold):
-                leftConsecutiveBlack += 1
-            else:
-                leftConsecutiveBlack = 0;   # reset to zero    
-            if(leftConsecutiveBlack >= consecutiveHit):
-                self.leftLargeMotor.off()
-                leftLineSquaredBlack = True
-
-            # right to detect black
-            if(right_reflected < black_threshold):
-                rightConsecutiveBlack += 1
-            else:
-                rightConsecutiveBlack = 0;   # reset to zero    
-            if(rightConsecutiveBlack >= consecutiveHit):
-                self.rightLargeMotor.off()
-                rightLineSquaredBlack = True
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftConsecutiveBlack: {2:3d}, rightConsecutiveBlack: {3:3d}".format( 
-                left_reflected, right_reflected, leftConsecutiveBlack, rightConsecutiveBlack), file=sys.stderr)
-            sleep(sleepTime) 
-
         self.leftLargeMotor.off()
         self.rightLargeMotor.off()
-    
+
+    def onUntilWhiteLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilTwoConditions(lambda : self.leftSensor.reflected_light_intensity > white_threshold, lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
+            speed, consecutiveHit, sleepTime)
+
+    def onUntilBlackLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilTwoConditions(lambda : self.leftSensor.reflected_light_intensity < black_threshold, lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
+            speed, consecutiveHit, sleepTime)        
+
+    # run until find a game line
+    def onUntilGameLine(self, consecutiveHit = 5, speed = 5, sleepTime = 0.01, white_threshold = 85, black_threshold = 30):
+        self.onUntilWhiteLine(consecutiveHit, speed, sleepTime, white_threshold)
+        self.onUntilBlackLine(consecutiveHit, speed, sleepTime, black_threshold)
+
+    # run until condition is met
+    def onUntilCondition(self, condition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
+         # Start motor at passed speonUntilTwoConditionsed. 
+        self.leftLargeMotor.on(speed)
+        self.rightLargeMotor.on(speed)    
+        counter = 0
+        condMet = False
+     
+        while(not condMet):
+            # check condition
+            if(condition()):
+                counter += 1
+            else: 
+                counter = 0;    # reset to zero
+            if(counter >= consecutiveHit):
+                self.leftLargeMotor.off()
+                self.rightLargeMotor.off()
+                condMet = True
+                
+            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}".format( 
+                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, counter), file=sys.stderr)
+            sleep(sleepTime) 
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()
+
+    def onUntilLeftBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilRightBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
+    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
+
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
-        self.run(12.5, 20)
+        self.run(10, 20)
         sleep(.2)
         # turn right 70 degree
         self.turn(70)
@@ -162,12 +179,17 @@ class AthenaRobot(object):
         sound.beep()
 
     # Calibrating Color for Sensor
-    def testColorSensor(self,sensorInput,sensorPort,repeatNumber = 10,pauseNumber= 0.5):
+    def testColorSensor(self,sensorInput,sensorPort,repeatNumber = 10,pauseNumber = 0.2, speed = 0):
         sensor = ColorSensor(sensorInput)
+        if(speed > 0 ):
+            self.leftLargeMotor.on(speed)
+            self.rightLargeMotor.on(speed)              
         times = 0
         # For loop
         while times != repeatNumber:
             # Print
             print("Sensor {0:3d}: {1:3d}".format(sensorPort, sensor.reflected_light_intensity), file=sys.stderr)
             time.sleep(pauseNumber)
-            times = times+1
+            times = times + 1
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()       
