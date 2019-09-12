@@ -9,6 +9,6 @@
 			"name": "Download and Run",
 			"type": "ev3devBrowser",
 			"request": "launch",
-			"program": "/home/robot/MaxWang/test.py"
+			"program": "/home/robot/MaxWang/testB.py"
 		}
 }
