@@ -106,14 +106,16 @@ if __name__ == "__main__":
 
     tank = MoveTank(OUTPUT_B, OUTPUT_C)
     tank.cs = ColorSensor()
+    tank.cs.calibrate_white()
 
-    speed = SpeedPercent(30)
+    speed = SpeedPercent(8)
 
     # Find the best integer for kp (in increments of 1) then fine tune by
     # finding the best float (in increments of 0.1)
-    kp = find_kp_ki_kd(tank, 1, 20, 1, speed, 'kp', 0, 0, 0)
-    kp = find_kp_ki_kd(tank, kp - 1, kp + 1, 0.1, speed, 'kp', kp, 0, 0)
+    kp = find_kp_ki_kd(tank, 5, 9, 1, speed, 'kp', 0, 0, 0)
+    kp = find_kp_ki_kd(tank, kp - .5, kp + .5, 0.2, speed, 'kp', kp, 0, 0)
     print("\n\n\n%s\nkp %s\n%s\n\n\n" % ("" * 10, kp, "*" * 10))
+    log.warning("kp: {0}".format(kp))
 
     # Find the best float ki (in increments of 0.1)
     ki = find_kp_ki_kd(tank, 0, 1, 0.1, speed, 'ki', kp, 0, 0)
