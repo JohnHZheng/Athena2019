@@ -50,6 +50,7 @@ def find_kp_ki_kd(tank, start, end, increment, speed, kx_to_tweak, kp, ki, kd):
 
         try:
             if kx_to_tweak == "kp":
+                log.info("Final results: kp %s, ki %s, kd %s" % (kx, ki, kd))
                 tank.follow_line(
                     kp=kx, ki=ki, kd=kd,
                     speed=speed,
@@ -106,25 +107,39 @@ if __name__ == "__main__":
 
     tank = MoveTank(OUTPUT_B, OUTPUT_C)
     tank.cs = ColorSensor()
-    tank.cs.calibrate_white()
+    # tank.cs.calibrate_white()
 
     speed = SpeedPercent(8)
 
     # Find the best integer for kp (in increments of 1) then fine tune by
     # finding the best float (in increments of 0.1)
-    kp = find_kp_ki_kd(tank, 5, 9, 1, speed, 'kp', 0, 0, 0)
-    kp = find_kp_ki_kd(tank, kp - .5, kp + .5, 0.2, speed, 'kp', kp, 0, 0)
+    kp = find_kp_ki_kd(tank, 3, 15, 1, speed, 'kp', 0, 0, 0)
+    kp = find_kp_ki_kd(tank, kp - .5, kp + .5, 0.1, speed, 'kp', kp, 0, 0)
     print("\n\n\n%s\nkp %s\n%s\n\n\n" % ("" * 10, kp, "*" * 10))
     log.warning("kp: {0}".format(kp))
 
+    kp = 4
+
     # Find the best float ki (in increments of 0.1)
-    ki = find_kp_ki_kd(tank, 0, 1, 0.1, speed, 'ki', kp, 0, 0)
-    print("\n\n\n%s\nki %s\n%s\n\n\n" % ("" * 10, ki, "*" * 10))
+    # ki = find_kp_ki_kd(tank, 0, .4, 0.1, speed, 'ki', kp, 0, 0)
+    # print("\n\n\n%s\nki %s\n%s\n\n\n" % ("" * 10, ki, "*" * 10))
+    # log.warning("ki: {0}".format(ki))
+
+    ki = 0.05
 
     # Find the best integer for kd (in increments of 1) then fine tune by
     # finding the best float (in increments of 0.1)
-    kd = find_kp_ki_kd(tank, 0, 10, 1, speed, 'kd', kp, ki, 0)
-    kd = find_kp_ki_kd(tank, kd - 1, kd + 1, 0.1, speed, 'kd', kp, ki, 0)
-    print("\n\n\n%s\nkd %s\n%s\n\n\n" % ("" * 10, kd, "*" * 10))
+    # kd = find_kp_ki_kd(tank, 2, 6, 1, speed, 'kd', kp, ki, 0)
+    # kd = find_kp_ki_kd(tank, kd - .5, kd + .5, 0.1, speed, 'kd', kp, ki, 0)
+    # print("\n\n\n%s\nkd %s\n%s\n\n\n" % ("" * 10, kd, "*" * 10))
 
-    print("Final results: kp %s, ki %s, kd %s" % (kp, ki, kd))
+    kd = 2
+    
+    log.warning("Final results: kp %s, ki %s, kd %s" % (kp, ki, kd))
+
+    # tank.follow_line(
+    #     kp=kp, ki=ki, kd=kd,
+    #     speed=speed,
+    #     follow_for=follow_for_ms,
+    #     ms=10000,
+    # )
