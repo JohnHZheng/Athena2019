@@ -17,13 +17,18 @@ LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
 
 def Step1():
-    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(255), 3.25,True,True)
+    TankPair.on_for_seconds(SpeedDPS(-405),SpeedDPS(-400), 1.3,False,True)
+    TankPair.on_for_seconds(SpeedDPS(-255),SpeedDPS(-250), 1.2,False,True)
     
 def Step2():
- TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(250), 270,True,True)
+    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 270,True,True)
 
- def Step3():
-	TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250),230 )
+ #def Step3():
+	#TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250),230 )
+
+#def Step4():#TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(250), 100,True,True)
+    
 
 #Step1()
 Step2()
+#Step3()
