@@ -9,10 +9,7 @@
 			"name": "Download and Run",
 			"type": "ev3devBrowser",
 			"request": "launch",
-<<<<<<< HEAD
 			"program": "/home/robot/MaxWang/testA.py"
-=======
-			"program": "/home/robot/MaxWang/test.py"
->>>>>>> 8c5914dbd59ea2113de00c06e2cc0afc2281b666
 		}
+	]
 }
