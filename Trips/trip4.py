@@ -14,12 +14,19 @@ def runTrip4():
     #sound = Sound()
     #sound.speak('This is trip four. More to come...', espeak_opts='-a 200 -s 130 -ven+m7', volume=100)
     robot = AthenaRobot()
+    robot.turn(35)
+    robot.run(60, 20)
+    robot.onUntilWhiteLine()
+    sleep.0.1
+    robot.turn(-90)
+
+    # Those are old code 
     # robot.turn(22)
     # robot.run(40, 20)
     # robot.turn(-32)
-    robot.onUntilGameLine()
-    robot.turn(-110)
-    robot.onUntilLeftWhite()
+    # robot.onUntilGameLine()
+    # robot.turn(-110)
+    # robot.onUntilLeftWhite()
 
     # robot.turn(90)
     # sleep(.3)
