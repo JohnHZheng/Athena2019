@@ -1,4 +1,5 @@
 #!/usr/bin/env micropython
+
 from ev3dev2.motor import LargeMotor,MediumMotor, OUTPUT_D, OUTPUT_A,  OUTPUT_C, OUTPUT_B, follow_for_ms
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, MoveTank, MoveSteering, SpeedPercent
 from ev3dev2.sound import Sound
@@ -23,10 +24,26 @@ def Step1():
 def Step2():
     TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 270,True,True)
 
+def LineFollowing(Degree):
+    DegreeSum = 0
+    AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
+    while DegreeSum < Degree:
+        if LeftSensor.color == ColorSensor.COLOR_WHITE:
+            RightWheel.on(SpeedDPS(230))
+            LeftWheel.on(SpeedDPS(80))
+        else:
+            LeftWheel.on(SpeedDPS(230))
+            RightWheel.on(SpeedDPS(80))  
+        #print("LeftSensor - color:{0}", LeftSensor.color_name, file=sys.stderr)
+        AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
+        DegreeSum   = DegreeSum + AngleNew - AngleOld
+        AngleOld    = AngleNew
+    LeftWheel.off()
+    RightWheel.off()    
 
-
-#print("LeftSensor - reflected:{0}, ambient:{1}, color:{2}", LeftSensor.reflected_light_intensity, LeftSensor.ambient_light_intensity, LeftSensor.color_name) #, file=sys.stderr)
- 
-Step1()
+#TankPair.on_for_seconds(SpeedDPS(-250),SpeedDPS(-150), 1)
+LineFollowing(1300)
+#print("LeftWheelAngleOld:{0}, LeftWheelAngleNew:{2}", AngleOld, AngleNew, file=sys.stderr)
+#Step1()
 #Step2()
 #Step3()
