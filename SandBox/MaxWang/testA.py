@@ -21,11 +21,11 @@ sound           = Sound()
 
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(450),SpeedDPS(455), 1.3,False,True)
-    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(260), 1.2,False,True)
+    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(260), 1.6,False,True)
+
 def Step2():   
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 250,True,True)
     TankPair.on_for_seconds(SpeedDPS(400),SpeedDPS(0), 0.5,True,True)
-    
     while LeftSensor.color != 1:
         TankPair.on(SpeedDPS(250),SpeedDPS(250))
     LeftWheel.off()
@@ -35,14 +35,43 @@ def Step2():
     LeftWheel.off()
     RightWheel.off()
     TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 20,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250), 270,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250), 250,True,True)   
+    
+    def step3():
+         TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250), 150)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(0), 75)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 500)
+    
+    
+
+
+ 
+
+def LineFollowing(Degree):
+    DegreeSum = 0
+    AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
+    while DegreeSum < Degree:
+        if LeftSensor.color == ColorSensor.COLOR_WHITE:
+            RightWheel.on(SpeedDPS(230))
+            LeftWheel.on(SpeedDPS(80))
+        else:
+            LeftWheel.on(SpeedDPS(230))
+            RightWheel.on(SpeedDPS(80))  
+        #print("LeftSensor - color:{0}", LeftSensor.color_name, file=sys.stderr)
+        AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
+        DegreeSum   = DegreeSum + AngleNew - AngleOld
+        AngleOld    = AngleNew
+    LeftWheel.off()
+    RightWheel.off()    
 
 
 
-    #print("LeftSensor - reflected:{0}, color:{1}", LeftSensor.reflected_light_intensity, LeftSensor.color_name, file=sys.stderr) 
-    #print("RightSensor - reflected:{0}, color:{1}", RightSensor.reflected_light_intensity, RightSensor.color_name, file=sys.stderr) 
+ 
 
-
-#Step1()
+Step1()
 Step2()
+LineFollowing(1200)
+Step3()
+
+
 
