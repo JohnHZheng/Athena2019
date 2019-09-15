@@ -143,7 +143,18 @@ class AthenaRobot(object):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
     def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
-
+    
+    def lineFollow(self):
+        loop = True
+        while loop:
+            sensorRLI = self.rightSensor.reflected_light_intensity
+            rightPower = (78 - sensorRLI) * 0.2
+            leftPower = (sensorRLI - 8) * 0.2
+            self.rightLargeMotor.on(rightPower)
+            self.leftLargeMotor.on(leftPower) 
+            print( "sensorRLI: {0:3d}, leftPower: {1:3f}, rightPower: {2:3f}".format( 
+                sensorRLI, leftPower, rightPower), file=sys.stderr)
+            sleep(0.1) 
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
