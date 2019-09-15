@@ -13,7 +13,7 @@ sound = Sound()
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
     def __init__(self, wheelRadiusCm = 4, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
-    leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4):
+    leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
         self.wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
@@ -56,6 +56,16 @@ class AthenaRobot(object):
             rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
+
+
+    def lineFollow(self,whiteThres, blackThres, scale):
+        while True:
+            reflect = self.rightSensor.reflected_light_intensity
+            Bpower = (whiteThres-reflect)*scale
+            Cpower = (reflect-blackThres)*scale
+            self.leftLargeMotor.on(Bpower)
+            self.rightLargeMotor.on(Cpower)
+            print("reflect: {0:3d} leftPower: {1:3f} rightPower: {2:3f}".format(reflect, Bpower, Cpower), file=sys.stderr)
 
     # run until both conditions are met
     def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):

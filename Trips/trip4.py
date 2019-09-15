@@ -17,7 +17,7 @@ def runTrip4():
     robot.turn(35)
     robot.run(60, 20)
     robot.onUntilWhiteLine()
-    sleep.0.1
+    #sleep.0.1
     robot.turn(-90)
 
     # Those are old code 
