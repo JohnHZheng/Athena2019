@@ -132,10 +132,10 @@ if __name__ == "__main__":
     # kd = find_kp_ki_kd(tank, 2, 6, 1, speed, 'kd', kp, ki, 0)
     # kd = find_kp_ki_kd(tank, kd - .5, kd + .5, 0.1, speed, 'kd', kp, ki, 0)
     # print("\n\n\n%s\nkd %s\n%s\n\n\n" % ("" * 10, kd, "*" * 10))
-    speed = SpeedPercent(15)
+    speed = SpeedPercent(14)
     kp = 3.4
-    kd = 0.1
-    ki = 0
+    kd = 0.5
+    ki = 0.01
     
     log.warning("Final results: kp %s, ki %s, kd %s" % (kp, ki, kd))
 

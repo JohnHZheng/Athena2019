@@ -9,7 +9,7 @@
 			"name": "Download and Run",
 			"type": "ev3devBrowser",
 			"request": "launch",
-			"program": "/home/robot/EanZheng/Python3.py"
+			"program": "/home/robot/EanZheng/kpkikd.py"
 		}
 	]
 }
