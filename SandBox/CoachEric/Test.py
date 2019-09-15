@@ -6,6 +6,7 @@ from ev3dev2.sound import Sound
 from time import sleep
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
+from ev3dev2.sound import Sound
 import math
 import sys 
 import time
@@ -16,7 +17,7 @@ LeftSensor      = ColorSensor(INPUT_1)
 RightSensor     = ColorSensor(INPUT_4)
 LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
-
+sound           = Sound()
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(-405),SpeedDPS(-400), 1.3,False,True)
     TankPair.on_for_seconds(SpeedDPS(-255),SpeedDPS(-250), 1.2,False,True)
@@ -44,6 +45,15 @@ def LineFollowing(Degree):
 #TankPair.on_for_seconds(SpeedDPS(-250),SpeedDPS(-150), 1)
 LineFollowing(1300)
 #print("LeftWheelAngleOld:{0}, LeftWheelAngleNew:{2}", AngleOld, AngleNew, file=sys.stderr)
+ #def Step3():
+	#TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250),230 )
+
+#def Step4():#TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(250), 100,True,True)
+    
+
+sound.beep()
+print("LeftSensor - reflected:{0}, color:{1}", LeftSensor.reflected_light_intensity, LeftSensor.color_name, file=sys.stderr)
+print("RightSensor - reflected:{0}, color:{1}", RightSensor.reflected_light_intensity, RightSensor.color_name, file=sys.stderr)
 #Step1()
 #Step2()
 #Step3()
