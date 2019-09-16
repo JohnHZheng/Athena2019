@@ -57,12 +57,16 @@ class AthenaRobot(object):
         else:
             leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
 
-
-    def lineFollow(self,whiteThres, blackThres, scale):
-        while True:
-            reflect = self.rightSensor.reflected_light_intensity
-            Bpower = (whiteThres-reflect)*scale
-            Cpower = (reflect-blackThres)*scale
+    # Following a line with one sensor
+    def lineFollow(self,whiteThreshold=98, blackThreshold=15, scale=0.3, useRightSensor = True, runDistanceCM = 300):
+        # Repeats when initiated
+        initialPos = self.leftLargeMotor.position   # remember initial position
+        loop = True
+        while loop:
+            reflect = self.leftSensor.reflected_light_intensity
+            if useRightSensor:
+                reflect = self.rightSensor.reflected_light_intensity
+            Bpower = abs(whiteThreshold-reflect)*scale
             Cpower = abs(reflect-blackThreshold)*scale
             self.leftLargeMotor.on(Bpower)
             self.rightLargeMotor.on(Cpower)
