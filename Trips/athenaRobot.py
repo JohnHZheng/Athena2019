@@ -63,9 +63,20 @@ class AthenaRobot(object):
             reflect = self.rightSensor.reflected_light_intensity
             Bpower = (whiteThres-reflect)*scale
             Cpower = (reflect-blackThres)*scale
+            Cpower = abs(reflect-blackThreshold)*scale
             self.leftLargeMotor.on(Bpower)
             self.rightLargeMotor.on(Cpower)
-            print("reflect: {0:3d} leftPower: {1:3f} rightPower: {2:3f}".format(reflect, Bpower, Cpower), file=sys.stderr)
+            # Calculate the distance run in CM
+            distanceRanInCM = (self.leftLargeMotor.position - initialPos) * (self.wheelCircumferenceCm / self.leftLargeMotor.count_per_rot)
+            # Printing the reflected light intensity with the powers of the two motors
+            print("reflect: {0:3d} leftPower: {1:3f} rightPower: {2:3f} lMotorPos: {3:3d} distanceRanInCM {4:3f}".format(reflect, Bpower, Cpower, 
+                self.leftLargeMotor.position, distanceRanInCM), file=sys.stderr)
+
+            if distanceRanInCM >= runDistanceCM:
+                loop = False
+        # Stopping the motor once the loop is over
+        self.leftLargeMotor.off()
+        self.rightLargeMotor.off()
 
     # run until both conditions are met
     def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
