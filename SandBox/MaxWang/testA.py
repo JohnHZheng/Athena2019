@@ -21,7 +21,7 @@ sound           = Sound()
 
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(450),SpeedDPS(455), 1.3,False,True)
-    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(260), 1.6,False,True)
+    TankPair.on_for_seconds(SpeedDPS(345),SpeedDPS(350), 1,False,True)
 
 def Step2():   
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 250,True,True)
@@ -37,26 +37,34 @@ def Step2():
     TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 20,True,True)
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250), 250,True,True)   
     
-    def step3():
-         TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250), 150)
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(0), 75)
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 500)
-    
-    
+def Step3():
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(0), 125)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 100)
+    TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(0), 125)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 315)
+    LeftAction.on_for_seconds(80, 1.2)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),150,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(250),125,True,True )
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),150,True,True )
+    LeftAction.on_for_seconds(-80, 0.8,True,False)
 
 
- 
+def Step4():
+     TankPair.on_for_seconds(SpeedDPS(400), SpeedDPS(400),1,True,True )
+     TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250),125,True,True )
+     TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(300),425,True,True )
+     TankPair.on_for_seconds(SpeedDPS(400), SpeedDPS(400),1,True,True )
 
 def LineFollowing(Degree):
     DegreeSum = 0
     AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
     while DegreeSum < Degree:
         if LeftSensor.color == ColorSensor.COLOR_WHITE:
-            RightWheel.on(SpeedDPS(230))
-            LeftWheel.on(SpeedDPS(80))
+            RightWheel.on(SpeedDPS(200))
+            LeftWheel.on(SpeedDPS(50))
         else:
-            LeftWheel.on(SpeedDPS(230))
-            RightWheel.on(SpeedDPS(80))  
+            LeftWheel.on(SpeedDPS(200))
+            RightWheel.on(SpeedDPS(50))  
         #print("LeftSensor - color:{0}", LeftSensor.color_name, file=sys.stderr)
         AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
         DegreeSum   = DegreeSum + AngleNew - AngleOld
@@ -64,14 +72,10 @@ def LineFollowing(Degree):
     LeftWheel.off()
     RightWheel.off()    
 
-
-
- 
-
 Step1()
 Step2()
-LineFollowing(1200)
+LineFollowing(1100)
 Step3()
-
+Step4()
 
 
