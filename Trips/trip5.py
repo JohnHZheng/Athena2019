@@ -9,14 +9,6 @@ import math
 import sys 
 from athenaRobot import AthenaRobot
 
-def runTrip2():
-        wheelRadiusCm = 4
-        wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
-        leftMotor = LargeMotor(OUTPUT_C)
-        rightMotor = LargeMotor(OUTPUT_B) 
-        leftSensor = ColorSensor(INPUT_4)
-        rightSensor = ColorSensor(INPUT_1)
-        forkliftMtr= MediumMotor(OUTPUT_D)
-        robot = AthenaRobot()
-        robot.turn(45)
-       
+def runTrip5():
+    sound = Sound()
+    sound.speak('This is trip five. More to come...', espeak_opts='-a 200 -s 130 -ven+m7', volume=100)
