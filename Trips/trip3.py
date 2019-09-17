@@ -12,11 +12,8 @@ def runTrip3():
     sound = Sound()
     # sound.speak('This is trip three. Currently for Calibration.', espeak_opts='-a 200 -s 130 -ven+m7' + 'en+whisper', volume=100)
     robot = AthenaRobot()
-    robot.calibrateColorSensor(INPUT_4)
-    robot.calibrateColorSensor(INPUT_1)
-    sound.beep()
-    robot.testColorSensor(INPUT_1,1)
-    robot.testColorSensor(INPUT_4,4)
+    robot.lineFollow(98, 15, 0.3)
+
     
     #Calibrating both sensors
 
