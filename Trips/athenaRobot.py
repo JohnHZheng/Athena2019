@@ -19,8 +19,8 @@ class AthenaRobot(object):
         self.wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
         self.leftLargeMotor = LargeMotor(leftLargeMotorPort)
         self.rightLargeMotor = LargeMotor(rightLargeMotorPort) 
-        self.leftMediamMotor = MediumMotor(leftMediumMotorPort)
-        self.rightMediamMotor = MediumMotor(rightMediumMotorPort)
+        self.leftMediumMotor = MediumMotor(leftMediumMotorPort)
+        self.rightMediumMotor = MediumMotor(rightMediumMotorPort)
         self.leftSensor = ColorSensor(leftSensorPort)
         self.rightSensor = ColorSensor(rightSensorPort)
 
@@ -42,20 +42,20 @@ class AthenaRobot(object):
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
-    def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
+    def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.6
         self.leftLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
-    def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
+    def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.6
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
     #Medium Motor Movement
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
         if isLeft == False:
-            rightMediamMotor.on_for_degrees(speed,degrees,brake,block)
+            self.rightMediumMotor.on_for_degrees(speed,degrees,brake,block)
         else:
-            leftMediamMotor.on_for_degrees(speed,degrees,brake,block)
+            self.leftMediumMotor.on_for_degrees(speed,degrees,brake,block)
 
     # Following a line with one sensor
     def lineFollow(self,whiteThreshold=98, blackThreshold=15, scale=0.3, useRightSensor = True, runDistanceCM = 300):
@@ -218,3 +218,15 @@ class AthenaRobot(object):
             times = times + 1
         self.leftLargeMotor.off()
         self.rightLargeMotor.off()       
+
+    def testRobot(self):
+        #self.turn(90)
+        # self.turnOnLeftWheel(90)
+        # sleep(1)
+        # self.turnOnRightWheel(90)
+        # sleep(1)
+        # self.moveMediumMotor(True,10,360) 
+        # sleep(1)
+        # self.moveMediumMotor(False,10,360)
+        # sleep(1)
+        

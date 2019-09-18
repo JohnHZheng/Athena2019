@@ -14,5 +14,4 @@ def runTrip5():
     #sound = Sound()
     #sound.speak('This is trip five. More to come...', espeak_opts='-a 200 -s 130 -ven+m7', volume=100)
     robot = AthenaRobot()
-    robot.turnOnLeftWheel(90)
-    #robot.turnRightOneWheel(90)
+    robot.testRobot()
