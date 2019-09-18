@@ -6,6 +6,7 @@ from trip1 import runTrip1, Trip1Tryout
 from trip2 import runTrip2
 from trip3 import runTrip3
 from trip4 import runTrip4
+from trip5 import runTrip5
 from time import sleep
 import os
 os.system('setfont Uni3-TerminusBold16')
@@ -35,4 +36,5 @@ while contin:
         runTrip4()
         sound.beep()
     elif btn.enter == True:
-        contin = False
+        runTrip5()
+        sound.beep()
