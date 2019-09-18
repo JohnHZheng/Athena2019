@@ -37,17 +37,17 @@ class AthenaRobot(object):
     # turn a angle in degrees, positive means turn right and negative means turn left.
     def turn(self, degree, speed = 10, brake = True , block = True):
         # 1.9 is a scale factor from experiments
-        degreesToRun = degree * 1.5
+        degreesToRun = degree * 1.27
         # Turn at the speed 
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
-    def turnRightOneWheel(self, degree, speed = 10, brake = True, block = True):
-        degreesToRun = degree * 1.5
+    def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
+        degreesToRun = degree * 2.6
         self.leftLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
-    def turnLeftOneWheel(self, degree, speed = 10, brake = True, block = True):
-        degreesToRun = degree * 1.5
+    def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
+        degreesToRun = degree * 2.6
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
     #Medium Motor Movement
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
