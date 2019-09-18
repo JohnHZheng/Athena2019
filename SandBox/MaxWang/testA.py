@@ -35,47 +35,44 @@ def Step2():
     LeftWheel.off()
     RightWheel.off()
     TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 20,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250), 250,True,True)   
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(350), 250,True,True)   
     
-def Step3():
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(0), 125)
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 100)
-    TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(0), 125)
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250), 315)
-    LeftAction.on_for_seconds(80, 1.2)
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),150,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(250),125,True,True )
-    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),150,True,True )
-    LeftAction.on_for_seconds(-80, 0.8,True,False)
 
-
-def Step4():
-     TankPair.on_for_seconds(SpeedDPS(400), SpeedDPS(400),1,True,True )
-     TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250),125,True,True )
-     TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(300),425,True,True )
-     TankPair.on_for_seconds(SpeedDPS(400), SpeedDPS(400),1,True,True )
-
-def LineFollowing(Degree):
+def LineFollowing(FastSpeed,SlowSpeed,Degree):
     DegreeSum = 0
     AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
     while DegreeSum < Degree:
         if LeftSensor.color == ColorSensor.COLOR_WHITE:
-            RightWheel.on(SpeedDPS(200))
-            LeftWheel.on(SpeedDPS(50))
+            RightWheel.on(SpeedDPS(FastSpeed))
+            LeftWheel.on(SpeedDPS(SlowSpeed))
         else:
-            LeftWheel.on(SpeedDPS(200))
-            RightWheel.on(SpeedDPS(50))  
+            LeftWheel.on(SpeedDPS(FastSpeed))
+            RightWheel.on(SpeedDPS(SlowSpeed))  
         #print("LeftSensor - color:{0}", LeftSensor.color_name, file=sys.stderr)
         AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
         DegreeSum   = DegreeSum + AngleNew - AngleOld
         AngleOld    = AngleNew
     LeftWheel.off()
-    RightWheel.off()    
+    RightWheel.off()  
+def Step3():  
+    LineFollowing(200,70,400)
+    TankPair.on_for_degrees(SpeedDPS(300), SpeedDPS(300),350,True,True )
+    LineFollowing(150,40,350)
+    TankPair.on_for_degrees(SpeedDPS(-200), SpeedDPS(200),100,True,True )
+    TankPair.on_for_degrees(SpeedDPS(300), SpeedDPS(300),120,True,True )
+
+def Step4():
+    TankPair.on_for_degrees(SpeedDPS(-300), SpeedDPS(-300),200,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(0),380,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250),475,True,True)
+    TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(0),150,True,True)
+
+    
 
 Step1()
 Step2()
-LineFollowing(1100)
 Step3()
 Step4()
+
 
 
