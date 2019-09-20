@@ -19,34 +19,14 @@ rightSensor = ColorSensor(INPUT_1)
 forkliftMtr= MediumMotor(OUTPUT_D)
 
 def runTrip1():
-    sound = Sound()
-    leds = Leds()
-	# Four lists to randomize the quotes, voices, colors, and lights.
-    thingsToTalk = ["Go Athena", "Yeah, we won, we rock", "We are the Champions","Lets Go Athena Lets Go","we are big brain"]
-    toneOptions=['en+m7', 'en+f1', 'en+f5','en+m1','en+croak','en+whisper', 'en-rp']
-    ColorOptions = ['BLACK','RED','ORANGE','AMBER','YELLOW','GREEN']
-    SideOptions = ['LEFT','RIGHT']
-	# Four randoms to randomize the quotes, voices, colors, and lights as well.
-    talkRandom = random.SystemRandom()
-    toneRandom = random.SystemRandom()
-    ColorRandom = random.SystemRandom()
-    SideRandom = random.SystemRandom()
-	# Options for speak
-    opts = '-a 200 -s 130 -v'
-    for x in range(5):
-        for y in range(3):
-			# Randomizing the Colors and Sides for the light 3 times
-            leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
-            sleep(0.1)
-            leds.set_color(SideRandom.choice(SideOptions), ColorRandom.choice(ColorOptions))
-            sleep(0.1)
-        # Randomizing the volume, tone, and quote.
-        sound.speak(talkRandom.choice(thingsToTalk), espeak_opts=opts + toneRandom.choice(toneOptions), volume=100) # long form
+    robot = AthenaRobot()
+    robot.run(75, 30)
+    robot.run(-75, 30)
 def Trip1Tryout(): 
     wheelRadiusCm = 4
     wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
     leftMotor = LargeMotor(OUTPUT_C)
-    rightMotor = LargeMotor(OUTPUT_B) 
+    rightMotor = LargeMotor(OUTPUT_B)
     leftSensor = ColorSensor(INPUT_4)
     rightSensor = ColorSensor(INPUT_1)
     forkliftMtr= MediumMotor(OUTPUT_D)
