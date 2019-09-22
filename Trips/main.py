@@ -24,7 +24,7 @@ sound.beep()
 while contin:
 
     if btn.left == True:
-        runTrip1()
+        Trip1Tryout()
         sound.beep()
     elif btn.up == True:
         runTrip2()

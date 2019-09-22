@@ -58,18 +58,18 @@ class AthenaRobot(object):
             self.leftMediumMotor.on_for_degrees(speed,degrees,brake,block)
 
     # Following a line with one sensor
-    def lineFollow(self,whiteThreshold=98, blackThreshold=15, scale=0.3, useRightSensor = True, runDistanceCM = 300, leftEdge = True, reverse = False):
+    def lineFollow(self,whiteThreshold=98, blackThreshold=15, scale=0.3, useLeftSensor = True, runDistanceCM = 300, useLeftEdge = True, reverse = False):
         # Repeats when initiated
         initialPos = self.leftLargeMotor.position   # remember initial position
         loop = True
         while loop:
             reflect = self.leftSensor.reflected_light_intensity
-            if useRightSensor:
+            if useLeftSensor == False:
                 reflect = self.rightSensor.reflected_light_intensity
-            leftPower = abs(whiteThreshold-reflect)*scale
-            rightPower = abs(reflect-blackThreshold)*scale
-            # if we follow the right edge, need to swap B and C
-            if leftEdge == False:
+            leftPower = abs(reflect-blackThreshold)*scale
+            rightPower = abs(whiteThreshold-reflect)*scale
+            # if we follow the right edge, need to swap left and right
+            if useLeftEdge == False:
                 oldLeft = leftPower
                 leftPower = rightPower
                 rightPower = oldLeft
