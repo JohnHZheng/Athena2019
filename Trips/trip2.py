@@ -18,5 +18,9 @@ def runTrip2():
         rightSensor = ColorSensor(INPUT_1)
         forkliftMtr= MediumMotor(OUTPUT_D)
         robot = AthenaRobot()
-        robot.turn(45)
-       
+        forkliftMtr.on(30)
+        sleep(1)
+        forkliftMtr.off()
+        forkliftMtr.on(-30)
+        sleep(1)
+        forkliftMtr.off()

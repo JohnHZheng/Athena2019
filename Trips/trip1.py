@@ -51,8 +51,13 @@ def Trip1Tryout():
     rightSensor = ColorSensor(INPUT_1)
     forkliftMtr= MediumMotor(OUTPUT_D)
     robot = AthenaRobot()
-    
-    robot.run(60,20)
+    robot.testRobot()
+    #robot.lineFollow(useRightSensor=False,runDistanceCM=50, leftEdge= False, scale=.1)
+    #robot.run(55,-23)
+    # robot.lineFollow(useRightSensor=False,runDistanceCM=20, reverse= True)
+    # robot.turnOnLeftWheel(1200,-20,block=False)
+    # robot.turnOnRightWheel(1200,-20.5)
+
 
     """
     robot.turn(30090)
