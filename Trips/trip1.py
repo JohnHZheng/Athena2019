@@ -32,7 +32,7 @@ def Trip1Tryout():
     forkliftMtr= MediumMotor(OUTPUT_D)
     robot = AthenaRobot()
     # robot.testRobot()
-    robot.lineFollow(useLeftSensor = True,runDistanceCM=50, useLeftEdge = False, scale=.1)
+    robot.lineFollow(useLeftSensor = True, useLeftEdge = True, useBackSensor = True, runDistanceCM = 50, scale=.20)
     #robot.run(55,-23)
     # robot.lineFollow(useRightSensor=False,runDistanceCM=20, reverse= True)
     # robot.turnOnLeftWheel(1200,-20,block=False)

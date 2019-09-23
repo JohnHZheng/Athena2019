@@ -23,6 +23,7 @@ class AthenaRobot(object):
         self.rightMediumMotor = MediumMotor(rightMediumMotorPort)
         self.leftSensor = ColorSensor(leftSensorPort)
         self.rightSensor = ColorSensor(rightSensorPort)
+        
 
     # run a distance in centimeters at speed of centimeters per second
     def run(self, distanceCm, speedCmPerSecond, brake=True, block=True):
@@ -58,16 +59,25 @@ class AthenaRobot(object):
             self.leftMediumMotor.on_for_degrees(speed,degrees,brake,block)
 
     # Following a line with one sensor
-    def lineFollow(self,whiteThreshold=98, blackThreshold=15, scale=0.3, useLeftSensor = True, runDistanceCM = 300, useLeftEdge = True, reverse = False):
-        # Repeats when initiated
+    def lineFollow(self, whiteThreshold = 98, blackThreshold = 15, scale=0.2, useLeftSensor = True, useLeftEdge = True, useBackSensor = False, runDistanceCM = 300, ):
+        self.leftLargeMotor.reset()
+        self.rightLargeMotor.reset()
+        backsensor = None
+        # Allow an attached backsensor. If useBackSensor, defining back sensor and revert useLeftEdge since motor is actually going backward
+        if useBackSensor:
+            backsensor = ColorSensor(INPUT_2)
+            useLeftEdge = not useLeftEdge
         initialPos = self.leftLargeMotor.position   # remember initial position
         loop = True
         while loop:
-            reflect = self.leftSensor.reflected_light_intensity
-            if useLeftSensor == False:
-                reflect = self.rightSensor.reflected_light_intensity
-            leftPower = abs(reflect-blackThreshold)*scale
-            rightPower = abs(whiteThreshold-reflect)*scale
+            # use left or right sensor based on passed in useLeftSensor
+            reflect = self.leftSensor.reflected_light_intensity if useLeftSensor == True else self.rightSensor.reflected_light_intensity
+            # Allow an attached backsensor. If useBackSensor, use reflected_light_intensity of that sensor
+            if useBackSensor:
+                reflect = backsensor.reflected_light_intensity
+            speedSign = 1 if not useBackSensor else -1
+            leftPower = abs(reflect-blackThreshold) * scale * speedSign
+            rightPower = abs(whiteThreshold-reflect) * scale * speedSign
             # if we follow the right edge, need to swap left and right
             if useLeftEdge == False:
                 oldLeft = leftPower
