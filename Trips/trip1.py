@@ -23,20 +23,14 @@ def runTrip1():
     robot.run(75, 30)
     robot.run(-75, 30)
 def Trip1Tryout(): 
-    wheelRadiusCm = 4
-    wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
-    leftMotor = LargeMotor(OUTPUT_C)
-    rightMotor = LargeMotor(OUTPUT_B)
-    leftSensor = ColorSensor(INPUT_4)
-    rightSensor = ColorSensor(INPUT_1)
-    forkliftMtr= MediumMotor(OUTPUT_D)
     robot = AthenaRobot()
-    # robot.testRobot()
-    robot.lineFollow(useLeftSensor = True, useLeftEdge = True, useBackSensor = True, runDistanceCM = 50, scale=.20)
-    #robot.run(55,-23)
-    # robot.lineFollow(useRightSensor=False,runDistanceCM=20, reverse= True)
-    # robot.turnOnLeftWheel(1200,-20,block=False)
-    # robot.turnOnRightWheel(1200,-20.5)
+    robot.run(35,-20)
+    robot.lineFollow(useLeftSensor = True, useLeftEdge = True, useBackSensor = True, runDistanceCM = 17, scale=.15)
+    robot.run(20,-8)
+    robot.run(5,10)
+    robot.moveMediumMotor(True,-50,710)
+    robot.run(20,20)
+   
 
 
     """

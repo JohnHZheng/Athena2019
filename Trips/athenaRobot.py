@@ -63,7 +63,7 @@ class AthenaRobot(object):
         self.leftLargeMotor.reset()
         self.rightLargeMotor.reset()
         backsensor = None
-        # Allow an attached backsensor. If useBackSensor, defining back sensor and revert useLeftEdge since motor is actually going backward
+        # Allow an attached backsensor. Ixf useBackSensor, defining back sensor and revert useLeftEdge since motor is actually going backward
         if useBackSensor:
             backsensor = ColorSensor(INPUT_2)
             useLeftEdge = not useLeftEdge
