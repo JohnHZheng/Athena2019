@@ -25,25 +25,25 @@ def runTrip1():
 def Trip1Tryout(): 
     robot = AthenaRobot()
     
-    # robot.run(35,-20) # move robot to the starting point of the line
-    # # following the left edge of the line
-    # robot.lineFollow(useLeftSensor = True, useLeftEdge = True, useBackSensor = True, runDistanceCM = 17, scale=.15)
-    # robot.run(20,-8) # pushing units into place
-    # robot.run(5,10)
+    #robot.run(43,20) # move robot to the starting point of the line
+    # following the left edge of the line
+    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 17, scale=.15)
+    # robot.run(20,8) # pushing units into place
+    # robot.run(5,-10)
     # # letting go of the attatchment
-    # robot.moveMediumMotor(True,-50,710)
-    # robot.run(30,20) #backward for 24 centimeters
+    # robot.moveMediumMotor(False,-50,710)
+    # robot.run(30,-20) #backward for 24 centimeters
     
     # #hanging the bat on the tree
-    # robot.moveMediumMotor(True,50,710)
+    # robot.moveMediumMotor(False,50,710)
 
 
 
 
 
-    robot.turnOnRightWheel(-100, 15)
+    # robot.turnOnRightWheel(-100, 15)
 
-    robot.lineFollow(useLeftSensor = True, useLeftEdge = False, useBackSensor = True, runDistanceCM = 46, scale=.12)
+    # robot.lineFollow(useLeftSensor = False, useLeftEdge = False, runDistanceCM = 46, scale=.12)
 
 
 

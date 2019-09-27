@@ -19,7 +19,7 @@ print('1 - Left for Trip 1')
 print('2 - Up for Trip 2')
 print('3 - Right for Trip 3')
 print('4 - Down for Trip 4')
-print('5 - Center to Exit')
+print('5 - Center for Trip 5')
 sound.beep()
 while contin:
 
