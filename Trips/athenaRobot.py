@@ -95,8 +95,8 @@ class AthenaRobot(object):
     # run until both conditions are met
     def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
          # Start motor at passed speonUntilTwoConditionsed. 
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed)    
+        self.leftLargeMotor.on(-speed)
+        self.rightLargeMotor.on(-speed)    
 
         condLeftCounter = 0
         condRightCounter = 0
@@ -148,8 +148,8 @@ class AthenaRobot(object):
     # run until condition is met
     def onUntilCondition(self, condition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
          # Start motor at passed speonUntilTwoConditionsed. 
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed)    
+        self.leftLargeMotor.on(-speed)
+        self.rightLargeMotor.on(-speed)    
         counter = 0
         condMet = False
      
@@ -176,7 +176,7 @@ class AthenaRobot(object):
         self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
     def onUntilRightBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
-    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+    def onUntilRightWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
 
     #Go to the Bridge

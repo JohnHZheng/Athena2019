@@ -24,9 +24,10 @@ def runTrip1():
     robot.run(-75, 30)
 def Trip1Tryout(): 
     robot = AthenaRobot()
-    robot.run(44, 20) # move robot to the starting point of the line
+    robot.run(44, 20, False) # move robot to the starting point of the line
     # following the left edge of the line
-    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 17, scale=.15)
+    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 19, scale=.15)
+    robot.onUntilRightWhite(10, consecutiveHit=2)
     #robot.run(20,8) # pushing units into place
     #robot.run(5,-10)
     # # letting go of the attatchment
