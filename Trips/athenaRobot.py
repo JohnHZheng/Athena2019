@@ -33,8 +33,8 @@ class AthenaRobot(object):
         speedDegreePerSecond = speedCmPerSecond / self.wheelCircumferenceCm * 360
         print("Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftLargeMotor.max_speed), file=sys.stderr)
         # run motors based on the calculated results
-        self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * -1, degreesToRun, brake, False)
-        self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * -1 , degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1), degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1) , degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
     def turn(self, degree, speed = 10, brake = True , block = True):
@@ -245,13 +245,17 @@ class AthenaRobot(object):
         self.turn(90)
         sleep(.1)
         self.turn(-90)
-        sleep(1)
+        sleep(.1)
         self.turnOnLeftWheel(90)
-        sleep(1)
+        sleep(.1)
         self.turnOnLeftWheel(-90)
-        sleep(1)
+        sleep(.1)
         self.turnOnRightWheel(90)
-        sleep(1)
+        sleep(.1)
         self.turnOnRightWheel(-90)
-        sleep(1)       
+        sleep(.1)
+        self.calibrateColorSensor(INPUT_1)
+        self.calibrateColorSensor(INPUT_4)
+        self.testColorSensor(INPUT_1, 1)
+        self.testColorSensor(INPUT_4, 4)               
 
