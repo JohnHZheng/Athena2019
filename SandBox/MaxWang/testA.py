@@ -21,10 +21,10 @@ sound           = Sound()
 
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(450),SpeedDPS(455), 1.3,False,True)
-    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(180), 1.2,False,True)
+    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(180), 1.5,False,True)
 
 def Step2():   
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 250,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 200,True,True)
     TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 200,True,True)
     while LeftSensor.color !=1:
         TankPair.on(SpeedDPS(150),SpeedDPS(150))
@@ -66,12 +66,20 @@ def Step3():
 
 def Step4():
     TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(250),230,True,True )
-    TankPair.on_for_degrees(SpeedDPS(-260), SpeedDPS(-260),240,True,True )
-    LeftAction.on_for_degrees(-100,1100 )
-    TankPair.on_for_degrees(SpeedDPS(245), SpeedDPS(245),125,True,True )
- #   LeftAction.on_for_degrees(100, 600)
-    TankPair.on_for_degrees(SpeedDPS(-245), SpeedDPS(-245),300,True,True )
-    LeftAction.on_for_degrees(100,1100)
+    TankPair.on_for_degrees(SpeedDPS(-260), SpeedDPS(-260),100,True,True )
+    #TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(-260),60,True,True )
+    n = 0
+    while n<3:
+        TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(-150),30,True,True )
+        TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(150),20,True,True )
+        TankPair.on_for_degrees(SpeedDPS(-150), SpeedDPS(-150),40,True,True )
+        n = n+1
+    LeftAction.on_for_degrees(-100,700 )
+    TankPair.on_for_degrees(SpeedDPS(245), SpeedDPS(245),80,True,True )
+    LeftAction.on_for_degrees(100, 200)
+    #TankPair.on_for_degrees(SpeedDPS(-260), SpeedDPS(0),75,True,True )
+    TankPair.on_for_degrees(SpeedDPS(-245), SpeedDPS(-245),200,True,True )
+    LeftAction.on_for_degrees(100,500)
      
 def Step5():
     TankPair.on_for_degrees(SpeedDPS(-250), SpeedDPS(-250),415,True,True )
@@ -81,7 +89,7 @@ def Step5():
     TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),700,True,True )
     RightAction.on_for_degrees(100,650 )
 def Step6():
-    RightAction.on_for_degrees(-100,1200)
+    LeftAction.on_for_degrees(-100,1000)
 
 
     
@@ -90,7 +98,6 @@ Step1()
 Step2()
 Step3()
 Step4()
-
 #Step5()
 #Step6()
 
