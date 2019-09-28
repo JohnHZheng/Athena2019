@@ -4,7 +4,7 @@ from ev3dev2.motor import LargeMotor,MediumMotor, OUTPUT_D, OUTPUT_A,  OUTPUT_C,
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM, MoveTank, MoveSteering, SpeedPercent
 from ev3dev2.sound import Sound
 from time import sleep
-from ev3dev2.sensor.lego import ColorSensor
+from ev3dev2.sensor.lego import ColorSensor, UltrasonicSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
 import math
 import sys 
@@ -12,8 +12,8 @@ import time
 sound = Sound()
 class AthenaRobot(object):
     # constructors for the robot with default parameters of wheel radius and ports
-    def __init__(self, wheelRadiusCm = 4, leftLargeMotorPort = OUTPUT_C, rightLargeMotorPort = OUTPUT_B, 
-    leftMediumMotorPort = OUTPUT_D, rightMediumMotorPort = OUTPUT_A, leftSensorPort = INPUT_4, rightSensorPort = INPUT_1):
+    def __init__(self, wheelRadiusCm = 4, leftLargeMotorPort = OUTPUT_B, rightLargeMotorPort = OUTPUT_C, 
+    leftMediumMotorPort = OUTPUT_A, rightMediumMotorPort = OUTPUT_D, leftSensorPort = INPUT_1, rightSensorPort = INPUT_4, ultraSonicSensorPort = INPUT_2):
         #self is the current object, everything below for self are member variables
         self.wheelRadiusCm = wheelRadiusCm
         self.wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
@@ -23,6 +23,7 @@ class AthenaRobot(object):
         self.rightMediumMotor = MediumMotor(rightMediumMotorPort)
         self.leftSensor = ColorSensor(leftSensorPort)
         self.rightSensor = ColorSensor(rightSensorPort)
+        self.ultraSonicSensor = UltrasonicSensor(ultraSonicSensorPort) 
         
 
     # run a distance in centimeters at speed of centimeters per second
@@ -32,16 +33,16 @@ class AthenaRobot(object):
         speedDegreePerSecond = speedCmPerSecond / self.wheelCircumferenceCm * 360
         print("Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftLargeMotor.max_speed), file=sys.stderr)
         # run motors based on the calculated results
-        self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, False)
-        self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond), degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1), degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1) , degreesToRun, brake, block)
 
     # turn a angle in degrees, positive means turn right and negative means turn left.
     def turn(self, degree, speed = 10, brake = True , block = True):
         # 1.9 is a scale factor from experiments
-        degreesToRun = degree * 1.27
+        degreesToRun = degree * 1.275
         # Turn at the speed 
-        self.leftLargeMotor.on_for_degrees(speed, degreesToRun, brake, False)
-        self.rightLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
+        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
     def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
@@ -59,32 +60,26 @@ class AthenaRobot(object):
             self.leftMediumMotor.on_for_degrees(speed,degrees,brake,block)
 
     # Following a line with one sensor
-    def lineFollow(self, whiteThreshold = 98, blackThreshold = 15, scale=0.2, useLeftSensor = True, useLeftEdge = True, useBackSensor = False, runDistanceCM = 300, ):
+    def lineFollow(self, whiteThreshold = 98, blackThreshold = 15, scale=0.2, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 300, ):
         self.leftLargeMotor.reset()
         self.rightLargeMotor.reset()
-        backsensor = None
         # Allow an attached backsensor. Ixf useBackSensor, defining back sensor and revert useLeftEdge since motor is actually going backward
-        if useBackSensor:
-            backsensor = ColorSensor(INPUT_2)
-            useLeftEdge = not useLeftEdge
         initialPos = self.leftLargeMotor.position   # remember initial position
         loop = True
         while loop:
             # use left or right sensor based on passed in useLeftSensor
             reflect = self.leftSensor.reflected_light_intensity if useLeftSensor == True else self.rightSensor.reflected_light_intensity
             # Allow an attached backsensor. If useBackSensor, use reflected_light_intensity of that sensor
-            if useBackSensor:
-                reflect = backsensor.reflected_light_intensity
-            speedSign = 1 if not useBackSensor else -1
-            leftPower = abs(reflect-blackThreshold) * scale * speedSign
-            rightPower = abs(whiteThreshold-reflect) * scale * speedSign
+
+            leftPower = abs(reflect-blackThreshold) * scale
+            rightPower = abs(whiteThreshold-reflect) * scale
             # if we follow the right edge, need to swap left and right
             if useLeftEdge == False:
                 oldLeft = leftPower
                 leftPower = rightPower
                 rightPower = oldLeft
-            self.leftLargeMotor.on(leftPower)
-            self.rightLargeMotor.on(rightPower)
+            self.leftLargeMotor.on(-leftPower)
+            self.rightLargeMotor.on(-rightPower)
             # Calculate the distance run in CM
             distanceRanInCM = abs((self.leftLargeMotor.position - initialPos) * (self.wheelCircumferenceCm / self.leftLargeMotor.count_per_rot))
             # Printing the reflected light intensity with the powers of the two motors
@@ -100,8 +95,8 @@ class AthenaRobot(object):
     # run until both conditions are met
     def onUntilTwoConditions(self, leftCondition, rightCondition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
          # Start motor at passed speonUntilTwoConditionsed. 
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed)    
+        self.leftLargeMotor.on(-speed)
+        self.rightLargeMotor.on(-speed)    
 
         condLeftCounter = 0
         condRightCounter = 0
@@ -153,8 +148,8 @@ class AthenaRobot(object):
     # run until condition is met
     def onUntilCondition(self, condition, speed = 5, consecutiveHit = 5, sleepTime = 0.01):
          # Start motor at passed speonUntilTwoConditionsed. 
-        self.leftLargeMotor.on(speed)
-        self.rightLargeMotor.on(speed)    
+        self.leftLargeMotor.on(-speed)
+        self.rightLargeMotor.on(-speed)    
         counter = 0
         condMet = False
      
@@ -181,7 +176,7 @@ class AthenaRobot(object):
         self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
     def onUntilRightBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, consecutiveHit, sleepTime)
-    def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
+    def onUntilRightWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, consecutiveHit, sleepTime)
 
     #Go to the Bridge
@@ -235,16 +230,32 @@ class AthenaRobot(object):
         self.rightLargeMotor.off()       
 
     def testRobot(self):
-        # self.leftLargeMotor.on_for_degrees( 20, 360, True , True)
-        # sleep(1)
-        # self.rightLargeMotor.on_for_degrees( 20, 360, True , True)
-        # self.turn(90)
-        # sleep(1)
-        # self.turnOnLeftWheel(90)
-        # sleep(1)
-        # self.turnOnRightWheel(90)
-        # sleep(1)
-        self.moveMediumMotor(True,10,360) 
-        sleep(1)
-        self.moveMediumMotor(False,10,360)
-        sleep(1)
+        self.leftLargeMotor.on_for_degrees(20,180)
+        sleep(.1)
+        self.rightLargeMotor.on_for_degrees(20,180)
+        sleep(.1)
+        self.moveMediumMotor(True,10,180)
+        sleep(.1)
+        self.moveMediumMotor(False,10,180)
+        sleep(.1)
+        self.run(20, 10) 
+        sleep(.1)
+        self.run(-20, 10) 
+        sleep(.1)        
+        self.turn(90)
+        sleep(.1)
+        self.turn(-90)
+        sleep(.1)
+        self.turnOnLeftWheel(90)
+        sleep(.1)
+        self.turnOnLeftWheel(-90)
+        sleep(.1)
+        self.turnOnRightWheel(90)
+        sleep(.1)
+        self.turnOnRightWheel(-90)
+        sleep(.1)
+        self.calibrateColorSensor(INPUT_1)
+        self.calibrateColorSensor(INPUT_4)
+        self.testColorSensor(INPUT_1, 1)
+        self.testColorSensor(INPUT_4, 4)               
+
