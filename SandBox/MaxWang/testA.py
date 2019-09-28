@@ -32,8 +32,8 @@ def Step2():
         TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
     LeftWheel.off()
     RightWheel.off()
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 100,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(400), 200, True,True) 
+    #TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 200,True,True)
+    #TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(400), 200, True,True) 
 
     
 
@@ -41,17 +41,18 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
     DegreeSum = 0
     AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
     while DegreeSum < Degree:
-        if LeftSensor.color == ColorSensor.COLOR_WHITE:
-            RightWheel.on(SpeedDPS(FastSpeed))
-            LeftWheel.on(SpeedDPS(SlowSpeed))
-        else:
+        if RightSensor.color == ColorSensor.COLOR_WHITE:
             LeftWheel.on(SpeedDPS(FastSpeed))
-            RightWheel.on(SpeedDPS(SlowSpeed))  
+            RightWheel.on(SpeedDPS(SlowSpeed))
+        else:
+            RightWheel.on(SpeedDPS(FastSpeed))
+            LeftWheel.on(SpeedDPS(SlowSpeed))  
         AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
         DegreeSum   = DegreeSum + AngleNew - AngleOld
         AngleOld    = AngleNew
     LeftWheel.off()
-    RightWheel.off()  
+    RightWheel.off()
+
 def Step3():  
     LineFollowing(200,70,400)
     TankPair.on_for_degrees(SpeedDPS(300), SpeedDPS(300),350,True,True )
