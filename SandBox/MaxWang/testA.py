@@ -20,11 +20,11 @@ sound           = Sound()
 
 
 def Step1():
-    TankPair.on_for_seconds(SpeedDPS(450),SpeedDPS(455), 1.3,False,True)
-    TankPair.on_for_seconds(SpeedDPS(250),SpeedDPS(180), 1.5,False,True)
+    TankPair.on_for_seconds(SpeedDPS(-310),SpeedDPS(-300), 2,False,True)
+    TankPair.on_for_seconds(SpeedDPS(-180),SpeedDPS(-180), 1,False,True)
 
 def Step2():   
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 200,True,True)
+    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 200,True,True)
     TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 200,True,True)
     while LeftSensor.color !=1:
         TankPair.on(SpeedDPS(150),SpeedDPS(150))
@@ -89,15 +89,18 @@ def Step5():
     TankPair.on_for_degrees(SpeedDPS(250), SpeedDPS(250),700,True,True )
     RightAction.on_for_degrees(100,650 )
 def Step6():
-    LeftAction.on_for_degrees(-100,1000)
+    LeftAction.on_for_degrees(-50,1100)
+    LeftAction.on_for_degrees(50,1100)
+    RightAction.on_for_degrees(50,850)
+    RightAction.on_for_degrees(-50,850)
 
 
     
 
 Step1()
-Step2()
-Step3()
-Step4()
+#Step2()
+#Step3()
+#Step4()
 #Step5()
 #Step6()
 
