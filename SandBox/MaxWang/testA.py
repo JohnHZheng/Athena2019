@@ -18,25 +18,6 @@ LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
 sound           = Sound()
 
-
-def Step1():
-    TankPair.on_for_seconds(SpeedDPS(-310),SpeedDPS(-300), 2,False,True)
-    TankPair.on_for_seconds(SpeedDPS(-180),SpeedDPS(-180), 1,False,True)
-
-def Step2():   
-    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 200,True,True)
-    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 200,True,True)
-    while RightSensor.color !=1:
-        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
-    while RightSensor.color != 6:
-        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
-    LeftWheel.off()
-    RightWheel.off()
-    #TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 200,True,True)
-    #TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(400), 200, True,True) 
-
-    
-
 def LineFollowing(FastSpeed,SlowSpeed,Degree):
     DegreeSum = 0
     AngleOld    = 360 * LeftWheel.position / LeftWheel.count_per_rot
@@ -48,10 +29,29 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
             RightWheel.on(SpeedDPS(FastSpeed))
             LeftWheel.on(SpeedDPS(SlowSpeed))  
         AngleNew    = 360 * LeftWheel.position / LeftWheel.count_per_rot
-        DegreeSum   = DegreeSum + AngleNew - AngleOld
+        DegreeSum   = DegreeSum + abs(AngleNew - AngleOld)
         AngleOld    = AngleNew
     LeftWheel.off()
     RightWheel.off()
+
+
+def Step1():
+    TankPair.on_for_seconds(SpeedDPS(-310),SpeedDPS(-300), 2,False,True)
+    TankPair.on_for_seconds(SpeedDPS(-180),SpeedDPS(-180), 1,False,True)
+
+def Step2():   
+    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 200,True,True)
+    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 150,True,True)
+    while RightSensor.color !=1:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
+    while RightSensor.color != 6:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
+    LeftWheel.off()
+    RightWheel.off()
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 100,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(400), 100, True,True) 
+    LineFollowing(-200,-70,800)
+    LineFollowing(-150,0,200)
 
 def Step3():  
     LineFollowing(200,70,400)
