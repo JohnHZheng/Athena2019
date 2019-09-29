@@ -46,11 +46,11 @@ class AthenaRobot(object):
 
     def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
-        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
+        self.rightLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
 
     def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
-        self.leftLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
+        self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
     #Medium Motor Movement
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
