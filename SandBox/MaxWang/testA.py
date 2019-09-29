@@ -57,7 +57,8 @@ def Step2():
     RightWheel.off()
     LineFollowing(-180,-50,230)
     LineFollowing(-100,-0,120)
-    while LeftSensor.color !=1:
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),200,True,True)
+    while LeftSensor.color !=6:
         TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
     LeftWheel.off()
     RightWheel.off()
@@ -84,19 +85,30 @@ def Step3():
     TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(300), 150,True,True)
     RightAction.on_for_degrees(-50,425,True,True)
 
-def Step6():
-    LeftAction.on_for_degrees(-50,1100)
-    LeftAction.on_for_degrees(50,1100)
-    RightAction.on_for_degrees(50,850)
-    RightAction.on_for_degrees(-50,850)
-
-
+def Step4():
+    TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(0), 125,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250), 160,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),650,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(300), 175,True,True)
+    while RightSensor.color !=6:
+        TankPair.on(SpeedDPS(0),SpeedDPS(150))
+    while RightSensor.color !=1: 
+        TankPair.on(SpeedDPS(0),SpeedDPS(150))
+    LeftWheel.off()
+    RightWheel.off()
+    LineFollowing(-150,-30,300)
+    LeftAction.on_for_degrees(-50,1200,True,True) 
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),150,True,True)
+    LeftAction.on_for_degrees(50,1200,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),100,True,True)
     
-
 Step1()
 Step2()
-Step3()
+#Step3()
 #Step4()
+
+
+
 
 
 
