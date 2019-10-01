@@ -55,8 +55,12 @@ def Step2():
         TankPair.on(SpeedDPS(-200),SpeedDPS(0))
     LeftWheel.off()
     RightWheel.off()
-    LineFollowing(-180,-50,230)
+    LineFollowing(-180,-50,180)
     LineFollowing(-100,-0,120)
+    while LeftSensor.color !=6:
+        TankPair.on(SpeedDPS(0),SpeedDPS(-70))
+    LeftWheel.off()
+    RightWheel.off()
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),200,True,True)
     while LeftSensor.color !=6:
         TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
@@ -86,13 +90,14 @@ def Step3():
     TankPair.on_for_degrees(SpeedDPS(-150),SpeedDPS(-150), 20,True,True)
     RightAction.on_for_degrees(-50,425,True,True)
     TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(150), 20,True,True)
-    TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(300), 150,True,True)
+    TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(300), 140,True,True)
     RightAction.on_for_degrees(-50,425,True,True)
 
 def Step4():
     TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(0), 125,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250), 160,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),650,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-150),SpeedDPS(-150), 20,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250), 140,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),600,True,True)
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(300), 175,True,True)
     while RightSensor.color !=6:
         TankPair.on(SpeedDPS(0),SpeedDPS(150))
@@ -101,20 +106,28 @@ def Step4():
     LeftWheel.off()
     RightWheel.off()
     LeftAction.on_for_degrees(-50,1200,True,False)
-    LineFollowing(-150,-30,300)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),150,True,True)
+    LineFollowing(-150,-20,250)
+    while RightSensor.color !=1:
+        TankPair.on(SpeedDPS(-150),SpeedDPS(0))
+    while RightSensor.color !=6:
+        TankPair.on(SpeedDPS(-150),SpeedDPS(0))
+    LeftWheel.off()
+    RightWheel.off()
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),100,True,True)
     LeftAction.on_for_degrees(50,1200,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),25,True,True)
+    #TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),25,True,True)
 
 def Step5():
-    TankPair.on_for_degrees(SpeedDPS(500),SpeedDPS(500),1900,False,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),100,True,True)
-    TankPair.on_for_degrees(SpeedDPS(500),SpeedDPS(500),1000,True,True)
+    TankPair.on_for_degrees(SpeedDPS(500),SpeedDPS(500),1500,False,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),110,True,True)
+    TankPair.on_for_degrees(SpeedDPS(500),SpeedDPS(500),1200,True,True)
 Step1()
 Step2()
 Step3()
 Step4()
 Step5()
+
+
 
 
 
