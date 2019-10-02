@@ -28,6 +28,8 @@ class AthenaRobot(object):
 
     # run a distance in centimeters at speed of centimeters per second
     def run(self, distanceCm, speedCmPerSecond, brake=True, block=True):
+        if speedCmPerSecond < 0:
+            raise Exception('speed cannot be negative')
         # Calculate degrees of distances and SpeedDegreePerSecond
         degreesToRun = distanceCm / self.wheelCircumferenceCm * 360
         speedDegreePerSecond = speedCmPerSecond / self.wheelCircumferenceCm * 360
