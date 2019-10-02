@@ -57,10 +57,10 @@ def Step2():
     RightWheel.off()
     LineFollowing(-180,-50,180)
     LineFollowing(-100,-0,120)
-    while LeftSensor.color !=6:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-70))
-    LeftWheel.off()
-    RightWheel.off()
+    #while LeftSensor.color !=6:
+        #TankPair.on(SpeedDPS(0),SpeedDPS(-70))
+    #LeftWheel.off()
+    #RightWheel.off()
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),200,True,True)
     while LeftSensor.color !=6:
         TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
