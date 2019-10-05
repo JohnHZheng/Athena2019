@@ -18,28 +18,24 @@ leftSensor = ColorSensor(INPUT_4)
 rightSensor = ColorSensor(INPUT_1)
 forkliftMtr= MediumMotor(OUTPUT_D)
 
-def runTrip1():
+def runTrip1(): 
     robot = AthenaRobot()
-    robot.run(75, 30)
-    robot.run(-75, 30)
-def Trip1Tryout(): 
-    robot = AthenaRobot()
-    robot.run(44, 15, False) # move robot to the starting point of the line
+    robot.run(distanceCm = 44, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
     # following the left edge of the line
     robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 19, scale=.15)
-    robot.onUntilRightWhite(10, consecutiveHit=2,white_threshold=80)
-    robot.run(9, 8)  # pushing units into place
-    robot.run(-5,10)    # Revert back 5 cm
+    robot.onUntilRightWhite(speed = 10, consecutiveHit=2,white_threshold=80)
+    robot.run(distanceCm = 9, speedCmPerSecond = 8)  # pushing units into place
+    robot.run(distanceCm = -5, speedCmPerSecond = 10)    # Revert back 5 cm
     # letting go of the attatchment
-    robot.moveMediumMotor(False,-50,710)
-    robot.run(-28,20) # backward for 20 centimeters
-    robot.moveMediumMotor(False,50,710)# lowering down the hook
+    robot.moveMediumMotor(isLeft = False, speed = -50, degrees = 710)
+    robot.run(distanceCm = -28, speedCmPerSecond = 20) # backward for 28 centimeters
+    robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 710)# lowering down the hook
 
     # First Position
 
-    robot.turnOnLeftWheel(60,10)
-    robot.run(27,20)
-    robot.turnOnLeftWheel(90,10)# going to the line
+    robot.turnOnLeftWheel(degree = 60, speed = 10)
+    robot.run(distanceCm = 27, speedCmPerSecond = 20)
+    robot.turnOnLeftWheel(degree = 90, speed = 10)# going to the line
 
     # Second Postition
 
@@ -47,13 +43,13 @@ def Trip1Tryout():
     robot.onUntilBlackLine(black_threshold=20,consecutiveHit=2)
     robot.onUntilWhiteLine(2, white_threshold=75)
     robot.moveMediumMotor(isLeft = False,speed = 50, degrees = -450)# raising the hook
-    robot.turnOnRightWheel(90)
+    robot.turnOnRightWheel(degree = 90)
     robot.onUntilLeftWhite(consecutiveHit=2, white_threshold=75)
-    robot.run(-3,10)
-    robot.turnOnLeftWheel(-15)
-    robot.moveMediumMotor(False, 50, 450)
-    robot.moveMediumMotor(False,25,-100)
-    robot.run(-10,10)
+    robot.run(distanceCm = -3, speedCmPerSecond = 10)
+    robot.turnOnLeftWheel(degree = -15)
+    robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 450)
+    robot.moveMediumMotor(isLeft = False, speed = 25, degrees = -100)
+    robot.run(distanceCm = -10, speedCmPerSecond = 10)
     
 
     #Third Position
