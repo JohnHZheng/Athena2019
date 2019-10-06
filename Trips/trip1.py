@@ -18,52 +18,54 @@ leftSensor = ColorSensor(INPUT_4)
 rightSensor = ColorSensor(INPUT_1)
 forkliftMtr= MediumMotor(OUTPUT_D)
 
-def runTrip1():
+def runTrip1(): 
     robot = AthenaRobot()
-    robot.run(75, 30)
-    robot.run(-75, 30)
-def Trip1Tryout(): 
-    robot = AthenaRobot()
-    robot.run(44, 20, False) # move robot to the starting point of the line
+    robot.run(distanceCm = 44, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
     # following the left edge of the line
     robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 19, scale=.15)
-    robot.onUntilRightWhite(10, consecutiveHit=2,white_threshold=85)
-    robot.run(9, 8)  # pushing units into place
-    robot.run(5,-10)    # Revert back 5 cm
+    robot.onUntilRightWhite(speed = 10, consecutiveHit=2,white_threshold=80)
+    robot.run(distanceCm = 9, speedCmPerSecond = 8)  # pushing units into place
+    robot.run(distanceCm = -5, speedCmPerSecond = 10)    # Revert back 5 cm
     # letting go of the attatchment
-    robot.moveMediumMotor(False,-50,710)
-    robot.run(24,-20) # backward for 20 centimeters
-    robot.moveMediumMotor(False,50,710)# lowering down the hook
-    robot.turnOnLeftWheel(60,10)
-    robot.run(25,20)
-    robot.turnOnLeftWheel(90,10)# going to the line
-    robot.moveMediumMotor(isLeft = False,speed = 50, degrees = -325)# raising the hook
-    robot.turnOnRightWheel(degree = 90,speed = 10)
-    robot.onUntilLeftBlack(consecutiveHit=2)# run untill reach the black corner near the tree
-    robot.run(distanceCm = -4,speedCmPerSecond = 10)
-    robot.turnOnRightWheel(degree = 5,speed = 10)
-    #putting blue unit in tree
-    robot.moveMediumMotor(False, speed = 50, degrees = 380)
-    robot.run(distanceCm = 10, speedCmPerSecond = -5)
-    #robot.turn(-10,5)
-    #robot.onUntilGameLine(consecutiveHit=2, speed=5) 
-    # #hanging the bat on the tree
-    # robot.moveMediumMotor(False,50,710)
+    robot.moveMediumMotor(isLeft = False, speed = -50, degrees = 710)
+    robot.run(distanceCm = -28, speedCmPerSecond = 20) # backward for 28 centimeters
+    robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 710)# lowering down the hook
 
+    # First Position
 
+    robot.turnOnLeftWheel(degree = 60, speed = 10)
+    robot.run(distanceCm = 27, speedCmPerSecond = 20)
+    robot.turnOnLeftWheel(degree = 90, speed = 10)# going to the line
 
+    # Second Postition
 
+    #line squaring
+    robot.onUntilBlackLine(black_threshold=20,consecutiveHit=2)
+    robot.onUntilWhiteLine(2, white_threshold=75)
+    robot.moveMediumMotor(isLeft = False,speed = 50, degrees = -450)# raising the hook
+    robot.turnOnRightWheel(degree = 90)
+    robot.onUntilLeftWhite(consecutiveHit=2, white_threshold=75)
+    robot.run(distanceCm = -3, speedCmPerSecond = 10)
+    robot.turnOnLeftWheel(degree = -15)
+    robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 450)
+    robot.moveMediumMotor(isLeft = False, speed = 25, degrees = -100)
+    robot.run(distanceCm = -32, speedCmPerSecond = 10) 
+    
+    # Third Position
+    robot.turnOnLeftWheel(degree = -34, speed = 10)#turn to face line
+    robot.run(distanceCm = 34, speedCmPerSecond = 15)
+    robot.onUntilLeftWhite(consecutiveHit=2)
+    robot.run(distanceCm=3,speedCmPerSecond=10)
+    robot.lineFollow(useLeftEdge = False, runDistanceCM = 20, scale=.12)
+    robot.turnOnRightWheel(degree = 10, speed = 10)#moves crane into place
+    robot.run(distanceCm = 7, speedCmPerSecond = 10)
+    robot.run(distanceCm=-12,speedCmPerSecond=15)
+    robot.moveMediumMotor(isLeft=False, speed=100, degrees=-500)
+    robot.turnOnLeftWheel(degree=80)
+    robot.run(distanceCm=-1,speedCmPerSecond=10)
+    robot.moveMediumMotor(isLeft=False, speed=100, degrees=550)
+    robot.run(distanceCm=3,speedCmPerSecond=10)
+    robot.turnOnLeftWheel(degree=-30,speed=20)
 
-    # robot.turnOnRightWheel(-100, 15)
-
-    # robot.lineFollow(useLeftSensor = False, useLeftEdge = False, runDistanceCM = 46, scale=.12)
-
-
-
-
-
-    """
-    robot.turn(30090)
-    robot.run(-7,14)
-
- """
+    #Fourth Position
+    

@@ -28,10 +28,12 @@ class AthenaRobot(object):
 
     # run a distance in centimeters at speed of centimeters per second
     def run(self, distanceCm, speedCmPerSecond, brake=True, block=True):
+        if speedCmPerSecond < 0:
+            raise Exception('speed cannot be negative')
         # Calculate degrees of distances and SpeedDegreePerSecond
         degreesToRun = distanceCm / self.wheelCircumferenceCm * 360
         speedDegreePerSecond = speedCmPerSecond / self.wheelCircumferenceCm * 360
-        print("Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftLargeMotor.max_speed), file=sys.stderr)
+        print("Run - Degree: {0:.3f} Speed:{1:.3f} MaxSpeed {2}".format(degreesToRun, speedDegreePerSecond, self.leftLargeMotor.max_speed), file=sys.stderr)
         # run motors based on the calculated results
         self.leftLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1), degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(SpeedDPS(speedDegreePerSecond) * (-1) , degreesToRun, brake, block)
@@ -51,7 +53,7 @@ class AthenaRobot(object):
     def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
-    #Medium Motor Movement
+    #Medium Motor Movement 
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
         if isLeft == False:
@@ -83,7 +85,7 @@ class AthenaRobot(object):
             # Calculate the distance run in CM
             distanceRanInCM = abs((self.leftLargeMotor.position - initialPos) * (self.wheelCircumferenceCm / self.leftLargeMotor.count_per_rot))
             # Printing the reflected light intensity with the powers of the two motors
-            print("reflect: {0:3d} leftPower: {1:3f} rightPower: {2:3f} lMotorPos: {3:3d} distanceRanInCM {4:3f}".format(reflect, leftPower, rightPower, 
+            print("LineFollow - reflect: {0:3d} leftPower: {1:3f} rightPower: {2:3f} lMotorPos: {3:3d} distanceRanInCM {4:3f}".format(reflect, leftPower, rightPower, 
                 self.leftLargeMotor.position, distanceRanInCM), file=sys.stderr)
 
             if distanceRanInCM >= runDistanceCM:
@@ -126,7 +128,7 @@ class AthenaRobot(object):
                 self.rightLargeMotor.off()
                 condRightMet = True
 
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
+            print( "onUntilTwoConditions - left_reflected: {0:3d}, right_reflected: {1:3d}, leftHit: {2:3d}, rightHit: {3:3d}".format( 
                 self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, condLeftCounter, condRightCounter), file=sys.stderr)
             sleep(sleepTime) 
         self.leftLargeMotor.off()
@@ -164,7 +166,7 @@ class AthenaRobot(object):
                 self.rightLargeMotor.off()
                 condMet = True
                 
-            print( "left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}".format( 
+            print( "onUntilCondition - left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}".format( 
                 self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, counter), file=sys.stderr)
             sleep(sleepTime) 
         self.leftLargeMotor.off()

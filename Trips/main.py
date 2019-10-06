@@ -2,7 +2,7 @@
 from ev3dev2.button import Button
 from ev3dev2.sound import Sound
 from time import sleep
-from trip1 import runTrip1, Trip1Tryout
+from trip1 import runTrip1
 from trip2 import runTrip2
 from trip3 import runTrip3
 from trip4 import runTrip4
@@ -24,7 +24,7 @@ sound.beep()
 while contin:
 
     if btn.left == True:
-        Trip1Tryout()
+        runTrip1()
         sound.beep()
     elif btn.up == True:
         runTrip2()
