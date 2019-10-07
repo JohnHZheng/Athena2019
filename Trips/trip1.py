@@ -9,15 +9,6 @@ import math
 import sys 
 from athenaRobot import AthenaRobot
 
-# wheel constances in Center Meter
-wheelRadiusCm = 2.75 
-wheelCircumferenceCm = 2 * math.pi * wheelRadiusCm
-leftMotor = LargeMotor(OUTPUT_C)
-rightMotor = LargeMotor(OUTPUT_B) 
-leftSensor = ColorSensor(INPUT_4)
-rightSensor = ColorSensor(INPUT_1)
-forkliftMtr= MediumMotor(OUTPUT_D)
-
 def runTrip1(): 
     robot = AthenaRobot()
     robot.run(distanceCm = 44, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
