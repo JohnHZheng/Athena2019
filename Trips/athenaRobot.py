@@ -148,10 +148,10 @@ class AthenaRobot(object):
         self.onUntilBlackLine(consecutiveHit, speed, sleepTime, black_threshold)
 
     # run until condition is met
-    def onUntilCondition(self, condition, leftSpeed = 5, rightSpeed = 5, consecutiveHit = 5, sleepTime = 0.01):
-         # Start motor at passed speonUntilTwoConditionsed. 
-        self.leftLargeMotor.on(-leftSpeed)
-        self.rightLargeMotor.on(-rightSpeed)    
+    def onUntilCondition(self, condition, leftSpeed = 5, rightSpeed = 5, consecutiveHit = 5, sleepTime = 0.01, revert = False):
+        # Start motor at passed speonUntilTwoConditionsed. 
+        self.leftLargeMotor.on(-leftSpeed if revert == False else leftSpeed)
+        self.rightLargeMotor.on(-rightSpeed if revert == False else rightSpeed)    
         counter = 0
         condMet = False
      
@@ -166,8 +166,8 @@ class AthenaRobot(object):
                 self.rightLargeMotor.off()
                 condMet = True
                 
-            print( "onUntilCondition - left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}".format( 
-                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, counter), file=sys.stderr)
+            print( "onUntilCondition - ColorSensor(left_reflected: {0:3d}, right_reflected: {1:3d}, hit: {2:3d}), UltraSonicSensor(distance_centimeters: {3:3f})".format( 
+                self.leftSensor.reflected_light_intensity, self.rightSensor.reflected_light_intensity, counter, self.ultraSonicSensor.distance_centimeters), file=sys.stderr)
             sleep(sleepTime) 
         self.leftLargeMotor.off()
         self.rightLargeMotor.off()
@@ -190,8 +190,8 @@ class AthenaRobot(object):
     def turnUntilRightWhite(self, turnLeft,speed, consecutiveHit = 2,  white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     #uses Ultrasonic sensor to see wall as going back
-    def runBackUntilWall():
-        self.leftLargeMotor.on()
+    def revertSafely(self,speed=100,distanceToStop=10,consecutiveHit=1,sleepTime=0.01):
+        self.onUntilCondition(lambda : self.ultraSonicSensor.distance_centimeters < distanceToStop, speed, speed, consecutiveHit, sleepTime, True)
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s

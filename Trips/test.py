@@ -11,4 +11,5 @@ from athenaRobot import AthenaRobot
 
 robot = AthenaRobot()
 #robot.turnUntilLeftBlack(isLeft = False,speed = 10,black_threshold=15) 
-robot.turnUntilRightWhite(turnLeft = True, speed = 10, white_threshold=75)
+
+robot.revertSafely()
