@@ -189,7 +189,9 @@ class AthenaRobot(object):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     def turnUntilRightWhite(self, turnLeft,speed, consecutiveHit = 2,  white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
-
+    #uses Ultrasonic sensor to see wall as going back
+    def runBackUntilWall():
+        self.leftLargeMotor.on()
     #Go to the Bridge
     def goToBridge(self):
         # start from base, run 12.5 cm at 20cm/s
