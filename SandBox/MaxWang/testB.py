@@ -5,29 +5,24 @@ from ev3dev2.sound import Sound
 from time import sleep
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
+from ev3dev2.sound import Sound
 import math
 import sys 
 import time
 LeftAction      = MediumMotor(OUTPUT_A)
 RightAction     = MediumMotor(OUTPUT_D)
-TankPair    	= MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
-#TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),715,True,True)
-#TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),715,True,True)
-"""
-n = 0
-while n<4:
-	TankPair    	= MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
-	TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250),250 )
-	n=n+1
-n = 0
-while n<4:
-	TankPair    	= MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
-	TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),260 )
-	n=n+1
-"""
+TankPair        = MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
+LeftSensor      = ColorSensor(INPUT_1)
+RightSensor     = ColorSensor(INPUT_4)
+LeftWheel       = LargeMotor(OUTPUT_B)
+RightWheel      = LargeMotor(OUTPUT_C)
+sound           = Sound()
 
-LeftAction.on_for_seconds(100, 0.6)
-sleep(2)
-LeftAction.on_for_seconds(100, 0.6)
-sleep(2)
-LeftAction.on_for_seconds(-100, 1.2)
+def Step7():
+    TankPair.on_for_seconds(SpeedDPS(200),SpeedDPS(200), 2,True,True)
+    TankPair.on_for_seconds(SpeedDPS(300),SpeedDPS(300), 4.1,True,True)
+    TankPair.on_for_seconds(SpeedDPS(-200),SpeedDPS(-200), 0.2,True,True)
+    RightAction.on_for_degrees(-100,2100,True,True)
+    #TankPair.on_for_seconds(SpeedDPS(-300),SpeedDPS(300), 2,False,True)
+    
+Step7()
