@@ -14,10 +14,10 @@ def runTrip1():
     robot.run(distanceCm = 34, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
     robot.run(distanceCm = 10, speedCmPerSecond = 20, brake = False) # move robot to the starting point of the line
     # following the left edge of the line
-    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 30, scale=.2)
-    robot.onUntilRightWhite(speed = 10, consecutiveHit=2,white_threshold=80)
-    robot.run(distanceCm = 11, speedCmPerSecond = 8)  # pushing units into place
-    robot.run(distanceCm = -5, speedCmPerSecond = 10)    # Revert back 5 cm
+    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 26, scale=.18)
+    robot.onUntilRightWhite(speed = 10, consecutiveHit=2, white_threshold = 75)
+    robot.run(distanceCm = 10, speedCmPerSecond =10)  # pushing units into place
+    robot.run(distanceCm = -6, speedCmPerSecond = 10)    # Revert back 5 cm
     # letting go of the attatchment
     robot.moveMediumMotor(isLeft = False, speed = -50, degrees = 710)
     robot.run(distanceCm = -28, speedCmPerSecond = 20) # backward for 28 centimeters
