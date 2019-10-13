@@ -173,22 +173,30 @@ class AthenaRobot(object):
         self.rightLargeMotor.off()
 
     def onUntilLeftBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, speed, speed, consecutiveHit, sleepTime)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, 
+        speed, speed, consecutiveHit, sleepTime)
     def onUntilLeftWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, speed, speed, consecutiveHit, sleepTime)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, 
+        speed, speed, consecutiveHit, sleepTime)
     def onUntilRightBlack(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, black_threshold = 30):
-        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, speed, speed, consecutiveHit, sleepTime)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
+        speed, speed, consecutiveHit, sleepTime)
     def onUntilRightWhite(self, speed = 5, consecutiveHit = 5, sleepTime = 0.01, white_threshold = 85):
-        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, speed, speed, consecutiveHit, sleepTime)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
+        speed, speed, consecutiveHit, sleepTime)
 
     def turnUntilLeftBlack(self, turnLeft,speed, consecutiveHit = 2,  black_threshold = 30):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity < black_threshold, 
+            0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     def turnUntilLeftWhite(self, turnLeft,speed, consecutiveHit = 2,  white_threshold = 85):
-        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity > white_threshold, 
+            0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     def turnUntilRightBlack(self, turnLeft,speed, consecutiveHit = 2,  black_threshold = 30):
-        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity < black_threshold, 
+            0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     def turnUntilRightWhite(self, turnLeft,speed, consecutiveHit = 2,  white_threshold = 85):
-        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, 0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, 
+            0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
     #uses Ultrasonic sensor to see wall as going back
     def revertSafely(self,speed=100,distanceToStop=10,consecutiveHit=1,sleepTime=0.01):
         self.onUntilCondition(lambda : self.ultraSonicSensor.distance_centimeters < distanceToStop, speed, speed, consecutiveHit, sleepTime, True)
