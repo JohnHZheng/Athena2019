@@ -58,21 +58,19 @@ def Step9():
         TankPair.on(SpeedDPS(0),SpeedDPS(150))
     LeftWheel.off()
     RightWheel.off()
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),50,True,True)
+    #TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),30,True,True)
     while RightSensor.color !=6:
         TankPair.on(SpeedDPS(150),SpeedDPS(150))
     LeftWheel.off()
     RightWheel.off()
-    while RightSensor.color !=1:
-        TankPair.on(SpeedDPS(150),SpeedDPS(0))
-    LeftWheel.off()
-    RightWheel.off()
-#BackWard_linefollowing(-150,-30,100)
+    TankPair.on_for_degrees(SpeedDPS(150),SpeedDPS(0),50,True,True)
+#    TankPair.on_for_degrees(SpeedDPS(500),SpeedDPS(500),1500,True,True)
+    
 
 
 
     
 
-Step7()
-Step8()
+#Step7()
+#Step8()
 Step9()
