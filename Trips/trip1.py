@@ -60,7 +60,7 @@ def runTrip1():
     # robot.run(distanceCm=3,speedCmPerSecond=10)
     # robot.turnOnLeftWheel(degree=-30,speed=20)
 
-    # #Fourth Position
+    #Fourth Position
 
     # robot.run(distanceCm = 8, speedCmPerSecond = 8) 
     # robot.moveMediumMotor(isLeft = False, speed = 50, degrees = -600,block=True) #picking up the drone
@@ -69,18 +69,15 @@ def runTrip1():
     # robot.run(4, 5)
     # robot.run(-4,5) 
     # robot.turnOnRightWheel(30,5)
-    # robot.run(-60,25)
-    # robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 600) 
-    
+    # robot.run(-13,5)
+    # robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 600,block=True)
+    # sleep(1)  
+
     # Fifth Position
 
-    robot.turnUntilLeftWhite(True,10,white_threshold=70)
-    robot.turn(5)
-    
-    robot.lineFollow(useLeftSensor=True,useLeftEdge=True, runDistanceCM=8,)
-    robot.turnOnRightWheel(-35, 20)
+    robot.turnOnLeftWheel(-165, 20)
+    robot.onUntilRightWhite(consecutiveHit=2,white_threshold=75)
     robot.run(5, 10)
-    robot.onUntilWhiteLine(consecutiveHit=2,white_threshold=70)
-    robot.onUntilBlackLine(consecutiveHit=2, black_threshold = 20) 
-    robot.run(2,10) 
-    robot.turnUntilRightBlack(turnLeft = False, speed = 5) 
+    robot.lineFollow(whiteThreshold=75,useLeftSensor=False,useLeftEdge=True,runDistanceCM=5)
+    # robot.turnUntilRightBlack(False,10)
+    # robot.turnUntilLeftBlack(False,10)
