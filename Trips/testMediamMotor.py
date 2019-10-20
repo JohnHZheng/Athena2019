@@ -9,8 +9,7 @@ import math
 import sys 
 from athenaRobot import AthenaRobot
 
-def runTrip2():
-        robot = AthenaRobot()
-        robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 900)
-        sleep(1)
-        robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 710)
+robot = AthenaRobot()
+robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 900)
+sleep(1)
+# robot.moveMediumMotor(isLeft = False, speed = 20, degrees = 710)

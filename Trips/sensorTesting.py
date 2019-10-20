@@ -9,8 +9,13 @@ import math
 import sys 
 from athenaRobot import AthenaRobot
 
-def runTrip2():
-        robot = AthenaRobot()
-        robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 900)
-        sleep(1)
-        robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 710)
+robot = AthenaRobot()
+# left
+robot.testColorSensor(INPUT_1, 1, 5)
+# right
+robot.testColorSensor(INPUT_4, 4, 5)
+
+# left
+#robot.testColorSensor(INPUT_1, 1, 5, speed=10)
+# right
+#robot.testColorSensor(INPUT_4, 4, 5, speed=10)
