@@ -11,6 +11,12 @@ from athenaRobot import AthenaRobot
 
 def runTrip2():
         robot = AthenaRobot()
+        # with blue unit perfect up and down of forklift
         robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 900)
         sleep(1)
-        robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 710)
+        robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 510)
+
+        # without blue unit perfect up and down of forklift
+        robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 600)
+        sleep(1)
+        robot.moveMediumMotor(isLeft = False, speed = 50, degrees = 510)
