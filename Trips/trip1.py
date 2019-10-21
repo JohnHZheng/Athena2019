@@ -26,11 +26,11 @@ def runTrip1():
     # following the left edge of the line
     robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 16, scale=.18)
     robot.onUntilRightWhite(speed = 10, consecutiveHit=2, white_threshold = white_value_right)
-    robot.run(distanceCm = 10, speedCmPerSecond =10)  # pushing units into place
+    robot.run(distanceCm = 9, speedCmPerSecond =10)  # pushing units into place
     robot.run(distanceCm = -5, speedCmPerSecond = 20)    # Revert back 5 cm
-    # letting go of the attatchment
+    # letting go of the attachment
     robot.moveMediumMotor(isLeft = False, speed = mediumMotorUpSpeed, degrees = mediumMotorUpDegrees)
-    robot.run(distanceCm = -28, speedCmPerSecond = 20) # backward for 28 centimeters
+    robot.run(distanceCm = -27, speedCmPerSecond = 20) # backward for 28 centimeters
     robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees)# lowering down the hook
     # First Position
 
@@ -58,7 +58,7 @@ def runTrip1():
     robot.turnOnLeftWheel(degree = 15)
     robot.run(distanceCm = 4, speedCmPerSecond = 15)
     robot.run(distanceCm = -3, speedCmPerSecond = 15) 
-    robot.turnOnRightWheel(degree = 30,speed = 10)
+    robot.turnOnRightWheel(degree = 30,speed = 6)
     robot.run(distanceCm = -13,speedCmPerSecond = 15)
     robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees, block = True)
     sleep(0.1)
@@ -73,6 +73,21 @@ def runTrip1():
     robot.onUntilWhiteLine(consecutiveHit = 2,white_threshold = white_value_right)
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -400)
     sleep(0.5)
-    robot.revertSafely()
-    robot.turnOnLeftWheel(degree = 120, speed = 20)
-    robot.revertSafely()
+    # robot.revertSafely()
+    # robot.turnOnLeftWheel(degree = 120, speed = 20)
+    # robot.revertSafely()
+
+    # trial of parking on bridge
+    robot.turn(degree = 115)
+    robot.run(distanceCm = 18, speedCmPerSecond = 20)
+    robot.onUntilWhiteLine(consecutiveHit = 1, speed = 5, white_threshold = white_value_right)
+    robot.onUntilBlackLine(consecutiveHit = 1, speed = 5, black_threshold = black_value)
+    robot.turn(degree = -47)
+    robot.run(distanceCm = 35, speedCmPerSecond = 20)
+    robot.turn(degree = -25)
+    robot.onUntilGameLine(consecutiveHit = 1, speed = 5, white_threshold = white_value_right, black_threshold = black_value)
+    robot.onUntilWhiteLine(consecutiveHit = 1, white_threshold = white_value_right)
+    robot.run(distanceCm = 13,speedCmPerSecond = 15)
+    robot.turnOnLeftWheel(degree = -93)
+    robot.run(distanceCm = -15, speedCmPerSecond = 20)
+    robot.run(distanceCm = 50, speedCmPerSecond = 60)
