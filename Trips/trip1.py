@@ -12,8 +12,8 @@ from athenaRobot import AthenaRobot
 def runTrip1(): 
     robot = AthenaRobot()
     # begin of trip constants
-    white_value_left = 90
-    white_value_right = 80
+    white_value_left = 85
+    white_value_right = 75
     black_value = 12
     mediumMotorUpDegrees = 800
     mediumMotorDownDegrees = 510 
@@ -69,7 +69,7 @@ def runTrip1():
     sleep(0.1)
     # TODO: THe following three lines are not tested yet
     robot.onUntilWhiteLine(consecutiveHit=2, speed = -10, white_threshold = white_value_right)   # line square on white to get angle
-    robot.turn(degree = 10) # turn left a bit
+    robot.turn(degree = -20) # turn left a bit
     robot.run(distanceCm = -40, speedCmPerSecond = 20) 
 
     # Fifth Position
@@ -82,10 +82,10 @@ def runTrip1():
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -400)
     sleep(0.5)
 
-    # # go back to base
-    # robot.revertSafely()
-    # robot.turnOnLeftWheel(degree = 120, speed = 20)
-    # robot.revertSafely()
+    # go back to base
+    robot.revertSafely()
+    robot.turnOnLeftWheel(degree = 120, speed = 20)
+    robot.revertSafely()
 
     # # trial of parking on bridge
     # robot.turn(degree = 115)
