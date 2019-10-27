@@ -12,8 +12,8 @@ from athenaRobot import AthenaRobot
 def runTrip1(): 
     robot = AthenaRobot()
     # begin of trip constants
-    white_value_left = 85
-    white_value_right = 75
+    white_value_left = 88
+    white_value_right = 82
     black_value = 12
     mediumMotorUpDegrees = 800
     mediumMotorDownDegrees = 510 
@@ -25,9 +25,11 @@ def runTrip1():
     robot.run(distanceCm = 10, speedCmPerSecond = 20, brake = False) # move robot to the starting point of the line
     
     # following the left edge of the line
-    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 16, scale=.18)
-    robot.onUntilRightWhite(speed = 10, consecutiveHit = 2, white_threshold = white_value_right)
-    robot.run(distanceCm = 9, speedCmPerSecond =10)     # pushing units into place
+    robot.lineFollow(useLeftSensor = False, useLeftEdge = False, runDistanceCM = 17, scale=.18)
+    robot.onUntilRightBlack(speed = 10, consecutiveHit = 2, black_threshold = black_value)
+    robot.turnOnRightWheel(degree = 10)
+    robot.run(distanceCm = 9.5, speedCmPerSecond =10)     # pushing units into place
+    robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees)
     robot.run(distanceCm = -5, speedCmPerSecond = 20)   # Revert back 5 cm
     
     # letting go of the attachment
@@ -35,8 +37,8 @@ def runTrip1():
     robot.run(distanceCm = -27, speedCmPerSecond = 20) # backward for 28 centimeters
     
     # First Position
-    robot.turnOnLeftWheel(degree = 60, speed = 10)  # turn right
-    robot.run(distanceCm = 24, speedCmPerSecond = 20)
+    robot.turnOnLeftWheel(degree = 58, speed = 10)  # turn right
+    robot.run(distanceCm = 23, speedCmPerSecond = 20)
     robot.turnOnRightWheel(degree = 70, speed = 10)  #turn to face line
 
     # Third Position
@@ -85,8 +87,8 @@ def runTrip1():
     # go back to base
     robot.revertSafely()
     robot.turnOnLeftWheel(degree = 120, speed = 20)
-    robot.revertSafely()
-
+    robot.revertSafely() 
+ 
     # # trial of parking on bridge
     # robot.turn(degree = 115)
     # robot.run(distanceCm = 18, speedCmPerSecond = 20)

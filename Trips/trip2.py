@@ -38,7 +38,7 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
 
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(-310),SpeedDPS(-300), 2,False,True)
-    TankPair.on_for_seconds(SpeedDPS(-180),SpeedDPS(-180), 1,False,True)
+    TankPair.on_for_seconds(SpeedDPS(-180),SpeedDPS(-180), 1.2,False,True)
 
 def Step2():
     TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 150,True,True)
