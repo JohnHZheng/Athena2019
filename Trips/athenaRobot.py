@@ -197,6 +197,17 @@ class AthenaRobot(object):
     def turnUntilRightWhite(self, turnLeft,speed, consecutiveHit = 2,  white_threshold = 85):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, "turnUntilRightWhite",
             0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
+
+    def onUntilRightSensorDiff(self, difference, abs_threshold, speed = 10, consecutiveHit=2):
+        originalValue = self.rightSensor.reflected_light_intensity
+        print( "originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
+        if difference > 0:
+            # go brighter
+            self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue > difference or self.rightSensor.reflected_light_intensity > abs_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
+        else:
+            # go darker
+            self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue < difference or self.rightSensor.reflected_light_intensity < abs_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
+
     #uses Ultrasonic sensor to see wall as going back
     def revertSafely(self,speed=100,distanceToStop=10,consecutiveHit=1,sleepTime=0.01):
         self.onUntilCondition(lambda : self.ultraSonicSensor.distance_centimeters < distanceToStop, "revertSafely", speed, speed, consecutiveHit, sleepTime, True)

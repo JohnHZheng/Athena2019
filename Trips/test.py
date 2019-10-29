@@ -12,7 +12,6 @@ from athenaRobot import AthenaRobot
 robot = AthenaRobot()
 #robot.turnUntilLeftBlack(isLeft = False,speed = 10,black_threshold=15) 
 
-robot.calibrateColorSensor(INPUT_1)
-robot.calibrateColorSensor(INPUT_4)
+robot.onUntilRightSensorDiff(difference = 20, abs_threshold = 80)
 
 #robot.revertSafely()
