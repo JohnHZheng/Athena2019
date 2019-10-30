@@ -198,50 +198,25 @@ class AthenaRobot(object):
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity > white_threshold, "turnUntilRightWhite",
             0 if turnLeft == True else speed, speed if turnLeft == True else 0, consecutiveHit)
 
-    def onUntilRightSensorDiff(self, difference, abs_threshold, speed = 10, consecutiveHit=2):
+    # Go until sensor reading has a specified offset or reach to the threshhold
+    def onUntilRightDarkerBy(self, difference, black_threshold = 20, speed = 10, consecutiveHit = 2):
         originalValue = self.rightSensor.reflected_light_intensity
-        print( "originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
-        if difference > 0:
-            # go brighter
-            self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue > difference or self.rightSensor.reflected_light_intensity > abs_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
-        else:
-            # go darker
-            self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue < difference or self.rightSensor.reflected_light_intensity < abs_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
+        print( "onUntilRightDarkerBy - originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue < -difference or self.rightSensor.reflected_light_intensity < black_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
+    def onUntilRightLighterBy(self, difference, white_threshold = 80, speed = 10, consecutiveHit = 2):
+        originalValue = self.rightSensor.reflected_light_intensity
+        print( "onUntilRightLighterBy - originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
+        self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue > difference or self.rightSensor.reflected_light_intensity > white_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
 
     #uses Ultrasonic sensor to see wall as going back
     def revertSafely(self,speed=100,distanceToStop=10,consecutiveHit=1,sleepTime=0.01):
         self.onUntilCondition(lambda : self.ultraSonicSensor.distance_centimeters < distanceToStop, "revertSafely", speed, speed, consecutiveHit, sleepTime, True)
-    #Go to the Bridge
-    def goToBridge(self):
-        # start from base, run 12.5 cm at 20cm/s
-        self.run(10, 20)
-        sleep(.2)
-        # turn right 70 degree
-        self.turn(70)
-        sleep(.1)
-        print("test", file=sys.stderr)
-        # run 90 cm at speed of 30 cm/s
-        self.run(90, 30, False)
-        sleep(.1)
-        # run until hit game line
-        self.onUntilGameLine()
-        sleep(.1)
-        # move forward 2cm at 15cm/s
-        self.run(2, 15)
-        # turn left 90 degree
-        self.turn(-90)
-        # move forward 13 cm at 20cm/s
-        self.run(13,20)
-        sleep(.1)
-        # run until hit game line
-        self.onUntilGameLine()
-    
+
     # Calibrating White for Sensor
     def calibrateColorSensor(self,sensorInput):
         sensor = ColorSensor(sensorInput)
         # Calibration
         sensor.calibrate_white()
-    
         # Done Signal
         sound.beep()
 
