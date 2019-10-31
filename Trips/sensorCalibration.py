@@ -10,9 +10,5 @@ import sys
 from athenaRobot import AthenaRobot
 
 robot = AthenaRobot()
-#robot.turnUntilLeftBlack(isLeft = False,speed = 10,black_threshold=15) 
-
-#robot.onUntilRightSensorDiff(difference = 30, abs_threshold = 83)
-robot.onUntilRightLighterBy(30, 82)
-
-#robot.revertSafely()
+robot.calibrateColorSensor(INPUT_1)
+robot.calibrateColorSensor(INPUT_4)

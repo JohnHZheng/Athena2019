@@ -10,9 +10,12 @@ import sys
 from athenaRobot import AthenaRobot
 
 robot = AthenaRobot()
-#robot.turnUntilLeftBlack(isLeft = False,speed = 10,black_threshold=15) 
+# left
+robot.testColorSensor(INPUT_1, 1, 5)
+# right
+robot.testColorSensor(INPUT_4, 4, 5)
 
-#robot.onUntilRightSensorDiff(difference = 30, abs_threshold = 83)
-robot.onUntilRightLighterBy(30, 82)
-
-#robot.revertSafely()
+# left
+#robot.testColorSensor(INPUT_1, 1, 5, speed=10)
+# right
+#robot.testColorSensor(INPUT_4, 4, 5, speed=10)
