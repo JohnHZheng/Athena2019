@@ -46,13 +46,31 @@ class AthenaRobot(object):
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, False)
         self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
 
+    def turnRight(self, degree, speed = 10, brake = True , block = True):
+        self.turn(degree, speed, brake, block)
+
+    def turnLeft(self, degree, speed = 10, brake = True , block = True):
+        self.turn(-degree, speed, brake, block)    
+
     def turnOnRightWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
-        self.rightLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
+        self.rightLargeMotor.on_for_degrees(speed, degreesToRun, brake, block)
+
+    def turnRightOnRightWheel(self, degree, speed = 10, brake = True, block = True):   
+        self.turnOnRightWheel(degree, speed, brake, block) 
+ 
+    def turnLeftOnRightWheel(self, degree, speed = 10, brake = True, block = True):   
+        self.turnOnRightWheel(-degree, speed, brake, block)        
 
     def turnOnLeftWheel(self, degree, speed = 10, brake = True, block = True):
         degreesToRun = degree * 2.7
         self.leftLargeMotor.on_for_degrees(-speed, degreesToRun, brake, block)
+
+    def turnRightOnLeftWheel(self, degree, speed = 10, brake = True, block = True):    
+        self.turnOnLeftWheel(degree, speed, brake, block) 
+
+    def turnLeftOnLeftWheel(self, degree, speed = 10, brake = True, block = True):    
+        self.turnOnLeftWheel(-degree, speed, brake, block)
     #Medium Motor Movement 
     def moveMediumMotor(self,isLeft,speed,degrees,brake=True, block=True):
         #sees which motor is running
@@ -242,7 +260,11 @@ class AthenaRobot(object):
             time.sleep(pauseNumber)
             times = times + 1
         self.leftLargeMotor.off()
-        self.rightLargeMotor.off()       
+        self.rightLargeMotor.off()    
+
+    def resetMediumMotor():
+        self.moveMediumMotor(isLeft = False, speed = 50, degrees = 1000)
+        self.rightMediumMotor.reset()
 
     def testRobot(self):
         self.leftLargeMotor.on_for_degrees(20,180)

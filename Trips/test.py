@@ -10,3 +10,18 @@ import sys
 from athenaRobot import AthenaRobot
 
 robot = AthenaRobot()
+
+# Test Medium Motors
+robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 1000)
+sleep(1)
+robot.moveMediumMotor(isLeft = False, speed = 20, degrees = 1020)
+
+# Test Turns
+robot.turnRight(90)
+robot.turnLeft(90)
+sleep(0.5)
+robot.turnRightOnRightWheel(90)
+robot.turnLeftOnRightWheel(90)
+sleep(0.5)
+robot.turnRightOnLeftWheel(90)
+robot.turnLeftOnLeftWheel(90)

@@ -13,13 +13,17 @@ def runTrip4():
     white_value_left = 88
     white_value_right = 82
     black_value = 12
-    robot.run(distanceCm = 43, speedCmPerSecond = 20)
+    robot.run(distanceCm = 41, speedCmPerSecond = 20)
     robot.turnUntilLeftWhite(turnLeft=True,speed = 7,white_threshold = white_value_left)
-    robot.lineFollow(whiteThreshold = white_value_right, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 12)
+    robot.lineFollow(whiteThreshold = white_value_right, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 12,scale=0.12)
     robot.onUntilBlackLine(consecutiveHit = 2,black_threshold = black_value)
-    robot.run(3,5)
+    robot.turnRight(degree = 5)
+    robot.run(2.5,5)
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -800)
     sleep(0.5) 
     robot.revertSafely()
-    robot.turn(120, 15)
+    robot.turnRightOnLeftWheel(degree = 120, speed = 20)
+    #robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 900)   # lower down motor more to overrun
+    robot.rightMediumMotor.reset()  # reset the motor
+    #robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 95)    # rotate to a know pos
     robot.revertSafely() 
