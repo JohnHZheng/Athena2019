@@ -80,7 +80,7 @@ class AthenaRobot(object):
             self.leftMediumMotor.on_for_degrees(speed,degrees,brake,block)
 
     # Following a line with one sensor
-    def lineFollow(self, whiteThreshold = 98, blackThreshold = 15, scale=0.2, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 300, ):
+    def lineFollow(self, whiteThreshold = 98, blackThreshold = 15, scale=0.2, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 300):
         self.leftLargeMotor.reset()
         self.rightLargeMotor.reset()
         # Allow an attached backsensor. Ixf useBackSensor, defining back sensor and revert useLeftEdge since motor is actually going backward
