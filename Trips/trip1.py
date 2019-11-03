@@ -36,14 +36,14 @@ def runTrip1():
     
     # First Position
     robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
-    robot.run(distanceCm = 25, speedCmPerSecond = 20)
+    robot.run(distanceCm = 24, speedCmPerSecond = 20)
     robot.turnLeftOnRightWheel(degree = 60, speed = 10)  #turn to face line
     # Third Position
     robot.turnUntilLeftBlack(speed = 8, black_threshold = black_value, turnLeft = True)
     robot.run(distanceCm = 0.5, speedCmPerSecond = 10) 
     robot.lineFollow(useLeftEdge = False, runDistanceCM = 16, scale = .12)
-    robot.turnLeftOnRightWheel(degree = 10, speed = 10)     # moves crane into place
-    robot.run(distanceCm = 7, speedCmPerSecond = 15)
+    robot.turnLeftOnRightWheel(degree = 12, speed = 10)     # moves crane into place
+    robot.run(distanceCm = 7, speedCmPerSecond = 12)
     robot.onUntilRightBlack(speed = -15, consecutiveHit = 2, black_threshold = black_value)  # backward until black on right for IOC
     robot.run(distanceCm = -3,speedCmPerSecond = 20)
     robot.turnRightOnLeftWheel(degree = 78)                  # this will put the hoop of bat to the branch
