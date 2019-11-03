@@ -37,7 +37,7 @@ def runTrip1():
     # First Position
     robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
     robot.run(distanceCm = 24, speedCmPerSecond = 20)
-    robot.turnLeftOnRightWheel(degree = 60, speed = 10)  #turn to face line
+    robot.turnLeftOnRightWheel(degree = 50, speed = 10)  #turn to face line
     # Third Position
     robot.turnUntilLeftBlack(speed = 8, black_threshold = black_value, turnLeft = True)
     robot.run(distanceCm = 0.5, speedCmPerSecond = 10) 
@@ -86,8 +86,6 @@ def runTrip1():
     robot.turnRightOnLeftWheel(degree = 120, speed = 20)
     robot.rightMediumMotor.reset()  # reset the motor
     robot.revertSafely() 
-    
-
  
     # trial of parking on bridge
     # robot.turn(degree = 115)
