@@ -11,6 +11,6 @@ from athenaRobot import AthenaRobot
 
 robot = AthenaRobot()
 # robot.turn(degree = 30) # turn right
-robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 900)
+robot.moveMediumMotor(isLeft = False, speed = -30, degrees = 1000)
 sleep(1)
-robot.moveMediumMotor(isLeft = False, speed = 20, degrees = 710)
+robot.moveMediumMotor(isLeft = False, speed = 20, degrees = 1020)

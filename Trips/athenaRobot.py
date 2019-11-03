@@ -207,6 +207,14 @@ class AthenaRobot(object):
         originalValue = self.rightSensor.reflected_light_intensity
         print( "onUntilRightLighterBy - originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
         self.onUntilCondition(lambda : self.rightSensor.reflected_light_intensity - originalValue > difference or self.rightSensor.reflected_light_intensity > white_threshold, "onUntilRightSensorDiff", consecutiveHit=consecutiveHit) 
+    def onUntilLeftDarkerBy(self, difference, black_threshold = 20, speed = 10, consecutiveHit = 2):
+        originalValue = self.leftSensor.reflected_light_intensity
+        print( "onUntilLeftDarkerBy - originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity - originalValue < -difference or self.leftSensor.reflected_light_intensity < black_threshold, "onUntilLeftSensorDiff", consecutiveHit=consecutiveHit)
+    def onUntilLeftLighterBy(self, difference, white_threshold = 80, speed = 10, consecutiveHit = 2):
+        originalValue = self.leftSensor.reflected_light_intensity
+        print( "onUntilLeftLighterBy - originalValue: {0:3d}, diff: {1:3d}".format(originalValue, difference), file=sys.stderr)
+        self.onUntilCondition(lambda : self.leftSensor.reflected_light_intensity - originalValue > difference or self.leftSensor.reflected_light_intensity > white_threshold, "onUntilLeftSensorDiff", consecutiveHit=consecutiveHit) 
 
     #uses Ultrasonic sensor to see wall as going back
     def revertSafely(self,speed=100,distanceToStop=10,consecutiveHit=1,sleepTime=0.01):
