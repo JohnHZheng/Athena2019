@@ -37,7 +37,7 @@ def runTrip1():
     # First Position
     robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
     robot.run(distanceCm = 24, speedCmPerSecond = 20)
-    robot.turnLeftOnRightWheel(degree = 60, speed = 10)  #turn to face line
+    robot.turnLeftOnRightWheel(degree = 50, speed = 10)  #turn to face line
     # Third Position
     robot.turnUntilLeftBlack(speed = 8, black_threshold = black_value, turnLeft = True)
     robot.run(distanceCm = 0.5, speedCmPerSecond = 10) 
@@ -45,7 +45,7 @@ def runTrip1():
     robot.turnLeftOnRightWheel(degree = 12, speed = 10)     # moves crane into place
     robot.run(distanceCm = 7, speedCmPerSecond = 12)
     robot.onUntilRightBlack(speed = -15, consecutiveHit = 2, black_threshold = black_value)  # backward until black on right for IOC
-    robot.run(distanceCm = -3,speedCmPerSecond = 20)
+    robot.run(distanceCm = -5,speedCmPerSecond = 20)
     robot.turnRightOnLeftWheel(degree = 78)                  # this will put the hoop of bat to the branch
     robot.run(distanceCm = -1,speedCmPerSecond = 10)    # backward a little bit
     robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees)   # lower down 
@@ -62,7 +62,7 @@ def runTrip1():
     sleep(0.1)
     robot.turnOnLeftWheel(degree = 15, speed = 6)
     robot.run(distanceCm = 4, speedCmPerSecond = 8)
-    robot.run(distanceCm = -3, speedCmPerSecond = 8) 
+    robot.run(distanceCm = -4, speedCmPerSecond = 8) 
     robot.turnLeftOnRightWheel(degree = 30,speed = 5)
     robot.run(distanceCm = -13,speedCmPerSecond = 15)
     robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees, block = True)
@@ -86,8 +86,6 @@ def runTrip1():
     robot.turnRightOnLeftWheel(degree = 120, speed = 20)
     robot.rightMediumMotor.reset()  # reset the motor
     robot.revertSafely() 
-    
-
  
     # trial of parking on bridge
     # robot.turn(degree = 115)
