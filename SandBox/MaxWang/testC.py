@@ -105,16 +105,13 @@ def Step4():
 
 def Step5():
     TankPair.on_for_degrees(SpeedDPS(600),SpeedDPS(600),2700,False,True)
-#    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(250),180,True,True)
-#    TankPair.on_for_degrees(100,100,600,True,True)
+
 
 Step1()
 Step2()
 Step3()
 Step4()
 Step5()
-
-
 
 
 
