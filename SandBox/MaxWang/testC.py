@@ -78,15 +78,15 @@ def Step2():
     if RightSensor.color == 1:
         TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100),20,True,True)
     RightAction.on_for_degrees(50,600,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 160,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 155,True,True)
     RightAction.on_for_degrees(-50,600)
 
 def Step3():  
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 290,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 285,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 210,True,True)
     TankPair.on_for_degrees(SpeedDPS(200), SpeedDPS(0),105,True,True )
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 120,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),110,True,True )
+    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),122,True,True )
     RightAction.on_for_degrees(80,500,True,True)
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 180,True,True)
     RightAction.on_for_degrees(-80,500,True,True)

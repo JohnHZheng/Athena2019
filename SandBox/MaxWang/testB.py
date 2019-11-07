@@ -41,7 +41,7 @@ def Step7():
    
 def Step8():
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),250,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200),180,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200),220,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200),50,True,True)
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200),180,True,True)
 def Step9():
@@ -60,11 +60,8 @@ def Step9():
     LeftWheel.off()
     TankPair.on_for_degrees(SpeedDPS(-500),SpeedDPS(-500),600,True,True)
     TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(0),10,True,True)
-def Step10():
-    TankPair.on_for_degrees(SpeedDPS(-30),SpeedDPS(-30),300,True,True)
 
    
 Step7()
 Step8()
 Step9()
-#Step10()
