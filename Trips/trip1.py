@@ -79,7 +79,7 @@ def runTrip1():
     robot.onUntilBlackLine(consecutiveHit = 2,black_threshold = black_value)
     robot.run(distanceCm = 2, speedCmPerSecond = 5)
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -800)
-    sleep(0.5)
+    sleep(1)
 
     # go back to base
     robot.revertSafely()
