@@ -82,7 +82,7 @@ def Step2():
     RightAction.on_for_degrees(-50,600)
 
 def Step3():  
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 275,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 270,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 210,True,True)
     TankPair.on_for_degrees(SpeedDPS(200), SpeedDPS(0),105,True,True )
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 120,True,True)
