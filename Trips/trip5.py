@@ -21,22 +21,22 @@ def runTrip5():
     mediumMotorDownSpeed = 50
     # end of trip constants
     
-    # robot.run(distanceCm = 34, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
-    # robot.run(distanceCm = 10, speedCmPerSecond = 20, brake = False) # move robot to the starting point of the line
+    robot.run(distanceCm = 34, speedCmPerSecond = 15, brake = False) # move robot to the starting point of the line
+    robot.run(distanceCm = 10, speedCmPerSecond = 20, brake = False) # move robot to the starting point of the line
     
-    # # following the left edge of the line
-    # robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 17, scale=.18)
-    # robot.onUntilRightLighterBy(difference = 20 , white_threshold= white_value_right)
-    # robot.run(distanceCm = 10, speedCmPerSecond =10)     # pushing units into place
-    # robot.run(distanceCm = -5, speedCmPerSecond = 20)   # Revert back 5 cm
+    # following the left edge of the line
+    robot.lineFollow(useLeftSensor = False, useLeftEdge = True, runDistanceCM = 17, scale=.18)
+    robot.onUntilRightLighterBy(difference = 20 , white_threshold= white_value_right)
+    robot.run(distanceCm = 10, speedCmPerSecond =10)     # pushing units into place
+    robot.run(distanceCm = -5, speedCmPerSecond = 20)   # Revert back 5 cm
     
-    # # letting go of the attachment
-    # robot.moveMediumMotor(isLeft = False, speed = mediumMotorUpSpeed, degrees = mediumMotorUpDegrees)
-    # robot.run(distanceCm = -27, speedCmPerSecond = 20) # backward for 28 centimeters
+    # letting go of the attachment
+    robot.moveMediumMotor(isLeft = False, speed = mediumMotorUpSpeed, degrees = mediumMotorUpDegrees)
+    robot.run(distanceCm = -27, speedCmPerSecond = 20) # backward for 28 centimeters
     
-    # # First Position
-    # robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
-    # robot.run(distanceCm = 24, speedCmPerSecond = 20)
+    # First Position
+    robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
+    robot.run(distanceCm = 24, speedCmPerSecond = 20)
     robot.turnLeftOnRightWheel(degree = 50, speed = 10)  #turn to face line
     # Third Position
     robot.turnUntilLeftBlack(speed = 8, black_threshold = black_value, turnLeft = True)
