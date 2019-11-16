@@ -42,7 +42,7 @@ def Step1():
 
 def Step2():
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 150,True,True)
-    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 180,True,True)
+    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 200,True,True)
     while RightSensor.color !=1:
         TankPair.on(SpeedDPS(-250),SpeedDPS(-250))
     while RightSensor.color != 6:
@@ -82,11 +82,11 @@ def Step2():
     RightAction.on_for_degrees(-50,600)
 
 def Step3():  
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 270,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 260,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 210,True,True)
     TankPair.on_for_degrees(SpeedDPS(200), SpeedDPS(0),105,True,True )
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 130,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),127,True,True )
+    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),120,True,True )
     RightAction.on_for_degrees(80,600,True,True)
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 180,True,True)
     RightAction.on_for_degrees(-80,600,True,True)

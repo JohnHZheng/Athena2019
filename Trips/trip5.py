@@ -12,7 +12,7 @@ from athenaRobot import AthenaRobot
 def runTrip5(): 
     robot = AthenaRobot()
     # begin of trip constants
-    white_value_left = 88
+    white_value_left = 84
     white_value_right = 82
     black_value = 15
     mediumMotorUpDegrees = 1000
