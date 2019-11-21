@@ -22,12 +22,15 @@ def runTrip1():
     
     #end trip constants
 
-    robot.run(distanceCm = 20, speedCmPerSecond = 15) 
+    robot.run(distanceCm = 10, speedCmPerSecond = 15) 
     robot.turnRightOnLeftWheel(degree = 50)
-    robot.run(20, 15) 
+    robot.run(25, 15) 
+    sleep(3)
     robot.turnLeftOnRightWheel(50,15)  
+    sleep(3)
+    robot.turnUntilLeftWhite(True,10,white_threshold=white_threshold)
+    robot.lineFollow()
     robot.run(20, 15) 
-    robot.turnRightOnLeftWheel(-30,15) 
     for x in range(3):
         robot.turnLeftOnRightWheel(20)
         robot.turnRightOnLeftWheel(20)
