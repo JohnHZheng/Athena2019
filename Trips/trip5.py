@@ -12,7 +12,7 @@ from athenaRobot import AthenaRobot
 def runTrip5(): 
     robot = AthenaRobot()
     # begin of trip constants
-    white_value_left = 88
+    white_value_left = 84
     white_value_right = 82
     black_value = 15
     mediumMotorUpDegrees = 1000
@@ -35,56 +35,9 @@ def runTrip5():
     robot.run(distanceCm = -27, speedCmPerSecond = 20) # backward for 28 centimeters
     
     # First Position
-    robot.turnRightOnLeftWheel(degree = 58, speed = 10)  # turn right
-    robot.run(distanceCm = 24, speedCmPerSecond = 20)
-    robot.turnLeftOnRightWheel(degree = 50, speed = 10)  #turn to face line
-    # Third Position
-    robot.turnUntilLeftBlack(speed = 8, black_threshold = black_value, turnLeft = True)
-    robot.run(distanceCm = 0.5, speedCmPerSecond = 10) 
-    robot.lineFollow(useLeftEdge = False, runDistanceCM = 16, scale = .12)
-    robot.turnLeftOnRightWheel(degree = 12, speed = 10)     # moves crane into place
-    robot.run(distanceCm = 7, speedCmPerSecond = 12)
-    robot.onUntilRightBlack(speed = -15, consecutiveHit = 2, black_threshold = black_value)  # backward until black on right for IOC
-    robot.run(distanceCm = -5,speedCmPerSecond = 20)
-    robot.turnRightOnLeftWheel(degree = 78)                  # this will put the hoop of bat to the branch
-    robot.run(distanceCm = -1,speedCmPerSecond = 10)    # backward a little bit
-    robot.moveMediumMotor(isLeft = False, speed = mediumMotorDownSpeed, degrees = mediumMotorDownDegrees)   # lower down 
-    robot.run(distanceCm = 3,speedCmPerSecond = 10)     # push forward a little bit
-    robot.turnLeftOnLeftWheel(degree = 30,speed = 10)      # turn to the drone
-
-    #Fourth Position
-    sleep(0.1)  # pause to settle down
-    robot.onUntilBlackLine(consecutiveHit=2, speed = -10, black_threshold = black_value)   # line square on white to get angle
-    robot.turn(degree = -25) # turn left a bit
-    robot.run(distanceCm = -38, speedCmPerSecond = 20) 
-
-    # Fifth Position
-    robot.onUntilLeftWhite(speed = -10, white_threshold = white_value_left)
+    robot.turnRightOnLeftWheel(degree = 18, speed = 10)  # turn right
     robot.run(distanceCm = 5, speedCmPerSecond = 10)
     robot.turnUntilLeftWhite(turnLeft=True,speed = 10,white_threshold = white_value_left)
     robot.lineFollow(whiteThreshold = white_value_right, useLeftSensor = True, useLeftEdge = True, runDistanceCM = 12, scale=.15)
     robot.onUntilBlackLine(consecutiveHit = 2,black_threshold = black_value)
-    robot.run(distanceCm = 2, speedCmPerSecond = 5)
-    robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -800)
-    sleep(1)
-
-    # go back to base
-    robot.revertSafely()
-    robot.turnRightOnLeftWheel(degree = 120, speed = 20)
-    robot.rightMediumMotor.reset()  # reset the motor
-    robot.revertSafely() 
- 
-    # trial of parking on bridge
-    # robot.turn(degree = 115)
-    # robot.run(distanceCm = 18, speedCmPerSecond = 20)
-    # robot.onUntilWhiteLine(consecutiveHit = 1, speed = 5, white_threshold = white_value_right)
-    # robot.onUntilBlackLine(consecutiveHit = 1, speed = 5, black_threshold = black_value)
-    # robot.turn(degree = -47)
-    # robot.run(distanceCm = 35, speedCmPerSecond = 20)
-    # robot.turn(degree = -25)
-    # robot.onUntilGameLine(consecutiveHit = 1, speed = 5, white_threshold = white_value_right, black_threshold = black_value)
-    # robot.onUntilWhiteLine(consecutiveHit = 1, white_threshold = white_value_right)
-    # robot.run(distanceCm = 13,speedCmPerSecond = 15)
-    # robot.turnOnLeftWheel(degree = -93)
-    # robot.run(distanceCm = -15, speedCmPerSecond = 20)
-    # robot.run(distanceCm = 50, speedCmPerSecond = 60)
+   
