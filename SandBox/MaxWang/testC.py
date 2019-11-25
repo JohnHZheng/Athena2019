@@ -16,6 +16,34 @@ LeftSensor      = ColorSensor(INPUT_1)
 RightSensor     = ColorSensor(INPUT_4)
 LeftWheel       = LargeMotor(OUTPUT_B)
 RightWheel      = LargeMotor(OUTPUT_C)
-sound           = Sound()
-TankPair.on_for_degrees(SpeedDPS(-1000),SpeedDPS(-1000), 1000,True,True)
-#RightAction.on_for_degrees(SpeedDPS(-600),1000)
+ound           = Sound()
+def Step1():
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 100,True,True)
+def Step2():
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 385,True,True)
+    """
+    while RightSensor.color !=1:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
+    while LeftSensor.color != 1:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(0))
+    while LeftSensor.color != 6:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(0))
+    """
+    TankPair.on_for_degrees(SpeedDPS(-150),SpeedDPS(0), 110,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 950,True,True)
+def Step3():
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 45,True,True)
+    RightAction.on_for_degrees(-60,600,True,True)
+def Step4():
+    while LeftSensor.color != 1:
+        TankPair.on(SpeedDPS(-200),SpeedDPS(-200))
+    while RightSensor.color != 1:
+        TankPair.on(SpeedDPS(0),SpeedDPS(-200))
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200), 175,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 225,True,True)
+
+
+Step1()
+Step2()
+Step3()
+Step4()
