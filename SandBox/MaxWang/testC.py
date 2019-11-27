@@ -35,17 +35,17 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
     RightWheel.off()
     
 def Step1():
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 150,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 130,True,True)
     TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 250,True,True)
     while LeftSensor.color != 1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(0))
     LineFollowing(-180,-50,100)
     LineFollowing(-100,-20,110)
     if LeftSensor.color !=1:
-        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),9)   
+        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),15)   
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 870,True,True)
-    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 65,True,True)
-    RightAction.on_for_degrees(-60,800,True,True)
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 30,True,True)
+    RightAction.on_for_degrees(-60, 800,True,True)
 def Step2():
     while LeftSensor.color != 1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
@@ -61,11 +61,28 @@ def Step2():
     while RightSensor.color !=6:
         TankPair.on(SpeedDPS(0),SpeedDPS(-75)) 
     """
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200), 165,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 230,True,True)
-
-
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200),190,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 200,True,True)
+def Step3():
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 200,True,True)
+    while LeftSensor.color != 6:
+        TankPair.on(SpeedDPS(100),SpeedDPS(100))
+    while LeftSensor.color != 1:
+        TankPair.on(SpeedDPS(0),SpeedDPS(-100))
+    while LeftSensor.color != 6:
+        TankPair.on(SpeedDPS(100),SpeedDPS(100))
+    LineFollowing(-180,-50,200)
+    LineFollowing(-100,-20,50) 
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100), 12,True,True)
+    while LeftSensor.color !=1:
+        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
+    while RightSensor.color !=1:
+        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-260), 515,True,True)
+    LeftAction.on_for_degrees(-80,1000,True,True)
+    
+    
 Step1()
 Step2()
-#Step3()
+Step3()
 #Step4()
