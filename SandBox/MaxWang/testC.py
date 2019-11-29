@@ -6,7 +6,7 @@ from time import sleep
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
 from ev3dev2.sound import Sound
-import math
+import math 
 import sys 
 import time
 LeftAction      = MediumMotor(OUTPUT_A)
@@ -39,33 +39,24 @@ def Step1():
     TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 250,True,True)
     while LeftSensor.color != 1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(0))
-    LineFollowing(-180,-50,120)
-    LineFollowing(-100,-20,130)
+    LineFollowing(-135,-30,100)
+    LineFollowing(-75,-15,110)
     if LeftSensor.color !=1:
-        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),15)                                                     
-    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 870,True,True)
-    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 30,True,True)
-    RightAction.on_for_degrees(-60, 400,True,True)
+        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),11)                                                     
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 845,True,True)
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 40,True,True)
+    RightAction.on_for_degrees(-60, 450,True,True)
 def Step2():
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100), 20,True,True)
-    while LeftSensor.color != 1:
-        TankPair.on(SpeedDPS(-50),SpeedDPS(-50))
-    while LeftSensor.color != 6:
-        TankPair.on(SpeedDPS(-50),SpeedDPS(-50))
     while RightSensor.color != 6:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-100))   
-    """
+        TankPair.on(SpeedDPS(0),SpeedDPS(-50))
     while RightSensor.color != 1:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-100))
-    while LeftSensor.color != 1:
-        TankPair.on(SpeedDPS(-75),SpeedDPS(-75)) 
-    while RightSensor.color !=1:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-75))
-    while RightSensor.color !=6:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-75)) 
-    """
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-75),170,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-100), 215,True,True)
+        TankPair.on(SpeedDPS(-50),SpeedDPS(-50))
+    while LeftSensor.color !=1:
+        TankPair.on(SpeedDPS(-50),SpeedDPS(0))
+    LeftWheel.off()
+z    RightWheel.off    
+    #TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100),140,True,True)
+    #TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250), 205,True,True)
 def Step3():
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 150,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(0), 25,True,True)
@@ -85,11 +76,15 @@ def Step3():
         TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
     while RightSensor.color !=1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-260), 530,True,True)
+    LeftWheel.off()
+    RightWheel.off()
+    
+def Step4():
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-255), 500,True,True)
+    TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(0),10,True,False)
     LeftAction.on_for_degrees(-80,1000,True,True)
-    
-    
+     
 Step1()
 Step2()
-Step3()
+#Step3()
 #Step4()
