@@ -24,6 +24,8 @@ def runTrip1():
 
     # aligning the robot against crane
 
+    # aligning the robot against crane
+
     robot.run(distanceCm = 10, speedCmPerSecond = 15) 
     robot.turnRightOnLeftWheel(degree = 50)
     robot.run(27, 15) 
