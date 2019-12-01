@@ -93,17 +93,17 @@ def Step3():
     TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),120,True,True )
     RightAction.on_for_degrees(80,400,True,True)
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 180,True,True)
-    RightAction.on_for_degrees(-80,400,True,True)
+    RightAction.on_for_degrees(-80,400,False,True)
 
 def Step4():
     LeftAction.on_for_degrees(-50,1400,True,False)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),30,True,True)
+    #TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),10,True,True)
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-250),170,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),260,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),290,True,True)
     TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(0),430,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),10,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(-250),30,True,True)
     LeftAction.on_for_degrees(100,200,True,True)
-    LeftAction.on_for_degrees(100,1200,True,False)
+    LeftAction.on_for_degrees(100,1200,False,True)
 
 
 
