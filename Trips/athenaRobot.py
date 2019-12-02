@@ -295,4 +295,3 @@ class AthenaRobot(object):
         self.calibrateColorSensor(INPUT_4)
         self.testColorSensor(INPUT_1, 1)
         self.testColorSensor(INPUT_4, 4)               
-
