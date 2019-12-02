@@ -39,10 +39,14 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
 def Step1():
     TankPair.on_for_seconds(SpeedDPS(-360),SpeedDPS(-300), 2,False,True)
     TankPair.on_for_seconds(SpeedDPS(-150),SpeedDPS(-150), 1.1,False,True)
+    RightAction.on_for_degrees(50,350)
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200),70 ,False,True)
+    RightAction.on_for_degrees(-50,350)
+    
 
 def Step2():
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 150,True,True)
-    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 180,True,True)
+    TankPair.on_for_degrees(SpeedDPS(400),SpeedDPS(0), 200,True,True)
     while RightSensor.color !=1:
         TankPair.on(SpeedDPS(-250),SpeedDPS(-250))
     while RightSensor.color != 6:
@@ -82,14 +86,14 @@ def Step2():
     RightAction.on_for_degrees(-50,600)
 
 def Step3():  
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 285,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 210,True,True)
-    TankPair.on_for_degrees(SpeedDPS(200), SpeedDPS(0),105,True,True )
-    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 120,True,True)
-    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),122,True,True )
-    RightAction.on_for_degrees(80,500,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 245,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 200,True,True)
+    TankPair.on_for_degrees(SpeedDPS(200), SpeedDPS(0),115,True,True )
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 130,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0), SpeedDPS(200),120,True,True )
+    RightAction.on_for_degrees(80,400,True,True)
     TankPair.on_for_degrees(SpeedDPS(300),SpeedDPS(300), 180,True,True)
-    RightAction.on_for_degrees(-80,500,True,True)
+    RightAction.on_for_degrees(-80,400,True,True)
 
 def Step4():
     LeftAction.on_for_degrees(-50,1400,True,False)
@@ -106,15 +110,9 @@ def Step4():
 def Step5():
     TankPair.on_for_degrees(SpeedDPS(600),SpeedDPS(600),2700,False,True)
 
-
-Step1()
-Step2()
-Step3()
-Step4()
-Step5()
-
-
-
-
-
-
+def runTrip3():
+    Step1()
+    Step2()
+    Step3()
+    Step4()
+    Step5()
