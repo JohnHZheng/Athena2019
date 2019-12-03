@@ -25,7 +25,7 @@ def runTrip1():
     # aligning the robot against crane
     robot.run(distanceCm = 20, speedCmPerSecond = 10) 
     robot.turnRightOnLeftWheel(degree = 50)
-    robot.run(17.5, 15) 
+    robot.run(18, 15) 
     robot.turn(-50,10) 
     robot.run(15, 15) 
     for x in range(5):
@@ -35,6 +35,7 @@ def runTrip1():
     robot.run(5,10)
     robot.run(-10, 20)
     robot.run(20,30)
+    robot.run(10,10)
     
     # putting blue block and bat in place
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 4000, block = False) 
