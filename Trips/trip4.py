@@ -68,37 +68,35 @@ def Step8():
         TankPair.on(SpeedDPS(100),SpeedDPS(0))
     while LeftSensor.color != 6:
         TankPair.on(SpeedDPS(100),SpeedDPS(0))
-    LeftWheel.off()
-    RightWheel.off()
-    sleep(3)
-
-    #LineFollowing(-180,-100,30)
     LineFollowing(-100,-20,130) 
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100), 9,True,True)
     TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-100), 50,True,True)
-    while LeftSensor.color !=1:
-        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
-    while RightSensor.color !=1:
-        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
-    LeftWheel.off()
-    RightWheel.off()
-    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 250,True,True)
+    #while LeftSensor.color !=1:
+    #    TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
+    #while RightSensor.color !=1:
+    #    TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
+    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 150,True,True)
     LineFollowing(-100,-20,150)
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-100), 12,True,True)
     while LeftSensor.color !=1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
     while RightSensor.color !=1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
-
+    TankPair.on_for_degrees(SpeedDPS(250),SpeedDPS(250), 50,True,True)
+    while RightSensor.color != 6:
+        TankPair.on(SpeedDPS(0),SpeedDPS(-50))
+    while RightSensor.color != 1:
+        TankPair.on(SpeedDPS(-50),SpeedDPS(-50))
+    while LeftSensor.color !=1:
+        TankPair.on(SpeedDPS(-50),SpeedDPS(0))
 def Step9():
     #TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(0), 20,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-100), 350,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-100), 100,False,True)
+    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-103), 700,True,True)
     LeftAction.on_for_degrees(-80,1000,False,True)
     TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(0),12,True,False)
     
 def runTrip4():     
-    Step6()
-    Step7()
+    #Step6()
+    #Step7()
     Step8()
     Step9()
