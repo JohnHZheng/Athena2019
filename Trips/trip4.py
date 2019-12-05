@@ -40,9 +40,11 @@ def Step6():
     while LeftSensor.color != 1:
         TankPair.on(SpeedDPS(-100),SpeedDPS(0))
     LineFollowing(-135,-30,100)
-    LineFollowing(-75,-15,110)
+    LineFollowing(-100,-20,100)
     if LeftSensor.color !=1:
-        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),11)                                                     
+        TankPair.on_for_degrees(SpeedDPS(-70),SpeedDPS(0),10)
+    else:
+        TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-70),5)
     TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 845,True,True)
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 40,True,True)
     RightAction.on_for_degrees(-60, 450,False,True)
@@ -91,12 +93,12 @@ def Step8():
         TankPair.on(SpeedDPS(-50),SpeedDPS(0))
 def Step9():
     #TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(0), 20,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-103), 700,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-100),SpeedDPS(-101), 700,True,True)
     LeftAction.on_for_degrees(-80,1000,False,True)
     TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(0),12,True,False)
     
 def runTrip4():     
-    #Step6()
-    #Step7()
+    Step6()
+    Step7()
     Step8()
     Step9()
