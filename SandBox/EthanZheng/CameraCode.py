@@ -25,6 +25,6 @@ while x < 1000:
         else:
                 meMotor.off()
         sleep(.01)
-        x = x+1
+      
 
         
