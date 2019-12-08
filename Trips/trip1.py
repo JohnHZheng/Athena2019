@@ -51,7 +51,7 @@ def runTrip1():
     robot.moveMediumMotor(isLeft = False, speed = 25, degrees = 3500, block = False) 
     robot.moveMediumMotor(isLeft = True, speed = 50, degrees = 450)
     robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -600)
-    sleep(10)
+    sleep(9)
     
     # retracting arm
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -7500, block = False) 

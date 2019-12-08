@@ -108,7 +108,8 @@ def Step4():
 
 
 def Step5():
-    TankPair.on_for_degrees(SpeedDPS(600),SpeedDPS(600),2700,False,True)
+    TankPair.on_for_degrees(SpeedDPS(600),SpeedDPS(595),2700,False,True)
+
 
 def runTrip3():
     Step1()

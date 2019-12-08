@@ -23,7 +23,7 @@ class AthenaRobot(object):
         self.rightMediumMotor = MediumMotor(rightMediumMotorPort)
         self.leftSensor = ColorSensor(leftSensorPort)
         self.rightSensor = ColorSensor(rightSensorPort)
-        self.ultraSonicSensor = UltrasonicSensor(ultraSonicSensorPort) 
+        
         
 
     # run a distance in centimeters at speed of centimeters per second
