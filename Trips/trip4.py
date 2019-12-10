@@ -33,7 +33,7 @@ def LineFollowing(FastSpeed,SlowSpeed,Degree):
         #print(RightSensor.reflected_light_intensity,LeftSensor.reflected_light_intensity,file=sys.stderr)
     LeftWheel.off()
     RightWheel.off()
-    
+"""    
 def Step6():
     TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150), 130,True,True)
     TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 250,True,True)
@@ -47,17 +47,28 @@ def Step6():
     TankPair.on_for_degrees(SpeedDPS(-230),SpeedDPS(-230), 845,True,True)
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 40,True,True)
     RightAction.on_for_degrees(-60, 450,False,True)
-
+"""
+def Step6():
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 800,False,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200), 130,False,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 600,False,True)
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 40,True,True)
+    RightAction.on_for_degrees(-60, 300,False,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 40,True,True)
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-200), 50,False,True)
+    TankPair.on_for_degrees(SpeedDPS(-200),SpeedDPS(-200), 240,False,True)
+    TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(0), 50,True,True)
+"""
 def Step7():
-    while RightSensor.color != 6:
-        TankPair.on(SpeedDPS(0),SpeedDPS(-150))
+    while LeftSensor.color != 6:
+        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
+    while LeftSensor.color != 1:
+        TankPair.on(SpeedDPS(-100),SpeedDPS(-100))
     while RightSensor.color != 1:
-        TankPair.on(SpeedDPS(-150),SpeedDPS(-150))
-    while LeftSensor.color !=1:
-        TankPair.on(SpeedDPS(-150),SpeedDPS(0))    
-    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150),65,True,True)
-    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 240,True,True)
-
+        TankPair.on(SpeedDPS(0),SpeedDPS(-100))
+    TankPair.on_for_degrees(SpeedDPS(0),SpeedDPS(-150),55,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300), 230,True,True)
+"""
 def Step8():
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(200), 100,True,True)
     TankPair.on_for_degrees(SpeedDPS(200),SpeedDPS(0), 70,True,True)
@@ -98,6 +109,6 @@ def Step9():
     
 def runTrip4():  
     Step6()
-    Step7()
+    #Step7()
     Step8()
     Step9()
