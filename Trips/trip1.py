@@ -23,22 +23,22 @@ def runTrip1():
     # end trip constants
 
     # aligning the robot against crane
-    robot.run(distanceCm = 20, speedCmPerSecond = 10) 
+    robot.run(distanceCm = 25, speedCmPerSecond = 20) 
     robot.turnRightOnLeftWheel(degree = 50)
-    robot.run(18, 15) 
-    robot.turn(-50,10) 
-    robot.run(15, 15) 
+    robot.run(13, 20) 
+    robot.turn(-60,10) 
+    robot.run(15, 20) 
     for x in range(4):
         robot.turnRightOnLeftWheel(20, speed = 10)
         robot.turnLeftOnRightWheel(20, speed = 10)
     # robot.turnRightOnLeftWheel(5, 2)
     robot.run(5,10)
     robot.run(-10, 20)
-    robot.run(20,20)
+    robot.run(20,15)
     robot.run(10,10)
     
     # putting blue block and bat in place
-    robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 4000, block = False) 
+    robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 5000, block = False) 
 
     # lifting the crane
     for x in range(3):
@@ -48,16 +48,16 @@ def runTrip1():
         robot.moveMediumMotor(isLeft = True, speed = 75, degrees = x)
         robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -x)
         x = x + 50
-    robot.moveMediumMotor(isLeft = False, speed = 25, degrees = 3500, block = False) 
+    robot.moveMediumMotor(isLeft = False, speed = 25, degrees = 2500, block = False) 
     robot.moveMediumMotor(isLeft = True, speed = 50, degrees = 450)
     robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -600)
-    sleep(9)
+    sleep(4)
     
     # retracting arm
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -7500, block = False) 
     # moving back
-    robot.run(-10, 15) 
+    robot.run(-10, 30) 
     robot.moveMediumMotor(isLeft = True, speed = 40, degrees = mediumMotorUpDegrees)
-    robot.run(-15,15)
+    robot.run(-15,30)
     robot.turnRightOnRightWheel(degree=90, speed=30)
-    robot.run(-70,50)
+    robot.run(-55,50)
