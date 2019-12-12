@@ -9,6 +9,8 @@ import math
 import sys 
 from athenaRobot import AthenaRobot
 
+TankPair        = MoveTank(OUTPUT_B, OUTPUT_C, motor_class=LargeMotor)
+
 def runTrip1(): 
     robot = AthenaRobot()
     # begin of trip constants
@@ -19,6 +21,7 @@ def runTrip1():
     mediumMotorDownDegrees = 900
     mediumMotorUpSpeed = 30 
     mediumMotorDownSpeed = -50
+
     
     # end trip constants
 
@@ -28,14 +31,14 @@ def runTrip1():
     robot.run(13, 20) 
     robot.turn(-60,10) 
     robot.run(15, 20) 
-    for x in range(4):
-        robot.turnRightOnLeftWheel(20, speed = 10)
-        robot.turnLeftOnRightWheel(20, speed = 10)
+    for x in range(3):
+        TankPair.on_for_seconds(SpeedDPS(-200),SpeedDPS(0),.5,True,True)
+        TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(-200),.5,True,True)
     # robot.turnRightOnLeftWheel(5, 2)
-    robot.run(5,10)
-    robot.run(-10, 20)
-    robot.run(20,15)
-    robot.run(10,10)
+    robot.run(5,20)
+    robot.run(-5, 20)
+    TankPair.on_for_seconds(SpeedDPS(-400),SpeedDPS(-600),.6,True,True)
+    TankPair.on_for_seconds(SpeedDPS(-200),SpeedDPS(-200),.4,True,True)
     
     # putting blue block and bat in place
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 5000, block = False) 
@@ -51,7 +54,7 @@ def runTrip1():
     robot.moveMediumMotor(isLeft = False, speed = 25, degrees = 2500, block = False) 
     robot.moveMediumMotor(isLeft = True, speed = 50, degrees = 450)
     robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -600)
-    sleep(4)
+    sleep(3.5)
     
     # retracting arm
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -7500, block = False) 
@@ -60,4 +63,4 @@ def runTrip1():
     robot.moveMediumMotor(isLeft = True, speed = 40, degrees = mediumMotorUpDegrees)
     robot.run(-15,30)
     robot.turnRightOnRightWheel(degree=90, speed=30)
-    robot.run(-55,50)
+    robot.run(-55,50,brake=False)
