@@ -26,26 +26,30 @@ def runTrip1():
     # end trip constants
 
     # aligning the robot against crane
-    robot.run(distanceCm = 25, speedCmPerSecond = 20) 
-    robot.turnRightOnLeftWheel(degree = 50)
-    robot.run(13, 20) 
-    robot.turn(-60,10) 
-    robot.run(15, 20) 
-    for x in range(3):
+    #robot.run(distanceCm = 25, speedCmPerSecond = 20) 
+    #robot.turnRightOnLeftWheel(degree = 50)
+    #robot.run(13, 20) 
+    #robot.turn(-60,10)
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300),350,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-250),SpeedDPS(0),150,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300),180,True,True)
+    TankPair.on_for_degrees(SpeedDPS(100),SpeedDPS(-400),170,True,True)
+    TankPair.on_for_degrees(SpeedDPS(-300),SpeedDPS(-300),200,True,True)
+    #robot.run(15, 20) 
+    for x in range(2):
         TankPair.on_for_seconds(SpeedDPS(-200),SpeedDPS(0),.5,True,True)
         TankPair.on_for_seconds(SpeedDPS(0),SpeedDPS(-200),.5,True,True)
-    # robot.turnRightOnLeftWheel(5, 2)
     robot.run(5,20)
     robot.run(-5, 20)
     TankPair.on_for_seconds(SpeedDPS(-400),SpeedDPS(-600),.6,True,True)
-    TankPair.on_for_seconds(SpeedDPS(-200),SpeedDPS(-200),.4,True,True)
-    
+    robot.run(-5, 20)
+    TankPair.on_for_seconds(SpeedDPS(-400),SpeedDPS(-400),.6,True,True)
     # putting blue block and bat in place
     robot.moveMediumMotor(isLeft = False, speed = 100, degrees = 5000, block = False) 
 
     # lifting the crane
     for x in range(3):
-        x = 400 
+        x = 370 
         robot.moveMediumMotor(isLeft = True, speed = 75, degrees = x)
         robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -x)
         robot.moveMediumMotor(isLeft = True, speed = 75, degrees = x)
@@ -54,13 +58,14 @@ def runTrip1():
     robot.moveMediumMotor(isLeft = False, speed = 25, degrees = 2500, block = False) 
     robot.moveMediumMotor(isLeft = True, speed = 50, degrees = 450)
     robot.moveMediumMotor(isLeft = True, speed = 75, degrees = -600)
-    sleep(3.5)
+    sleep(4)
     
     # retracting arm
-    robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -7500, block = False) 
+    robot.moveMediumMotor(isLeft = False, speed = 100, degrees = -6500, block = False) 
     # moving back
     robot.run(-10, 30) 
     robot.moveMediumMotor(isLeft = True, speed = 40, degrees = mediumMotorUpDegrees)
-    robot.run(-15,30)
-    robot.turnRightOnRightWheel(degree=90, speed=30)
+    robot.run(-13,30)
+    robot.turnRightOnRightWheel(degree=80, speed=30)
+    robot.moveMediumMotor(isLeft = True, speed = -40, degrees = mediumMotorUpDegrees, block = False)
     robot.run(-55,50,brake=False)
